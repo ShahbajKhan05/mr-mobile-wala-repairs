@@ -7,6 +7,7 @@ import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import BrandMarquee from "@/components/BrandMarquee";
 import ServiceShowcase from "@/components/ServiceShowcase";
+import Testimonials from "@/components/Testimonials";
 
 export const metadata: Metadata = {
   title: "MR MOBILE WALA | Buy, Sell & Repair Mobile Phones in Rewa",
@@ -27,6 +28,7 @@ export default function HomePage() {
         <ServiceShowcase />
         <BookingForm />
       </main>
+      <Testimonials />
       <WhyChooseUs />
       <FAQ />
       <Footer />
