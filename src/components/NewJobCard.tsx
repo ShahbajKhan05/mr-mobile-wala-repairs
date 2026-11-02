@@ -1,6 +1,7 @@
 
 "use client";
 
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { useRef, useState } from "react";
 import Image from "next/image";
 import {
@@ -8,7 +9,7 @@ import {
   Camera,
   CheckCircle2,
   ImagePlus,
-  MessageCircle,
+
   Smartphone,
   Trash2,
   UserRound,
@@ -461,7 +462,7 @@ export default function NewJobCard() {
               disabled={saving}
               className="flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              <MessageCircle size={18} />
+              <WhatsAppIcon size={18} />
               {saving ? "Saving Job..." : "Save Job & WhatsApp"}
             </button>
           </div>
