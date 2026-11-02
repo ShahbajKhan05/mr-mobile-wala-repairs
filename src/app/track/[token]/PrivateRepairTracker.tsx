@@ -18,6 +18,7 @@ import { formatWarrantyDate } from "@/lib/warranty";
 type TrackingJob = {
   jobNumber: string;
   customerName: string;
+  customerPhone: string;
   brand: string;
   model: string;
   problem: string;
@@ -219,6 +220,9 @@ export default function PrivateRepairTracker({ token }: { token: string }) {
                     </p>
                     <Link href={`/track/${encodeURIComponent(token)}/warranty`} className="mt-3 inline-flex min-h-10 items-center justify-center rounded-xl bg-emerald-700 px-4 py-2 text-xs font-bold text-white transition hover:bg-emerald-800">
                       View / Download Warranty Card
+                    </Link>
+                    <Link href={`/track/${encodeURIComponent(token)}/invoice`} className="mt-2 inline-flex min-h-10 items-center justify-center rounded-xl border border-indigo-200 bg-white px-4 py-2 text-xs font-bold text-indigo-700 transition hover:bg-indigo-50">
+                      View / Download Paid Invoice
                     </Link>
                   </section>
                 )}
