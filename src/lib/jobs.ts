@@ -19,7 +19,6 @@ export type RepairJob = {
   photos: JobPhoto[];
   status: "Received" | "Part Ordered" | "Repairing" | "Ready";
   paymentStatus: "Pending" | "Paid";
-  approvalStatus: "Pending" | "Approved" | "Rejected";
   createdAt: string;
   paidAt?: string;
   pickupStatus?: "Pending" | "Picked Up";
