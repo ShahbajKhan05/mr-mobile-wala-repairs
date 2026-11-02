@@ -2,9 +2,9 @@ import Link from "next/link";
 import { ArrowUpRight, Wrench, ShoppingBag, RefreshCw, ShieldCheck, Clock3 } from "lucide-react";
 
 const services = [
-  { icon: Wrench, eyebrow: "REPAIR", title: "Expert mobile repair", description: "Display, battery, charging, software and other phone repair enquiries handled with care.", action: "Book a repair", href: "/#booking", tone: "from-indigo-500/15 to-sky-400/10" },
-  { icon: ShoppingBag, eyebrow: "BUY", title: "Find your next phone", description: "Tell us your preferred brand and budget. We’ll help you explore available options.", action: "Explore buying", href: "/#booking", tone: "from-violet-500/15 to-fuchsia-400/10" },
-  { icon: RefreshCw, eyebrow: "SELL", title: "Sell your old phone", description: "Share your phone model and condition to start a selling enquiry with our team.", action: "Start selling", href: "/#booking", tone: "from-cyan-500/15 to-blue-400/10" },
+  { icon: Wrench, eyebrow: "REPAIR", title: "Expert mobile repair", description: "Display, battery, charging, software and other phone repair enquiries handled with care.", action: "Book a repair", href: "/?service=repair#booking", tone: "from-indigo-500/15 to-sky-400/10" },
+  { icon: ShoppingBag, eyebrow: "BUY", title: "Find your next phone", description: "Tell us your preferred brand and budget. We’ll help you explore available options.", action: "Explore buying", href: "/?service=buy#booking", tone: "from-violet-500/15 to-fuchsia-400/10" },
+  { icon: RefreshCw, eyebrow: "SELL", title: "Sell your old phone", description: "Share your phone model and condition to start a selling enquiry with our team.", action: "Start selling", href: "/?service=sell#booking", tone: "from-cyan-500/15 to-blue-400/10" },
 ];
 
 export default function ServiceShowcase() {
