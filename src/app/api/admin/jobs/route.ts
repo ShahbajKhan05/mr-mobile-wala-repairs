@@ -3,7 +3,6 @@ import { requireAdmin } from "@/lib/supabase/require-admin";
 import { createSupabaseAdminClient } from "@/lib/supabase/server";
 import { createRepairPhotoUrl } from "@/lib/supabase/storage";
 
-export const runtime = "nodejs";
 
 const photoKeys = ["front", "back", "left", "right"] as const;
 const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
