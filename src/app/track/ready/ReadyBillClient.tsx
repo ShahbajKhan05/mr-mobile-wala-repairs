@@ -26,8 +26,8 @@ const bill = {
   total: 3500,
   paymentMethod: "UPI",
   paymentStatus: "PAID",
-  warranty: "30 Days",
-  warrantyUntil: "01 December 2026",
+  warranty: "7 Days",
+  warrantyUntil: "08 November 2026",
 };
 
 export default function ReadyBillClient() {
