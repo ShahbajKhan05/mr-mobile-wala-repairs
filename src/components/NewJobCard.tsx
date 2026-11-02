@@ -142,7 +142,6 @@ export default function NewJobCard() {
         photos: jobPhotos,
         status: "Received",
         paymentStatus: "Pending",
-        approvalStatus: "Pending",
         createdAt: new Date().toISOString(),
       };
 
