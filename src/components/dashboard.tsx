@@ -94,12 +94,12 @@ export default function Dashboard() {
   ];
 
   return (
-    <main className="min-h-[calc(100vh-76px)] glass-page px-4 py-6 sm:px-6 sm:py-8 xl:px-9">
-      <div className="mx-auto max-w-[1500px] space-y-6">
-        <section className="relative overflow-hidden rounded-[28px] border border-white/80 bg-white/55 px-5 py-7 text-slate-900 shadow-[0_18px_55px_rgba(39,55,95,0.10)] backdrop-blur-2xl shadow-[0_18px_50px_rgba(23,27,46,.14)] sm:px-8 sm:py-8">
+    <main className="min-h-[calc(100vh-76px)] glass-page px-3 py-4 sm:px-6 sm:py-8 xl:px-9">
+      <div className="mx-auto max-w-[1500px] space-y-4 sm:space-y-6">
+        <section className="relative overflow-hidden rounded-[20px] border border-white/80 bg-white/55 px-4 py-5 sm:rounded-[28px] sm:px-8 sm:py-8 text-slate-900 shadow-[0_18px_55px_rgba(39,55,95,0.10)] backdrop-blur-2xl shadow-[0_18px_50px_rgba(23,27,46,.14)] sm:px-8 sm:py-8">
           <div className="pointer-events-none absolute -right-16 -top-28 h-72 w-72 rounded-full bg-indigo-500/25 blur-3xl" />
           <div className="pointer-events-none absolute bottom-[-110px] right-[28%] h-56 w-56 rounded-full bg-cyan-400/10 blur-3xl" />
-          <div className="relative flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div className="relative flex flex-col justify-between gap-4 sm:gap-6 md:flex-row md:items-end">
             <div>
               <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/55 px-3 py-1.5 text-[11px] font-semibold tracking-wide text-indigo-100">
                 <Activity size={14} /> SHOP OVERVIEW
@@ -124,7 +124,7 @@ export default function Dashboard() {
         <section aria-label="Repair shop statistics" className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {cards.map((card) => {
             const Icon = card.icon;
-            return <article key={card.label} className="group rounded-2xl glass-card rounded-2xl p-5 transition duration-200 hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(15,23,42,.08)]">
+            return <article key={card.label} className="group rounded-2xl glass-card rounded-2xl p-4 sm:p-5 transition duration-200 hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(15,23,42,.08)]">
               <div className="flex items-start justify-between gap-3">
                 <div><p className="text-[12px] font-semibold text-slate-500">{card.label}</p><p className="mt-3 text-[27px] font-bold tracking-tight text-slate-900">{loading ? <span className="inline-block h-8 w-20 animate-pulse rounded-lg bg-slate-100" /> : card.value}</p></div>
                 <span className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl ${card.tone}`}><Icon size={20} /></span>
@@ -134,7 +134,7 @@ export default function Dashboard() {
           })}
         </section>
 
-        <section className="grid gap-5 xl:grid-cols-[minmax(0,1.55fr)_minmax(300px,.85fr)]">
+        <section className="grid gap-4 sm:gap-5 xl:grid-cols-[minmax(0,1.55fr)_minmax(300px,.85fr)]">
           <article className="min-w-0 overflow-hidden rounded-2xl glass-card">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/70 px-5 py-5 sm:px-6">
               <div><h2 className="font-bold text-slate-900">Recent repair jobs</h2><p className="mt-1 text-xs text-slate-500">Latest jobs saved in your shop</p></div>
@@ -145,12 +145,12 @@ export default function Dashboard() {
           </article>
 
           <div className="space-y-5">
-            <article className="rounded-2xl glass-card rounded-2xl p-5 sm:p-6">
+            <article className="rounded-2xl glass-card rounded-2xl p-4 sm:p-6">
               <div className="flex items-center justify-between"><div><h2 className="font-bold text-slate-900">Job status overview</h2><p className="mt-1 text-xs text-slate-500">Current repair pipeline</p></div><span className="rounded-xl bg-indigo-50 p-2.5 text-indigo-700"><Activity size={18}/></span></div>
               <div className="mt-6 space-y-4">{statusCounts.map((item)=>{const percent=jobs.length?Math.round(item.count/jobs.length*100):0;return <div key={item.label}><div className="mb-2 flex items-center justify-between text-xs"><span className="font-semibold text-slate-600">{item.label}</span><span className="font-bold tabular-nums text-slate-800">{loading?"—":item.count}</span></div><div className="h-2 overflow-hidden rounded-full bg-slate-100"><div className={`h-full rounded-full ${item.color} transition-all duration-500`} style={{width:`${percent}%`}}/></div></div>})}</div>
               <p className="mt-5 border-t border-white/70 pt-4 text-[11px] text-slate-500">{jobs.length} total jobs · Live database data</p>
             </article>
-            <article className="rounded-2xl border border-amber-200/70 bg-gradient-to-br from-amber-50 to-white p-5 sm:p-6">
+            <article className="rounded-2xl border border-amber-200/70 bg-gradient-to-br from-amber-50 to-white p-4 sm:p-6">
               <div className="flex items-center gap-2 text-amber-800"><Clock3 size={17}/><h2 className="text-sm font-bold">Payment follow-up</h2></div>
               <p className="mt-3 text-2xl font-bold tracking-tight text-slate-900">{loading?"—":money(metrics.pendingAmount)}</p>
               <p className="mt-1 text-xs text-slate-500">{metrics.pendingCount} jobs with payment pending</p>
