@@ -394,6 +394,7 @@ Thank you for choosing ${shopName}.`
                     key={photo.key}
                     label={photo.key}
                     blob={photo.blob}
+                    src={photo.url}
                   />
                 ))}
               </div>
@@ -640,20 +641,24 @@ Thank you for choosing ${shopName}.`
 function PhotoPreview({
   label,
   blob,
+  src,
 }: {
   label: string;
   blob: Blob;
+  src?: string;
 }) {
   const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
+    if (src) {
+      setImageUrl(src);
+      return;
+    }
+
     const url = URL.createObjectURL(blob);
     setImageUrl(url);
-
-    return () => {
-      URL.revokeObjectURL(url);
-    };
-  }, [blob]);
+    return () => URL.revokeObjectURL(url);
+  }, [blob, src]);
 
   return (
     <div className="min-w-0 overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
