@@ -11,7 +11,6 @@ import {
   Store,
   X,
 } from "lucide-react";
-import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 const NAV_LINKS = [
   { label: "Home", href: "/", comingSoon: false },
