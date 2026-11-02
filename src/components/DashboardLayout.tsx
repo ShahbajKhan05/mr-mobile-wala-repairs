@@ -1,6 +1,7 @@
 "use client";
 
-import { Suspense, useCallback, useState, type ReactNode } from "react";
+import { Suspense, useCallback, useEffect, useState, type ReactNode } from "react";
+import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 
@@ -26,6 +27,49 @@ function SidebarFallback() {
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [authReady, setAuthReady] = useState(false);
+  const [authError, setAuthError] = useState("");
+  const router = useRouter();
+
+  useEffect(() => {
+    const controller = new AbortController();
+    async function verifySession() {
+      try {
+        const response = await fetch("/api/admin/profile", {
+          credentials: "same-origin",
+          cache: "no-store",
+          signal: controller.signal,
+        });
+        if (response.status === 401) {
+          router.replace("/admin-login");
+          return;
+        }
+        const result = await response.json().catch(() => null);
+        if (!response.ok || !result?.success) {
+          setAuthError(result?.message || "Admin session verify nahi ho paya.");
+          return;
+        }
+        setAuthReady(true);
+      } catch (error) {
+        if (error instanceof Error && error.name === "AbortError") return;
+        setAuthError("Server se connection nahi ho paya. Page refresh karke try karein.");
+      }
+    }
+    void verifySession();
+    if (!authReady) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-[#f6f7fb] px-5">
+        <div className="w-full max-w-sm rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm">
+          <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-indigo-600 border-t-transparent" />
+          <p className="mt-4 text-sm font-semibold text-slate-800">{authError || "Verifying admin session..."}</p>
+          {authError && <button type="button" onClick={() => window.location.reload()} className="mt-4 rounded-xl bg-slate-900 px-4 py-2 text-xs font-bold text-white">Retry</button>}
+        </div>
+      </main>
+    );
+  }
+
+  return () => controller.abort();
+  }, [router]);
 
   // Keep this callback stable. Sidebar listens for pathname/onClose changes;
   // an inline callback here caused its close effect to run on every render,
