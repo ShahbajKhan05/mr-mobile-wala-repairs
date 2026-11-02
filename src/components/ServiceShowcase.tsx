@@ -9,7 +9,7 @@ const services = [
 
 export default function ServiceShowcase() {
   return (
-    <section id="services" className="glass-page scroll-mt-28 px-4 py-16 sm:px-8 sm:py-24 lg:px-12">
+    <section id="services" className="glass-page scroll-mt-28 px-4 py-10 sm:px-8 sm:py-24 lg:px-12">
       <div className="mx-auto max-w-[1200px]">
         <div className="mx-auto mb-7 max-w-2xl text-center sm:mb-14">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/60 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.22em] text-indigo-600 shadow-sm backdrop-blur-xl">
