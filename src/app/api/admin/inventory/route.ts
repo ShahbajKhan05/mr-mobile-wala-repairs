@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
   if (!requireAdmin(request)) return fail("Unauthorized.", 401);
   try {
     const supabase = createSupabaseAdminClient();
-    const { data, error } = await supabase.from("inventory_parts").select("data");
+    const { data, error } = await supabase.from("inventory_parts").select("data").is("deleted_at", null);
     if (error) throw error;
     const parts = (data ?? []).map((row) => row.data as Part).sort((a, b) => a.name.localeCompare(b.name));
     return NextResponse.json({ success: true, parts }, { headers: { "Cache-Control": "private, no-store" } });
