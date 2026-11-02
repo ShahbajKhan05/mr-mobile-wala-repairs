@@ -221,12 +221,12 @@ export default function BookingForm() {
   return (
     <section
       id="booking"
-      className="glass-page w-full px-4 pb-16 pt-12 sm:px-6 sm:pb-20 sm:pt-16 lg:px-8 lg:pb-24"
+      className="glass-page w-full px-4 pb-10 pt-8 sm:px-6 sm:pb-20 sm:pt-16 lg:px-8 lg:pb-24"
     >
       <div className="mx-auto max-w-4xl">
 
         {/* Heading */}
-        <div className="mb-8 text-center sm:mb-10">
+        <div className="mb-6 text-center sm:mb-10">
           <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/65 shadow-sm backdrop-blur-xl px-4 py-2 text-[9px] font-bold uppercase tracking-[0.2em] text-indigo-600">
             <span className="h-1.5 w-1.5 rounded-full bg-[#B69A69]" />
             MR MOBILE WALA REPAIRS
