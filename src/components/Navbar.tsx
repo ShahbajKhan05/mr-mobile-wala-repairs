@@ -245,7 +245,7 @@ export default function Navbar() {
             </div>
 
             <div className="mt-3 flex items-center justify-center gap-3">
-              {SOCIAL_LINKS.map(({ label, href, icon: Icon }) => (
+              {SOCIAL_LINKS.map(({ label, href, icon }) => (
                 <a
                   key={label}
                   href={href}
