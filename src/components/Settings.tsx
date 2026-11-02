@@ -171,7 +171,7 @@ export default function Settings() {
 
   return (
     <main className="box-border w-full min-w-0 max-w-full overflow-x-clip px-3 py-4 sm:px-5 sm:py-6 lg:px-6 xl:px-8">
-      <div className="mx-auto w-full min-w-0 max-w-[1100px] space-y-4 sm:space-y-5 lg:space-y-6">
+      <div className="mx-auto w-full min-w-0 max-w-[1100px] space-y-4 sm:space-y-5 lg:space-y-4 sm:space-y-6">
         {/* Header */}
         <header className="min-w-0">
           <div className="mb-2 flex items-center gap-2 text-sm font-medium text-blue-600">
