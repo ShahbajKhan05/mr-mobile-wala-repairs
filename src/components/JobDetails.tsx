@@ -16,6 +16,7 @@ import {
   FileText,
   Link2,
   Copy,
+  Truck,
 } from "lucide-react";
 import {
   getJobById,
@@ -71,6 +72,8 @@ export default function JobDetails() {
   const [statusMessage, setStatusMessage] = useState("");
 
   const [savingPayment, setSavingPayment] = useState(false);
+  const [savingPickup, setSavingPickup] = useState(false);
+  const [pickupMessage, setPickupMessage] = useState("");
   const [paymentMessage, setPaymentMessage] = useState("");
   const [trackingUrl, setTrackingUrl] = useState("");
   const [trackingLoading, setTrackingLoading] = useState(false);
@@ -206,6 +209,41 @@ export default function JobDetails() {
       setPaymentMessage("Unable to update payment. Please try again.");
     } finally {
       setSavingPayment(false);
+    }
+  }
+
+  async function handlePickupUpdate() {
+    if (!job || savingPickup) return;
+    const nextStatus = job.pickupStatus === "Picked Up" ? "Pending" : "Picked Up";
+    if (nextStatus === "Picked Up" && job.status !== "Ready") {
+      setPickupMessage("Device ko pickup ke liye pehle Ready mark karo.");
+      return;
+    }
+    const confirmed = window.confirm(
+      nextStatus === "Picked Up"
+        ? "Confirm that the customer has collected the device?"
+        : "Reset pickup status to Pending?"
+    );
+    if (!confirmed) return;
+
+    setSavingPickup(true);
+    setPickupMessage("");
+    try {
+      const response = await fetch(`/api/admin/jobs/${encodeURIComponent(job.id)}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pickupStatus: nextStatus }),
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success) throw new Error(result.message || "Pickup update failed.");
+      const updatedJob = await getJobById(job.id);
+      if (!updatedJob) throw new Error("Unable to reload repair job.");
+      setJob(updatedJob);
+      setPickupMessage(nextStatus === "Picked Up" ? "Device marked as picked up." : "Pickup status reset.");
+    } catch (cause) {
+      setPickupMessage(cause instanceof Error ? cause.message : "Unable to update pickup status.");
+    } finally {
+      setSavingPickup(false);
     }
   }
 
@@ -575,6 +613,25 @@ Thank you for choosing ${shopName}.`
                   </p>
                 )}
               </div>
+            </section>
+
+            {/* Customer Pickup */}
+            <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <div className="flex items-center gap-2">
+                <Truck size={18} className="text-indigo-600" />
+                <h2 className="font-bold text-slate-900">Customer Pickup</h2>
+              </div>
+              <div className="mt-4 flex items-center justify-between gap-3">
+                <span className="text-sm text-slate-500">Pickup Status</span>
+                <span className={`rounded-full px-3 py-1 text-xs font-bold ${job.pickupStatus === "Picked Up" ? "bg-emerald-50 text-emerald-700" : "bg-amber-50 text-amber-700"}`}>
+                  {job.pickupStatus === "Picked Up" ? "Picked Up" : "Awaiting Pickup"}
+                </span>
+              </div>
+              <button type="button" onClick={handlePickupUpdate} disabled={savingPickup || (job.status !== "Ready" && job.pickupStatus !== "Picked Up")} className="mt-4 w-full rounded-xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:bg-slate-300">
+                {savingPickup ? "Updating..." : job.pickupStatus === "Picked Up" ? "Reset Pickup Status" : "Mark as Picked Up"}
+              </button>
+              {pickupMessage && <p role="status" className="mt-3 rounded-lg bg-slate-50 p-3 text-xs text-slate-600">{pickupMessage}</p>}
+              {job.status !== "Ready" && job.pickupStatus !== "Picked Up" && <p className="mt-2 text-xs text-slate-400">Pickup can be confirmed after repair status is Ready.</p>}
             </section>
 
             {/* Payment Information */}
