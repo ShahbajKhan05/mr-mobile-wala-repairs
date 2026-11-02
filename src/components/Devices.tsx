@@ -25,6 +25,7 @@ type DeviceSummary = {
   model: string;
   totalRepairs: number;
   received: number;
+  partOrdered: number;
   repairing: number;
   ready: number;
   lastRepair: string;
@@ -102,6 +103,7 @@ export default function Devices() {
         existing.totalRepairs += 1;
 
         if (job.status === "Received") existing.received += 1;
+        if (job.status === "Part Ordered") existing.partOrdered += 1;
         if (job.status === "Repairing") existing.repairing += 1;
         if (job.status === "Ready") existing.ready += 1;
 
@@ -119,6 +121,7 @@ export default function Devices() {
           model,
           totalRepairs: 1,
           received: job.status === "Received" ? 1 : 0,
+          partOrdered: job.status === "Part Ordered" ? 1 : 0,
           repairing: job.status === "Repairing" ? 1 : 0,
           ready: job.status === "Ready" ? 1 : 0,
           lastRepair: job.createdAt,
@@ -326,12 +329,19 @@ export default function Devices() {
                   </div>
 
                   {/* Status */}
-                  <div className="mt-4 grid min-w-0 grid-cols-3 gap-1.5 sm:gap-2">
+                  <div className="mt-4 grid min-w-0 grid-cols-4 gap-1.5 sm:gap-2">
                     <StatusCount
                       label="Received"
                       count={device.received}
                       icon={<Package size={13} />}
                       color="blue"
+                    />
+
+                    <StatusCount
+                      label="Parts"
+                      count={device.partOrdered}
+                      icon={<Package size={13} />}
+                      color="amber"
                     />
 
                     <StatusCount
