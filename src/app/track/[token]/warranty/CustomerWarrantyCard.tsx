@@ -10,6 +10,7 @@ type WarrantyJob = {
   jobNumber: string; customerName: string; brand: string; model: string;
   paymentStatus: string; warrantyDays: number;
   warrantyStartDate: string | null; warrantyEndDate: string | null;
+  warrantyExpiresAt: string | null;
 };
 
 export default function CustomerWarrantyCard({ token }: { token: string }) {
