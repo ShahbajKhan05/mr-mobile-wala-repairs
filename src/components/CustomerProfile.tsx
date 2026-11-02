@@ -179,8 +179,8 @@ export default function CustomerProfile() {
   );
 
   return (
-    <main className="min-h-screen bg-slate-50 p-4 sm:p-6 lg:p-8">
-      <div className="mx-auto max-w-7xl space-y-6">
+    <main className="min-h-screen bg-slate-50 px-3 py-4 sm:p-6 lg:p-8">
+      <div className="mx-auto max-w-7xl space-y-4 sm:space-y-6">
         {/* Back and Header */}
         <div>
           <Link
@@ -278,7 +278,7 @@ export default function CustomerProfile() {
 
         {/* Statistics */}
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <div className="rounded-2xl border border-slate-200 bg-white p-5">
+          <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
             <div className="flex items-center justify-between">
               <p className="text-sm text-slate-500">Total Repairs</p>
               <ClipboardList className="text-blue-600" size={21} />
@@ -288,7 +288,7 @@ export default function CustomerProfile() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-5">
+          <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
             <div className="flex items-center justify-between">
               <p className="text-sm text-slate-500">Total Spent</p>
               <IndianRupee className="text-emerald-600" size={21} />
@@ -298,7 +298,7 @@ export default function CustomerProfile() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-5">
+          <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
             <div className="flex items-center justify-between">
               <p className="text-sm text-slate-500">Payments Completed</p>
               <CheckCircle2 className="text-emerald-600" size={21} />
@@ -308,7 +308,7 @@ export default function CustomerProfile() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-5">
+          <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
             <div className="flex items-center justify-between">
               <p className="text-sm text-slate-500">Pending Amount</p>
               <Clock className="text-amber-600" size={21} />
