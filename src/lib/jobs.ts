@@ -53,9 +53,10 @@ export async function saveJob(job: RepairJob): Promise<void> {
     form.set(photo.key, file);
   }
 
-  await readResponse<ApiResponse<Record<string, never>>>(
+  const result = await readResponse<ApiResponse<{ trackingUrl: string }>>(
     await fetch("/api/admin/jobs", { method: "POST", body: form })
   );
+  return result.trackingUrl;
 }
 
 export async function getJobs(): Promise<RepairJob[]> {
