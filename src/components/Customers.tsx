@@ -195,7 +195,7 @@ export default function Customers() {
         </div>
 
         {/* Stats */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
           <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
             <div className="flex items-center justify-between">
               <p className="text-sm text-slate-500">Total Customers</p>
