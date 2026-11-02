@@ -23,13 +23,6 @@ export async function POST(
     if (jobError) throw jobError;
     if (!job) return NextResponse.json({ success: false, message: "Repair job not found." }, { status: 404 });
 
-    const { error: revokeError } = await supabase
-      .from("customer_access_tokens")
-      .update({ revoked_at: new Date().toISOString() })
-      .eq("job_id", job.id)
-      .is("revoked_at", null);
-    if (revokeError) throw revokeError;
-
     const token = randomBytes(32).toString("base64url");
     const tokenHash = createHash("sha256").update(token).digest("hex");
     const expiresAt = new Date();
@@ -41,6 +34,14 @@ export async function POST(
       expires_at: expiresAt.toISOString(),
     });
     if (insertError) throw insertError;
+
+    const { error: revokeError } = await supabase
+      .from("customer_access_tokens")
+      .update({ revoked_at: new Date().toISOString() })
+      .eq("job_id", job.id)
+      .neq("token_hash", tokenHash)
+      .is("revoked_at", null);
+    if (revokeError) throw revokeError;
 
     return NextResponse.json({
       success: true,
