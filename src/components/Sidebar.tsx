@@ -17,6 +17,7 @@ import {
   PlusCircle,
   Wrench,
   ShieldCheck,
+  Archive,
 } from "lucide-react";
 
 type SidebarProps = { isOpen: boolean; onClose: () => void };
@@ -32,6 +33,7 @@ const navigation = [
       { name: "Customers", href: "/customers", icon: Users },
       { name: "Parts Inventory", href: "/inventory", icon: Package },
       { name: "Warranty Cards", href: "/admin-warranty", icon: ShieldCheck },
+      { name: "Recycle Bin", href: "/recycle-bin", icon: Archive },
     ],
   },
   {
