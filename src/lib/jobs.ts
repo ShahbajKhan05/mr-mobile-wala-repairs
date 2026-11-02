@@ -1,4 +1,3 @@
-
 export type PhotoKey = "front" | "back" | "left" | "right";
 
 export type JobPhoto = {
@@ -6,6 +5,7 @@ export type JobPhoto = {
   name: string;
   type: string;
   blob: Blob;
+  url?: string;
 };
 
 export type RepairJob = {
@@ -24,180 +24,79 @@ export type RepairJob = {
   paidAt?: string;
 };
 
-const DB_NAME = "mr-mobile-wala";
-const DB_VERSION = 1;
-const STORE_NAME = "jobs";
+type ApiResponse<T> = { success: boolean; message?: string } & T;
 
-function openDatabase(): Promise<IDBDatabase> {
-  return new Promise((resolve, reject) => {
-    if (typeof window === "undefined" || !window.indexedDB) {
-      reject(
-        new Error("Your browser does not support local database storage.")
-      );
-      return;
-    }
-
-    const request = window.indexedDB.open(DB_NAME, DB_VERSION);
-
-    request.onupgradeneeded = () => {
-      const database = request.result;
-
-      if (!database.objectStoreNames.contains(STORE_NAME)) {
-        database.createObjectStore(STORE_NAME, {
-          keyPath: "id",
-        });
-      }
-    };
-
-    request.onsuccess = () => {
-      resolve(request.result);
-    };
-
-    request.onerror = () => {
-      reject(
-        request.error ?? new Error("Unable to open job database.")
-      );
-    };
-
-    request.onblocked = () => {
-      reject(
-        new Error("Database update is blocked by another open tab.")
-      );
-    };
-  });
+async function readResponse<T>(response: Response): Promise<T> {
+  const result = await response.json().catch(() => null);
+  if (!response.ok || !result?.success) {
+    throw new Error(result?.message || "The request could not be completed.");
+  }
+  return result as T;
 }
 
-// Save a new job or update an existing job
 export async function saveJob(job: RepairJob): Promise<void> {
-  const database = await openDatabase();
+  const form = new FormData();
+  form.set("jobNumber", job.id);
+  form.set("customerName", job.customerName);
+  form.set("phone", job.phone);
+  form.set("brand", job.brand);
+  form.set("model", job.model);
+  form.set("problem", job.problem);
+  form.set("estimate", String(job.estimate));
 
-  return new Promise((resolve, reject) => {
-    const transaction = database.transaction(STORE_NAME, "readwrite");
-    const store = transaction.objectStore(STORE_NAME);
+  for (const photo of job.photos) {
+    if (!(photo.blob instanceof Blob) || photo.blob.size === 0) {
+      throw new Error("A device photo is missing. Please upload all four photos again.");
+    }
+    const extension = photo.type === "image/png" ? "png" : photo.type === "image/webp" ? "webp" : "jpg";
+    const file = new File([photo.blob], photo.name || `${photo.key}.${extension}`, { type: photo.type });
+    form.set(photo.key, file);
+  }
 
-    store.put(job);
-
-    transaction.oncomplete = () => {
-      database.close();
-      resolve();
-    };
-
-    transaction.onerror = () => {
-      database.close();
-      reject(
-        transaction.error ?? new Error("Unable to save job.")
-      );
-    };
-
-    transaction.onabort = () => {
-      database.close();
-      reject(
-        transaction.error ?? new Error("Job saving was cancelled.")
-      );
-    };
-  });
+  await readResponse<ApiResponse<Record<string, never>>>(
+    await fetch("/api/admin/jobs", { method: "POST", body: form })
+  );
 }
 
-// Get all repair jobs
 export async function getJobs(): Promise<RepairJob[]> {
-  const database = await openDatabase();
+  const result = await readResponse<ApiResponse<{ jobs: Array<Omit<RepairJob, "photos"> & { photos: Array<{key: PhotoKey;name:string;type:string;url:string}> }> }>>(
+    await fetch("/api/admin/jobs", { cache: "no-store" })
+  );
+  return result.jobs.map((job) => ({
+    ...job,
+    approvalStatus: "Pending",
+    photos: job.photos.map((photo) => ({ ...photo, blob: new Blob() })),
+  }));
+}
 
-  return new Promise((resolve, reject) => {
-    const transaction = database.transaction(STORE_NAME, "readonly");
-    const request = transaction.objectStore(STORE_NAME).getAll();
+export async function getJobById(id: string): Promise<RepairJob | undefined> {
+  const response = await fetch(`/api/admin/jobs/${encodeURIComponent(id)}`, { cache: "no-store" });
+  if (response.status === 404) return undefined;
+  const result = await readResponse<ApiResponse<{ job: Omit<RepairJob, "photos"> & { photos: Array<{key: PhotoKey;name:string;type:string;url:string}> } }>>(response);
+  return {
+    ...result.job,
+    approvalStatus: "Pending",
+    photos: result.job.photos.map((photo) => ({ ...photo, blob: new Blob() })),
+  };
+}
 
-    request.onsuccess = () => {
-      const jobs = request.result as RepairJob[];
-
-      resolve(
-        jobs.sort(
-          (a, b) =>
-            new Date(b.createdAt).getTime() -
-            new Date(a.createdAt).getTime()
-        )
-      );
-    };
-
-    request.onerror = () => {
-      reject(
-        request.error ?? new Error("Unable to load jobs.")
-      );
-    };
-
-    transaction.oncomplete = () => {
-      database.close();
-    };
-
-    transaction.onabort = () => {
-      database.close();
-      reject(
-        transaction.error ?? new Error("Unable to read jobs.")
-      );
-    };
+export async function updateJob(updatedJob: RepairJob): Promise<void> {
+  const response = await fetch(`/api/admin/jobs/${encodeURIComponent(updatedJob.id)}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ status: updatedJob.status }),
   });
+  await readResponse<ApiResponse<Record<string, never>>>(response);
 }
 
-// Get one repair job by ID
-export async function getJobById(
-  id: string
-): Promise<RepairJob | undefined> {
-  const database = await openDatabase();
-
-  return new Promise((resolve, reject) => {
-    const transaction = database.transaction(STORE_NAME, "readonly");
-    const request = transaction.objectStore(STORE_NAME).get(id);
-
-    request.onsuccess = () => {
-      resolve(request.result as RepairJob | undefined);
-    };
-
-    request.onerror = () => {
-      reject(
-        request.error ?? new Error("Unable to find job.")
-      );
-    };
-
-    transaction.oncomplete = () => {
-      database.close();
-    };
-
-    transaction.onabort = () => {
-      database.close();
-      reject(
-        transaction.error ?? new Error("Unable to read job.")
-      );
-    };
-  });
-}
-
-// Update existing repair job
-export async function updateJob(
-  updatedJob: RepairJob
-): Promise<void> {
-  await saveJob(updatedJob);
-}
-
-// Update payment status and actual payment date
 export async function updatePaymentStatus(
   id: string,
   paymentStatus: RepairJob["paymentStatus"]
 ): Promise<void> {
-  const job = await getJobById(id);
-
-  if (!job) {
-    throw new Error("Repair job not found.");
-  }
-
-  const updatedJob: RepairJob = {
-    ...job,
-    paymentStatus,
-    paidAt:
-      paymentStatus === "Paid"
-        ? job.paymentStatus === "Paid" && job.paidAt
-          ? job.paidAt
-          : new Date().toISOString()
-        : undefined,
-  };
-
-  await saveJob(updatedJob);
+  const response = await fetch(`/api/admin/jobs/${encodeURIComponent(id)}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ paymentStatus }),
+  });
+  await readResponse<ApiResponse<Record<string, never>>>(response);
 }
