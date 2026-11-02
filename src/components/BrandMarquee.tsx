@@ -64,7 +64,7 @@ export default function BrandMarquee() {
       {/* Centered heading */}
       <div className="mx-auto mb-6 flex max-w-7xl flex-col items-center justify-center gap-3 px-5 text-center sm:mb-7 sm:px-8 lg:px-12">
         <div className="flex flex-col items-center text-center">
-          <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#e1306c] sm:text-[11px]">
+          <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#B51F50] sm:text-[11px]">
             Trusted technology brands
           </p>
 
