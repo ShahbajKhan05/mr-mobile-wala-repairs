@@ -97,6 +97,8 @@ export async function POST(request: NextRequest) {
         const { error: storageError } = await supabase.storage.from("repair-photos").remove(paths);
         if (storageError) throw storageError;
       }
+      const { error: tokenError } = await supabase.from("customer_access_tokens").delete().eq("job_id", job.id);
+      if (tokenError) throw tokenError;
       const { error: photoRowsError } = await supabase.from("job_photos").delete().eq("job_id", job.id);
       if (photoRowsError) throw photoRowsError;
       const { error: eventError } = await supabase.from("job_events").delete().eq("job_id", job.id);
