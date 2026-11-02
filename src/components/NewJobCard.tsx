@@ -181,8 +181,8 @@ export default function NewJobCard() {
   const uploadedCount = Object.keys(photos).length;
 
   return (
-    <div className="min-h-screen bg-slate-50 p-4 sm:p-6 lg:p-8">
-      <div className="mx-auto max-w-6xl space-y-6">
+    <div className="min-h-screen bg-slate-50 px-3 py-4 sm:p-6 lg:p-8">
+      <div className="mx-auto max-w-6xl space-y-4 sm:space-y-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <div className="mb-2 flex items-center gap-2 text-sm text-slate-500">
@@ -207,10 +207,10 @@ export default function NewJobCard() {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid gap-6 lg:grid-cols-3">
-            <div className="space-y-6 lg:col-span-2">
-              <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+          <div className="grid gap-4 sm:gap-6 lg:grid-cols-3">
+            <div className="space-y-4 sm:space-y-6 lg:col-span-2">
+              <section className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-sm sm:p-6">
                 <div className="mb-6 flex items-center gap-3">
                   <div className="rounded-xl bg-blue-50 p-3 text-blue-600">
                     <UserRound size={21} />
@@ -260,7 +260,7 @@ export default function NewJobCard() {
                 </div>
               </section>
 
-              <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+              <section className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-sm sm:p-6">
                 <div className="mb-6 flex items-center gap-3">
                   <div className="rounded-xl bg-violet-50 p-3 text-violet-600">
                     <Smartphone size={21} />
@@ -318,7 +318,7 @@ export default function NewJobCard() {
                 </div>
               </section>
 
-              <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+              <section className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-sm sm:p-6">
                 <div className="mb-5 flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
                   <div className="flex items-center gap-3">
                     <div className="rounded-xl bg-amber-50 p-3 text-amber-600">
@@ -399,8 +399,8 @@ export default function NewJobCard() {
               </section>
             </div>
 
-            <div className="space-y-6">
-              <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <div className="space-y-4 sm:space-y-6">
+              <section className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-sm">
                 <div className="mb-5 flex items-center gap-3">
                   <div className="rounded-xl bg-emerald-50 p-3 text-emerald-600">
                     <Wallet size={21} />
