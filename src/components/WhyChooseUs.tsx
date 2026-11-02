@@ -50,19 +50,19 @@ export default function WhyChooseUs() {
   return (
     <section
       aria-labelledby="why-choose-heading"
-      className="bg-white px-4 py-14 sm:px-8 sm:py-20 lg:px-12 lg:py-24"
+      className="glass-page px-4 py-14 sm:px-8 sm:py-20 lg:px-12 lg:py-24"
     >
       <div className="mx-auto max-w-[1200px]">
 
         {/* Section Heading */}
         <div className="mb-9 text-center sm:mb-14">
-          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.3em] text-[#765A2B]">
+          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.3em] text-indigo-600">
             The MR MOBILE WALA Difference
           </p>
 
           <h2
             id="why-choose-heading"
-            className="text-3xl font-semibold tracking-[-0.05em] text-[#202B32] sm:text-5xl"
+            className="text-3xl font-semibold tracking-[-0.05em] text-slate-900 sm:text-5xl"
           >
             Why Choose{" "}
             <span className="font-serif font-normal italic text-[#765A2B]">
@@ -70,7 +70,7 @@ export default function WhyChooseUs() {
             </span>
           </h2>
 
-          <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-[#626B70]">
+          <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-slate-500">
             आपके मोबाइल की हर जरूरत के लिए एक भरोसेमंद जगह।
             Quality, care और service — सब एक साथ।
           </p>
@@ -84,7 +84,7 @@ export default function WhyChooseUs() {
             return (
               <article
                 key={feature.number}
-                className="group relative border border-[#E9E5DC] bg-white p-5 transition-all duration-300 hover:border-[#A58A5B] hover:shadow-[0_12px_35px_rgba(32,43,50,0.06)] sm:p-7"
+                className="glass-card group relative rounded-[24px] p-5 sm:rounded-[28px] sm:p-7"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex h-11 w-11 items-center justify-center border border-[#E9E5DC] text-[#765A2B] transition-all duration-300 group-hover:border-[#A58A5B] group-hover:bg-[#A58A5B] group-hover:text-white">
@@ -118,7 +118,7 @@ export default function WhyChooseUs() {
         </div>
 
         {/* Bottom Promise */}
-        <div className="mt-8 border-t border-[#E9E5DC] pt-6 text-center sm:mt-12 sm:pt-8">
+        <div className="mt-8 border-t border-white/70 pt-6 text-center sm:mt-12 sm:pt-8">
           <p className="text-sm font-semibold text-[#202B32]">
             आपकी संतुष्टि, हमारी प्राथमिकता।
           </p>
