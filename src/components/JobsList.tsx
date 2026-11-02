@@ -38,6 +38,8 @@ export default function JobsList() {
   }
 
   useEffect(() => {
+    const initialSearch = new URLSearchParams(window.location.search).get("search");
+    if (initialSearch) setSearch(initialSearch);
     void loadJobs();
   }, []);
 
