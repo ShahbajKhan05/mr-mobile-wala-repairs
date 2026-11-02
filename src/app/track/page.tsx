@@ -1,3 +1,4 @@
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -31,7 +32,7 @@ export default function TrackPage() {
             <p className="mt-2 text-xs leading-5 text-slate-500">Message our team on WhatsApp and ask for your private repair tracking link.</p>
           </div>
           <a href="https://wa.me/919131383323?text=Hello%20MR%20MOBILE%20WALA%2C%20please%20share%20my%20private%20repair%20tracking%20link." target="_blank" rel="noreferrer" className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-slate-900 px-5 py-3.5 text-sm font-bold text-white transition hover:bg-indigo-700">
-            <MessageCircle size={17} /> Request Tracking Link
+            <WhatsAppIcon size={17} /> Request Tracking Link
           </a>
         </section>
         <p className="mt-4 text-center text-[10px] text-slate-400">MR MOBILE WALA REPAIRS . Rewa</p>
