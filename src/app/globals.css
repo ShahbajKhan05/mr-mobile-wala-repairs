@@ -367,6 +367,14 @@ svg {
     border-radius: 18px;
   }
 
+  .glass-card {
+    padding: 1rem !important;
+  }
+
+  #faq .glass-panel {
+    padding: 1.25rem !important;
+  }
+
   button,
   a {
     -webkit-tap-highlight-color: transparent;
