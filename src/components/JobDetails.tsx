@@ -14,6 +14,8 @@ import {
   UserRound,
   Save,
   FileText,
+  Link2,
+  Copy,
 } from "lucide-react";
 import {
   getJobById,
@@ -69,6 +71,9 @@ export default function JobDetails() {
 
   const [savingPayment, setSavingPayment] = useState(false);
   const [paymentMessage, setPaymentMessage] = useState("");
+  const [trackingUrl, setTrackingUrl] = useState("");
+  const [trackingLoading, setTrackingLoading] = useState(false);
+  const [trackingMessage, setTrackingMessage] = useState("");
 
   useEffect(() => {
     let active = true;
@@ -105,6 +110,37 @@ export default function JobDetails() {
       active = false;
     };
   }, [params.id]);
+
+  async function handleGenerateTrackingLink() {
+    if (!job || trackingLoading) return;
+    setTrackingLoading(true);
+    setTrackingMessage("");
+    try {
+      const response = await fetch(`/api/admin/jobs/${encodeURIComponent(job.id)}/tracking-link`, {
+        method: "POST",
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success || !result.trackingUrl) {
+        throw new Error(result.message || "Unable to generate tracking link.");
+      }
+      setTrackingUrl(result.trackingUrl);
+      setTrackingMessage("Private link generated. Share it only with this customer.");
+    } catch (err) {
+      setTrackingMessage(err instanceof Error ? err.message : "Unable to generate tracking link.");
+    } finally {
+      setTrackingLoading(false);
+    }
+  }
+
+  async function handleCopyTrackingLink() {
+    if (!trackingUrl) return;
+    try {
+      await navigator.clipboard.writeText(trackingUrl);
+      setTrackingMessage("Tracking link copied.");
+    } catch {
+      setTrackingMessage("Copy failed. Select and copy the link manually.");
+    }
+  }
 
   // Update repair status
   async function handleStatusUpdate() {
@@ -403,6 +439,52 @@ Thank you for choosing ${shopName}.`
 
           {/* Right Sidebar */}
           <div className="min-w-0 space-y-6">
+
+            {/* Private Customer Tracking Link */}
+            <section className="rounded-2xl border border-indigo-100 bg-white p-5 shadow-sm">
+              <div className="flex items-center gap-2">
+                <Link2 size={18} className="text-indigo-600" />
+                <h2 className="font-bold text-slate-900">Private Customer Tracking</h2>
+              </div>
+              <p className="mt-2 text-xs leading-5 text-slate-500">
+                Generate a secure link for this customer. Creating a new link revokes the previous one.
+              </p>
+              <button
+                type="button"
+                onClick={handleGenerateTrackingLink}
+                disabled={trackingLoading}
+                className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-indigo-700 disabled:opacity-60"
+              >
+                <Link2 size={16} />
+                {trackingLoading ? "Generating..." : trackingUrl ? "Generate New Link" : "Generate Private Link"}
+              </button>
+              {trackingUrl && (
+                <>
+                  <input
+                    readOnly
+                    aria-label="Private customer tracking link"
+                    value={trackingUrl}
+                    onFocus={(event) => event.currentTarget.select()}
+                    className="mt-3 w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 text-xs text-slate-700"
+                  />
+                  <div className="mt-2 grid grid-cols-2 gap-2">
+                    <button type="button" onClick={handleCopyTrackingLink} className="flex items-center justify-center gap-2 rounded-lg border border-slate-200 px-3 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50">
+                      <Copy size={14} /> Copy Link
+                    </button>
+                    <a
+                      href={`https://wa.me/91${customerPhone}?text=${encodeURIComponent(`Hello ${job.customerName}, track your repair securely here: ${trackingUrl}`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 rounded-lg bg-emerald-600 px-3 py-2.5 text-xs font-semibold text-white hover:bg-emerald-700"
+                    >
+                      <MessageCircle size={14} /> WhatsApp
+                    </a>
+                  </div>
+                </>
+              )}
+              {trackingMessage && <p role="status" className="mt-3 text-xs text-indigo-700">{trackingMessage}</p>}
+              <p className="mt-2 text-[10px] leading-4 text-slate-400">Link expires after 1 year. Anyone with this private link can view this repair.</p>
+            </section>
 
             {/* Repair Progress */}
             <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
