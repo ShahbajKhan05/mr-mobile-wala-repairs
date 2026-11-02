@@ -20,6 +20,7 @@ export async function GET(request: NextRequest) {
     const { data: jobs, error } = await supabase
       .from("repair_jobs")
       .select("*")
+      .is("deleted_at", null)
       .order("created_at", { ascending: false });
 
     if (error) throw error;
