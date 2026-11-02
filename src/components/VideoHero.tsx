@@ -34,7 +34,7 @@ export default function VideoHero() {
           {/* Main Heading */}
           <h1
             id="hero-heading"
-            className="text-[clamp(2rem,5.5vw,4.5rem)] font-bold leading-[1.12] tracking-[-0.06em] text-slate-900"
+            className="text-[clamp(1.8rem,5.5vw,4.5rem)] font-bold leading-[1.12] tracking-[-0.06em] text-slate-900"
           >
             &quot;MrMobileWala&quot;
             <br className="sm:hidden" />{" "}
