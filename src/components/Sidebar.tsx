@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import {
   LayoutDashboard, ClipboardList, Smartphone, Users, Package,
-  BarChart3, Settings, ChevronRight, X, PlusCircle, Wrench,
+  BarChart3, Settings, ChevronRight, X, PlusCircle, Wrench, ShieldCheck,
 } from "lucide-react";
 
 type SidebarProps = { isOpen: boolean; onClose: () => void };
@@ -19,6 +19,7 @@ const navigation = [
     { name: "Devices", href: "/devices", icon: Smartphone },
     { name: "Customers", href: "/customers", icon: Users },
     { name: "Parts Inventory", href: "/inventory", icon: Package },
+    { name: "Warranty Cards", href: "/admin-warranty", icon: ShieldCheck },
   ]},
   { title: "BUSINESS", items: [
     { name: "Analytics", href: "/analytics", icon: BarChart3 },
