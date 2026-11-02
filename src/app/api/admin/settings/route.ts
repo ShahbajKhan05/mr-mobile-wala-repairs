@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
     const supabase = createSupabaseAdminClient();
     const { data, error } = await supabase.from("shop_settings").select("data").eq("id", "shop-profile").maybeSingle();
     if (error) throw error;
-    return NextResponse.json({ success: true, settings: { ...defaultShopSettings, ...(data?.data ?? {}) } }, { headers: { "Cache-Control": "private, no-store" } });
+    return NextResponse.json({ success: true, settings: { ...defaultShopSettings, ...(data?.data ?? {}), shopName: defaultShopSettings.shopName } }, { headers: { "Cache-Control": "private, no-store" } });
   } catch (error) {
     console.error("Shop settings load failed:", error);
     return fail("Unable to load shop settings. Run the shared-data migration in Supabase first.", 500);
@@ -24,12 +24,11 @@ export async function PUT(request: NextRequest) {
   if (!requireAdmin(request)) return fail("Unauthorized.", 401);
   try {
     const body = await request.json() as Partial<ShopSettings>;
-    if (typeof body.shopName !== "string" || !body.shopName.trim()) return fail("Shop name is required.");
     if (body.warrantyDays !== 7) return fail("Warranty duration is fixed at 7 days.");
     const settings: ShopSettings = {
       ...defaultShopSettings,
       ...body,
-      shopName: body.shopName.trim(),
+      shopName: defaultShopSettings.shopName,
       updatedAt: new Date().toISOString(),
     };
     const supabase = createSupabaseAdminClient();
