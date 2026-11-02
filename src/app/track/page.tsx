@@ -2,7 +2,7 @@ import WhatsAppIcon from "@/components/WhatsAppIcon";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Link2, MessageCircle, ShieldCheck } from "lucide-react";
+import { Link2, ShieldCheck } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Private Repair Tracking | MR MOBILE WALA REPAIRS",
