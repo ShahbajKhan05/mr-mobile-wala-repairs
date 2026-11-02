@@ -1,6 +1,7 @@
 
 "use client";
 
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
@@ -9,7 +10,7 @@ import {
   UserRound,
   Smartphone,
   Phone,
-  MessageCircle,
+
   CalendarDays,
   IndianRupee,
   ClipboardList,
@@ -211,7 +212,7 @@ export default function CustomerProfile() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-600/20 transition hover:bg-emerald-700"
             >
-              <MessageCircle size={18} />
+              <WhatsAppIcon size={18} />
               WhatsApp Customer
             </a>
           </div>
