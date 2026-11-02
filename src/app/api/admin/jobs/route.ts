@@ -61,6 +61,7 @@ export async function GET(request: NextRequest) {
         paymentStatus: job.payment_status,
         createdAt: job.created_at,
         paidAt: job.paid_at ?? undefined,
+        pickupStatus: job.pickup_status ?? "Pending",
         databaseId: job.id,
       };
     }));
