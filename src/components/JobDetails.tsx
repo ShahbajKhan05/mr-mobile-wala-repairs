@@ -1,6 +1,7 @@
 
 "use client";
 
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
@@ -9,7 +10,7 @@ import {
   CheckCircle2,
   Clock,
   IndianRupee,
-  MessageCircle,
+
   Smartphone,
   UserRound,
   Save,
@@ -360,7 +361,7 @@ Thank you for choosing ${shopName}.`
             rel="noopener noreferrer"
             className="flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-700"
           >
-            <MessageCircle size={18} />
+            <WhatsAppIcon size={18} />
             WhatsApp Customer
           </a>
         </section>
@@ -512,7 +513,7 @@ Thank you for choosing ${shopName}.`
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-2 rounded-lg bg-emerald-600 px-3 py-2.5 text-xs font-semibold text-white hover:bg-emerald-700"
                     >
-                      <MessageCircle size={14} /> WhatsApp
+                      <WhatsAppIcon size={14} /> WhatsApp
                     </a>
                   </div>
                 </>
