@@ -135,11 +135,7 @@ export default function JobWarranty() {
   const shopName =
     settings.shopName.trim() || defaultShopSettings.shopName;
 
-  const warrantyDays =
-    Number.isFinite(settings.warrantyDays) &&
-    settings.warrantyDays > 0
-      ? Math.floor(settings.warrantyDays)
-      : defaultShopSettings.warrantyDays;
+  const warrantyDays = 7;
 
   const expiryDate = addDays(job.paidAt, warrantyDays);
 
