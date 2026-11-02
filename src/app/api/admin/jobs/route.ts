@@ -104,18 +104,37 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    const { data: customer, error: customerError } = await supabase
+    // customers.phone is indexed but is not UNIQUE, so do not use upsert/onConflict.
+    const { data: existingCustomers, error: customerLookupError } = await supabase
       .from("customers")
-      .upsert({ name: customerName, phone }, { onConflict: "phone" })
       .select("id")
-      .single();
-    if (customerError) throw customerError;
+      .eq("phone", phone)
+      .order("created_at", { ascending: true })
+      .limit(1);
+    if (customerLookupError) throw customerLookupError;
+
+    let customerId = existingCustomers?.[0]?.id as string | undefined;
+    if (customerId) {
+      const { error: customerUpdateError } = await supabase
+        .from("customers")
+        .update({ name: customerName })
+        .eq("id", customerId);
+      if (customerUpdateError) throw customerUpdateError;
+    } else {
+      const { data: newCustomer, error: customerInsertError } = await supabase
+        .from("customers")
+        .insert({ name: customerName, phone })
+        .select("id")
+        .single();
+      if (customerInsertError) throw customerInsertError;
+      customerId = newCustomer.id;
+    }
 
     const { data: job, error: jobError } = await supabase
       .from("repair_jobs")
       .insert({
         job_number: jobNumber,
-        customer_id: customer.id,
+        customer_id: customerId,
         brand,
         model,
         problem,
