@@ -1,574 +1,174 @@
-
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import {
-  Smartphone,
-  Wrench,
-  Package,
-  Wallet,
-  Plus,
-  ArrowUpRight,
-  Clock,
-  CheckCircle2,
-  TrendingUp,
-  ClipboardList,
-  X,
+  Activity, ArrowRight, ArrowUpRight, CalendarDays, CheckCircle2,
+  ClipboardList, Clock3, IndianRupee, Package, Plus, RefreshCw,
+  Smartphone, Users, Wallet, Wrench, AlertCircle,
 } from "lucide-react";
+import { getJobs, type RepairJob } from "@/lib/jobs";
 
-type JobStatus = "Ready" | "Repairing" | "Part Ordered" | "Received";
+const money = (value: number) => new Intl.NumberFormat("en-IN", {
+  style: "currency", currency: "INR", maximumFractionDigits: 0,
+}).format(value);
 
-type Job = {
-  id: string;
-  name: string;
-  device: string;
-  issue: string;
-  amount: string;
-  status: JobStatus;
+const dateLabel = (value: string) => {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? "—" : new Intl.DateTimeFormat("en-IN", {
+    day: "2-digit", month: "short", year: "numeric",
+  }).format(date);
 };
 
-const initialJobs: Job[] = [
-  {
-    id: "RA-2048",
-    name: "Aarav Sharma",
-    device: "iPhone 13",
-    issue: "Display replacement",
-    amount: "₹6,500",
-    status: "Ready",
-  },
-  {
-    id: "RA-2047",
-    name: "Priya Verma",
-    device: "Samsung S22",
-    issue: "Battery issue",
-    amount: "₹2,800",
-    status: "Repairing",
-  },
-  {
-    id: "RA-2046",
-    name: "Kabir Khan",
-    device: "OnePlus 11",
-    issue: "Charging port",
-    amount: "₹1,800",
-    status: "Part Ordered",
-  },
-  {
-    id: "RA-2045",
-    name: "Meera Patel",
-    device: "Redmi Note 12",
-    issue: "Back panel cracked",
-    amount: "₹1,200",
-    status: "Received",
-  },
-];
-
-const chartData = [
-  { day: "Mon", value: 42 },
-  { day: "Tue", value: 65 },
-  { day: "Wed", value: 52 },
-  { day: "Thu", value: 83 },
-  { day: "Fri", value: 68 },
-  { day: "Sat", value: 100 },
-  { day: "Sun", value: 79 },
-];
-
-const statusStyles: Record<JobStatus, string> = {
-  Ready: "bg-green-50 text-green-700",
-  Repairing: "bg-blue-50 text-blue-700",
-  "Part Ordered": "bg-orange-50 text-orange-700",
-  Received: "bg-slate-100 text-slate-600",
+const statusClass: Record<RepairJob["status"], string> = {
+  Received: "bg-slate-100 text-slate-700 ring-slate-200",
+  "Part Ordered": "bg-amber-50 text-amber-700 ring-amber-200",
+  Repairing: "bg-blue-50 text-blue-700 ring-blue-200",
+  Ready: "bg-emerald-50 text-emerald-700 ring-emerald-200",
 };
 
 export default function Dashboard() {
-  const [jobs, setJobs] = useState(initialJobs);
-  const [totalJobs, setTotalJobs] = useState(48);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [today, setToday] = useState("");
-  const [greeting, setGreeting] = useState("Welcome back!");
+  const [jobs, setJobs] = useState<RepairJob[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [updatedAt, setUpdatedAt] = useState("");
 
-  useEffect(() => {
-    const now = new Date();
-
-    setToday(
-      now.toLocaleDateString("en-IN", {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      })
-    );
-
-    const hour = now.getHours();
-
-    setGreeting(
-      hour < 12
-        ? "Good morning"
-        : hour < 17
-          ? "Good afternoon"
-          : "Good evening"
-    );
+  const loadDashboard = useCallback(async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const records = await getJobs();
+      setJobs(records);
+      setUpdatedAt(new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" }));
+    } catch (err) {
+      console.error("Dashboard load failed:", err);
+      setError("Dashboard data load nahi ho paaya. Refresh karke dobara try karein.");
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  function handleCreateJob(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  useEffect(() => { void loadDashboard(); }, [loadDashboard]);
 
-    const formData = new FormData(event.currentTarget);
-
-    const customer = String(formData.get("customer") || "").trim();
-    const device = String(formData.get("device") || "").trim();
-    const issue = String(formData.get("issue") || "").trim();
-    const estimate = Number(formData.get("estimate") || 0);
-
-    if (!customer || !device || !issue || estimate < 0) return;
-
-    const newJob: Job = {
-      id: `RA-${String(Date.now()).slice(-4)}`,
-      name: customer,
-      device,
-      issue,
-      amount: `₹${estimate.toLocaleString("en-IN")}`,
-      status: "Received",
+  const metrics = useMemo(() => {
+    const ready = jobs.filter((job) => job.status === "Ready").length;
+    const active = jobs.filter((job) => job.status !== "Ready").length;
+    const pending = jobs.filter((job) => job.paymentStatus === "Pending");
+    const paid = jobs.filter((job) => job.paymentStatus === "Paid");
+    const now = new Date();
+    const monthRevenue = paid.reduce((sum, job) => {
+      const paidDate = new Date(job.paidAt || job.createdAt);
+      return paidDate.getMonth() === now.getMonth() && paidDate.getFullYear() === now.getFullYear()
+        ? sum + Number(job.estimate || 0) : sum;
+    }, 0);
+    return {
+      total: jobs.length, active, ready,
+      pendingAmount: pending.reduce((sum, job) => sum + Number(job.estimate || 0), 0),
+      pendingCount: pending.length,
+      monthRevenue,
+      paidCount: paid.length,
     };
+  }, [jobs]);
 
-    setJobs((currentJobs) => [newJob, ...currentJobs]);
-    setTotalJobs((currentTotal) => currentTotal + 1);
-    setIsModalOpen(false);
-    event.currentTarget.reset();
-  }
+  const recentJobs = useMemo(() => [...jobs].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  ).slice(0, 7), [jobs]);
 
-  const readyCount = jobs.filter((job) => job.status === "Ready").length;
-  const repairingCount = jobs.filter(
-    (job) => job.status === "Repairing"
-  ).length;
+  const statusCounts = useMemo(() => ([
+    { label: "Received", count: jobs.filter((job) => job.status === "Received").length, color: "bg-slate-400" },
+    { label: "Part Ordered", count: jobs.filter((job) => job.status === "Part Ordered").length, color: "bg-amber-400" },
+    { label: "Repairing", count: jobs.filter((job) => job.status === "Repairing").length, color: "bg-blue-500" },
+    { label: "Ready", count: jobs.filter((job) => job.status === "Ready").length, color: "bg-emerald-500" },
+  ]), [jobs]);
 
-  const stats = [
-    {
-      title: "Total Jobs",
-      value: String(totalJobs),
-      change: "+12.8%",
-      icon: Smartphone,
-      iconStyle: "bg-blue-50 text-blue-600",
-    },
-    {
-      title: "In Progress",
-      value: String(repairingCount + 8),
-      change: "+4.2%",
-      icon: Wrench,
-      iconStyle: "bg-purple-50 text-purple-600",
-    },
-    {
-      title: "Ready for Pickup",
-      value: String(readyCount + 2).padStart(2, "0"),
-      change: "2 new",
-      icon: Package,
-      iconStyle: "bg-orange-50 text-orange-600",
-    },
-    {
-      title: "Monthly Revenue",
-      value: "₹48,650",
-      change: "+18.6%",
-      icon: Wallet,
-      iconStyle: "bg-green-50 text-green-600",
-    },
+  const greeting = useMemo(() => {
+    const hour = new Date().getHours();
+    return hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
+  }, []);
+
+  const cards = [
+    { label: "Total repair jobs", value: metrics.total.toLocaleString("en-IN"), note: "All registered jobs", icon: ClipboardList, tone: "bg-violet-50 text-violet-700" },
+    { label: "Active repairs", value: metrics.active.toLocaleString("en-IN"), note: "Not marked ready", icon: Wrench, tone: "bg-blue-50 text-blue-700" },
+    { label: "Ready for pickup", value: metrics.ready.toLocaleString("en-IN"), note: "Awaiting handover", icon: CheckCircle2, tone: "bg-emerald-50 text-emerald-700" },
+    { label: "Pending payments", value: money(metrics.pendingAmount), note: `${metrics.pendingCount} unpaid jobs`, icon: Wallet, tone: "bg-amber-50 text-amber-700" },
   ];
 
   return (
-    <main className="min-h-screen bg-[#f7f8fc] p-5 md:p-8">
-      {/* Dashboard header */}
-      <header className="mb-8 flex flex-wrap items-center justify-between gap-5">
-        <div>
-          <p className="mb-2 text-xs font-bold uppercase tracking-widest text-blue-600">
-            {today || "Your Repair Shop Dashboard"}
-          </p>
-
-          <h1 className="text-2xl font-bold tracking-tight text-slate-800 md:text-3xl">
-            {greeting}, Namaste! 👋
-          </h1>
-
-          <p className="mt-2 text-sm text-slate-500">
-            Here&apos;s what&apos;s happening at your repair shop today.
-          </p>
-        </div>
-
-        <button
-          type="button"
-          onClick={() => setIsModalOpen(true)}
-          className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-200 transition hover:-translate-y-0.5 hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-200"
-        >
-          <Plus size={18} />
-          New Job Card
-        </button>
-      </header>
-
-      {/* Statistics */}
-      <section
-        aria-label="Shop statistics"
-        className="mb-7 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4"
-      >
-        {stats.map((stat) => {
-          const Icon = stat.icon;
-
-          return (
-            <article
-              key={stat.title}
-              className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-md"
-            >
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-medium text-slate-500">
-                  {stat.title}
-                </p>
-
-                <div className={`rounded-xl p-3 ${stat.iconStyle}`}>
-                  <Icon size={21} aria-hidden="true" />
-                </div>
-              </div>
-
-              <h2 className="mt-5 text-3xl font-bold text-slate-800">
-                {stat.value}
-              </h2>
-
-              <p className="mt-3 flex items-center gap-1 text-xs font-semibold text-green-600">
-                <TrendingUp size={14} aria-hidden="true" />
-                {stat.change}
-                <span className="font-normal text-slate-400">
-                  vs last month
-                </span>
-              </p>
-            </article>
-          );
-        })}
-      </section>
-
-      {/* Revenue and daily summary */}
-      <section className="grid grid-cols-1 gap-6 xl:grid-cols-3">
-        <article className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm xl:col-span-2">
-          <div className="mb-7 flex items-center justify-between gap-3">
+    <main className="min-h-[calc(100vh-76px)] bg-[#f6f7fb] px-4 py-6 sm:px-6 sm:py-8 xl:px-9">
+      <div className="mx-auto max-w-[1500px] space-y-6">
+        <section className="relative overflow-hidden rounded-[28px] bg-[#171b2e] px-5 py-7 text-white shadow-[0_18px_50px_rgba(23,27,46,.14)] sm:px-8 sm:py-8">
+          <div className="pointer-events-none absolute -right-16 -top-28 h-72 w-72 rounded-full bg-indigo-500/25 blur-3xl" />
+          <div className="pointer-events-none absolute bottom-[-110px] right-[28%] h-56 w-56 rounded-full bg-cyan-400/10 blur-3xl" />
+          <div className="relative flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div>
-              <h2 className="text-lg font-bold text-slate-800">
-                Revenue Overview
-              </h2>
-              <p className="mt-1 text-xs text-slate-400">
-                Your shop&apos;s weekly performance
-              </p>
+              <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[11px] font-semibold tracking-wide text-indigo-100">
+                <Activity size={14} /> SHOP OVERVIEW
+              </div>
+              <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{greeting}, welcome back 👋</h1>
+              <p className="mt-2 max-w-xl text-sm leading-6 text-slate-300">Yahan se apne repair jobs, customer payments aur shop activity manage karein.</p>
+              <p className="mt-4 flex items-center gap-2 text-xs text-slate-400"><CalendarDays size={14} />{new Intl.DateTimeFormat("en-IN", { weekday: "long", day: "numeric", month: "long", year: "numeric" }).format(new Date())}</p>
             </div>
-
-            <span className="rounded-lg border border-slate-200 px-3 py-2 text-xs text-slate-500">
-              This week
-            </span>
-          </div>
-
-          <div className="mb-6">
-            <h3 className="text-3xl font-bold text-slate-800">
-              ₹48,650
-            </h3>
-
-            <p className="mt-2 text-xs font-semibold text-green-600">
-              <ArrowUpRight size={14} className="inline" />
-              18.6% growth this month
-            </p>
-          </div>
-
-          <div
-            className="flex h-44 items-end justify-between gap-3"
-            role="img"
-            aria-label="Weekly revenue chart showing Monday to Sunday performance"
-          >
-            {chartData.map((item) => (
-              <div
-                key={item.day}
-                className="flex h-full flex-1 flex-col items-center justify-end gap-3"
-              >
-                <div
-                  style={{ height: `${item.value}%` }}
-                  className="w-full max-w-12 rounded-t-lg bg-gradient-to-t from-blue-600 to-blue-400 transition hover:from-blue-700 hover:to-blue-500"
-                />
-
-                <span className="text-xs text-slate-400">
-                  {item.day}
-                </span>
-              </div>
-            ))}
-          </div>
-        </article>
-
-        <article className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-bold text-slate-800">
-            Today&apos;s Summary
-          </h2>
-
-          <p className="mt-1 text-xs text-slate-400">
-            Your repair shop activity
-          </p>
-
-          <div className="mt-6 space-y-6">
-            <Summary
-              icon={<ClipboardList size={19} />}
-              title="New Jobs"
-              subtitle="Received today"
-              count="08"
-              color="blue"
-            />
-
-            <Summary
-              icon={<Clock size={19} />}
-              title="Pending Pickup"
-              subtitle="Awaiting customers"
-              count="03"
-              color="orange"
-            />
-
-            <Summary
-              icon={<CheckCircle2 size={19} />}
-              title="Completed"
-              subtitle="Ready for handover"
-              count="05"
-              color="green"
-            />
-          </div>
-        </article>
-      </section>
-
-      {/* Recent jobs */}
-      <section className="mt-7 overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm">
-        <div className="flex flex-wrap items-center justify-between gap-3 p-6">
-          <div>
-            <h2 className="text-lg font-bold text-slate-800">
-              Recent Job Cards
-            </h2>
-            <p className="mt-1 text-xs text-slate-400">
-              Latest customer repair requests
-            </p>
-          </div>
-
-          <a
-            href="/jobs"
-            className="text-sm font-semibold text-blue-600 transition hover:text-blue-700"
-          >
-            View All →
-          </a>
-        </div>
-
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-[700px] text-left">
-            <thead className="bg-slate-50 text-[11px] uppercase tracking-wider text-slate-400">
-              <tr>
-                <th scope="col" className="px-6 py-4">Job ID</th>
-                <th scope="col" className="px-6 py-4">Customer</th>
-                <th scope="col" className="px-6 py-4">Device</th>
-                <th scope="col" className="px-6 py-4">Issue</th>
-                <th scope="col" className="px-6 py-4">Estimate</th>
-                <th scope="col" className="px-6 py-4">Status</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {jobs.map((job) => (
-                <tr
-                  key={job.id}
-                  className="border-t border-slate-100 text-sm transition hover:bg-slate-50"
-                >
-                  <td className="px-6 py-5 font-semibold text-blue-600">
-                    {job.id}
-                  </td>
-
-                  <td className="px-6 py-5 font-semibold text-slate-700">
-                    {job.name}
-                  </td>
-
-                  <td className="px-6 py-5 text-slate-500">
-                    {job.device}
-                  </td>
-
-                  <td className="px-6 py-5 text-slate-500">
-                    {job.issue}
-                  </td>
-
-                  <td className="px-6 py-5 font-semibold text-slate-700">
-                    {job.amount}
-                  </td>
-
-                  <td className="px-6 py-5">
-                    <span
-                      className={`rounded-full px-3 py-1.5 text-xs font-semibold ${statusStyles[job.status]}`}
-                    >
-                      {job.status}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      {/* New job modal */}
-      {isModalOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/50 p-4 backdrop-blur-sm"
-          onMouseDown={(event) => {
-            if (event.target === event.currentTarget) {
-              setIsModalOpen(false);
-            }
-          }}
-        >
-          <section
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="new-job-title"
-            className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl"
-          >
-            <div className="mb-6 flex items-center justify-between">
-              <div>
-                <h2
-                  id="new-job-title"
-                  className="text-xl font-bold text-slate-800"
-                >
-                  Create New Job Card
-                </h2>
-                <p className="mt-1 text-sm text-slate-500">
-                  Enter the customer and device details.
-                </p>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => setIsModalOpen(false)}
-                aria-label="Close dialog"
-                className="rounded-lg p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
-              >
-                <X size={20} />
+            <div className="flex flex-wrap gap-2">
+              <button type="button" onClick={() => void loadDashboard()} disabled={loading} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 text-sm font-semibold text-white transition hover:bg-white/15 disabled:opacity-60">
+                <RefreshCw size={16} className={loading ? "animate-spin" : ""} /> Refresh
               </button>
+              <Link href="/jobs" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-white px-4 text-sm font-bold text-[#171b2e] shadow-lg transition hover:-translate-y-0.5 hover:bg-indigo-50">
+                <Plus size={17} /> Create Job Card <ArrowUpRight size={15} />
+              </Link>
             </div>
+          </div>
+        </section>
 
-            <form onSubmit={handleCreateJob} className="space-y-4">
-              <div>
-                <label
-                  htmlFor="customer"
-                  className="mb-1.5 block text-sm font-medium text-slate-700"
-                >
-                  Customer Name
-                </label>
-                <input
-                  id="customer"
-                  name="customer"
-                  required
-                  placeholder="Enter customer name"
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-50"
-                />
+        {error && <div role="alert" className="flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700"><AlertCircle size={18} className="mt-0.5 shrink-0" />{error}</div>}
+
+        <section aria-label="Repair shop statistics" className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          {cards.map((card) => {
+            const Icon = card.icon;
+            return <article key={card.label} className="group rounded-2xl border border-slate-200/80 bg-white p-5 shadow-[0_3px_14px_rgba(15,23,42,.035)] transition duration-200 hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(15,23,42,.08)]">
+              <div className="flex items-start justify-between gap-3">
+                <div><p className="text-[12px] font-semibold text-slate-500">{card.label}</p><p className="mt-3 text-[27px] font-bold tracking-tight text-slate-900">{loading ? <span className="inline-block h-8 w-20 animate-pulse rounded-lg bg-slate-100" /> : card.value}</p></div>
+                <span className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl ${card.tone}`}><Icon size={20} /></span>
               </div>
+              <p className="mt-3 text-xs text-slate-400">{card.note}</p>
+            </article>;
+          })}
+        </section>
 
-              <div>
-                <label
-                  htmlFor="device"
-                  className="mb-1.5 block text-sm font-medium text-slate-700"
-                >
-                  Device
-                </label>
-                <input
-                  id="device"
-                  name="device"
-                  required
-                  placeholder="e.g. iPhone 13"
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-50"
-                />
-              </div>
+        <section className="grid gap-5 xl:grid-cols-[minmax(0,1.55fr)_minmax(300px,.85fr)]">
+          <article className="min-w-0 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_3px_14px_rgba(15,23,42,.035)]">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 px-5 py-5 sm:px-6">
+              <div><h2 className="font-bold text-slate-900">Recent repair jobs</h2><p className="mt-1 text-xs text-slate-500">Latest jobs saved in your shop</p></div>
+              <Link href="/jobs/list" className="inline-flex items-center gap-1 text-xs font-bold text-indigo-600 transition hover:text-indigo-800">View all jobs <ArrowRight size={14} /></Link>
+            </div>
+            {loading ? <div className="space-y-4 p-6">{Array.from({length:4}).map((_,i)=><div key={i} className="h-12 animate-pulse rounded-xl bg-slate-100" />)}</div> : recentJobs.length === 0 ? <div className="flex flex-col items-center px-5 py-12 text-center"><span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400"><Smartphone size={25}/></span><h3 className="mt-4 font-bold text-slate-800">No repair jobs yet</h3><p className="mt-1 max-w-xs text-sm text-slate-500">Create your first job card to see customer repairs here.</p><Link href="/jobs" className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#171b2e] px-4 py-2.5 text-xs font-bold text-white"><Plus size={15}/> Create first job</Link></div> :
+              <div className="overflow-x-auto"><table className="w-full min-w-[680px] text-left"><thead className="bg-slate-50/80 text-[10px] font-bold uppercase tracking-[.12em] text-slate-400"><tr><th className="px-5 py-3.5 sm:px-6">Job / Customer</th><th className="px-4 py-3.5">Device</th><th className="px-4 py-3.5">Estimate</th><th className="px-4 py-3.5">Status</th><th className="px-5 py-3.5">Date</th></tr></thead><tbody>{recentJobs.map((job)=><tr key={job.id} className="border-t border-slate-100 transition hover:bg-slate-50/70"><td className="px-5 py-4 sm:px-6"><Link href={`/jobs/${encodeURIComponent(job.id)}`} className="font-bold text-slate-800 hover:text-indigo-700">{job.id}</Link><p className="mt-1 text-xs text-slate-500">{job.customerName}</p></td><td className="px-4 py-4"><p className="text-sm font-semibold text-slate-700">{job.brand} {job.model}</p><p className="mt-1 max-w-[170px] truncate text-xs text-slate-400">{job.problem}</p></td><td className="px-4 py-4 text-sm font-semibold text-slate-700">{money(Number(job.estimate || 0))}<p className={`mt-1 text-[10px] font-semibold ${job.paymentStatus === "Paid" ? "text-emerald-600" : "text-amber-600"}`}>{job.paymentStatus === "Paid" ? "Paid" : "Payment pending"}</p></td><td className="px-4 py-4"><span className={`inline-flex whitespace-nowrap rounded-full px-2.5 py-1 text-[11px] font-bold ring-1 ring-inset ${statusClass[job.status]}`}>{job.status}</span></td><td className="px-5 py-4 text-xs text-slate-500">{dateLabel(job.createdAt)}</td></tr>)}</tbody></table></div>}
+          </article>
 
-              <div>
-                <label
-                  htmlFor="issue"
-                  className="mb-1.5 block text-sm font-medium text-slate-700"
-                >
-                  Repair Issue
-                </label>
-                <input
-                  id="issue"
-                  name="issue"
-                  required
-                  placeholder="e.g. Display replacement"
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-50"
-                />
-              </div>
+          <div className="space-y-5">
+            <article className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-[0_3px_14px_rgba(15,23,42,.035)] sm:p-6">
+              <div className="flex items-center justify-between"><div><h2 className="font-bold text-slate-900">Job status overview</h2><p className="mt-1 text-xs text-slate-500">Current repair pipeline</p></div><span className="rounded-xl bg-indigo-50 p-2.5 text-indigo-700"><Activity size={18}/></span></div>
+              <div className="mt-6 space-y-4">{statusCounts.map((item)=>{const percent=jobs.length?Math.round(item.count/jobs.length*100):0;return <div key={item.label}><div className="mb-2 flex items-center justify-between text-xs"><span className="font-semibold text-slate-600">{item.label}</span><span className="font-bold tabular-nums text-slate-800">{loading?"—":item.count}</span></div><div className="h-2 overflow-hidden rounded-full bg-slate-100"><div className={`h-full rounded-full ${item.color} transition-all duration-500`} style={{width:`${percent}%`}}/></div></div>})}</div>
+              <p className="mt-5 border-t border-slate-100 pt-4 text-[11px] text-slate-400">{jobs.length} total jobs · Live database data</p>
+            </article>
+            <article className="rounded-2xl border border-amber-200/70 bg-gradient-to-br from-amber-50 to-white p-5 sm:p-6">
+              <div className="flex items-center gap-2 text-amber-800"><Clock3 size={17}/><h2 className="text-sm font-bold">Payment follow-up</h2></div>
+              <p className="mt-3 text-2xl font-bold tracking-tight text-slate-900">{loading?"—":money(metrics.pendingAmount)}</p>
+              <p className="mt-1 text-xs text-slate-500">{metrics.pendingCount} jobs with payment pending</p>
+              <Link href="/jobs/list" className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-amber-800 hover:text-amber-950">Review job payments <ArrowRight size={14}/></Link>
+            </article>
+          </div>
+        </section>
 
-              <div>
-                <label
-                  htmlFor="estimate"
-                  className="mb-1.5 block text-sm font-medium text-slate-700"
-                >
-                  Estimated Amount (₹)
-                </label>
-                <input
-                  id="estimate"
-                  name="estimate"
-                  type="number"
-                  min="0"
-                  step="1"
-                  required
-                  placeholder="Enter estimated amount"
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-50"
-                />
-              </div>
-
-              <div className="flex flex-col-reverse gap-3 pt-3 sm:flex-row sm:justify-end">
-                <button
-                  type="button"
-                  onClick={() => setIsModalOpen(false)}
-                  className="rounded-xl border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-600 transition hover:bg-slate-50"
-                >
-                  Cancel
-                </button>
-
-                <button
-                  type="submit"
-                  className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-200"
-                >
-                  Create Job Card
-                </button>
-              </div>
-            </form>
-          </section>
-        </div>
-      )}
+        <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {[
+            {label:"All repair jobs",href:"/jobs/list",icon:ClipboardList,desc:"Find and update jobs"},
+            {label:"Customers",href:"/customers",icon:Users,desc:"Customer records"},
+            {label:"Parts inventory",href:"/inventory",icon:Package,desc:"Stock and spare parts"},
+            {label:"Business analytics",href:"/analytics",icon:IndianRupee,desc:"Revenue and reports"},
+          ].map((item)=>{const Icon=item.icon;return <Link key={item.href} href={item.href} className="group rounded-2xl border border-slate-200/80 bg-white p-4 transition hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-md sm:p-5"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-700 transition group-hover:bg-indigo-50 group-hover:text-indigo-700"><Icon size={19}/></span><p className="mt-3 text-sm font-bold text-slate-800">{item.label}</p><p className="mt-1 text-[11px] text-slate-400">{item.desc}</p></Link>})}
+        </section>
+        <p className="flex items-center justify-end gap-1.5 text-[11px] text-slate-400"><span className="h-1.5 w-1.5 rounded-full bg-emerald-500"/>{updatedAt ? `Data refreshed at ${updatedAt}` : "Connected to repair records"}</p>
+      </div>
     </main>
-  );
-}
-
-function Summary({
-  icon,
-  title,
-  subtitle,
-  count,
-  color,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  subtitle: string;
-  count: string;
-  color: "blue" | "orange" | "green";
-}) {
-  const colors = {
-    blue: "bg-blue-50 text-blue-600",
-    orange: "bg-orange-50 text-orange-600",
-    green: "bg-green-50 text-green-600",
-  };
-
-  return (
-    <div className="flex items-center gap-3">
-      <div className={`rounded-xl p-3 ${colors[color]}`}>
-        {icon}
-      </div>
-
-      <div className="min-w-0 flex-1">
-        <h3 className="text-sm font-semibold text-slate-700">
-          {title}
-        </h3>
-        <p className="mt-1 text-xs text-slate-400">
-          {subtitle}
-        </p>
-      </div>
-
-      <strong className="text-xl font-bold text-slate-800">
-        {count}
-      </strong>
-    </div>
   );
 }
