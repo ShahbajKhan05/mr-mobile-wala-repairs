@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#FAFAF8] text-[#202B32]">
+    <div className="min-h-screen overflow-x-hidden glass-page text-slate-800">
       <Navbar />
       <main>
         <VideoHero />
