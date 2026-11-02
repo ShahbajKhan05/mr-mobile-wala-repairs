@@ -20,7 +20,7 @@ export default function VideoHero() {
     <section
       ref={heroRef}
       aria-labelledby="hero-heading"
-      className="relative w-full overflow-hidden px-4 pb-14 pt-36 sm:px-8 sm:pb-20 sm:pt-32 lg:px-12 lg:pb-24"
+      className="relative w-full overflow-hidden px-3 pb-8 pt-24 sm:px-8 sm:pb-20 sm:pt-32 lg:px-12 lg:pb-24"
     >
       <div className="mx-auto max-w-[1200px]">
 
@@ -44,7 +44,7 @@ export default function VideoHero() {
           </h1>
 
           {/* Brand Video */}
-          <div className="mx-auto mt-9 aspect-[16/9] w-full max-w-[1150px] overflow-hidden glass-panel rounded-[28px] bg-white/40 p-2 shadow-[0_28px_90px_rgba(45,60,110,0.18)] sm:mt-12 sm:aspect-[16/7] sm:rounded-[34px] lg:aspect-[16/6]">
+          <div className="mx-auto mt-6 aspect-[16/9] w-full max-w-[1150px] overflow-hidden glass-panel rounded-[28px] bg-white/40 p-2 shadow-[0_28px_90px_rgba(45,60,110,0.18)] sm:mt-12 sm:aspect-[16/7] sm:rounded-[34px] lg:aspect-[16/6]">
             <video
               autoPlay
               muted
@@ -59,7 +59,7 @@ export default function VideoHero() {
           </div>
 
           {/* Tagline */}
-          <h2 className="mt-8 text-[clamp(1.7rem,4vw,3.5rem)] font-semibold leading-tight tracking-[-0.055em] text-[#202B32] sm:mt-10">
+          <h2 className="mt-6 text-[clamp(1.7rem,4vw,3.5rem)] font-semibold leading-tight tracking-[-0.055em] text-[#202B32] sm:mt-10">
             Your Phone.{" "}
             <span className="font-serif font-normal italic text-[#765A2B]">
               Our Passion.
@@ -73,7 +73,7 @@ export default function VideoHero() {
           </p>
 
           {/* Services */}
-          <div className="mt-7 flex items-center justify-center gap-4 text-[10px] font-bold tracking-[0.22em] text-slate-700 sm:mt-9 sm:gap-5 sm:text-xs">
+          <div className="mt-5 flex items-center justify-center gap-4 text-[10px] font-bold tracking-[0.22em] text-slate-700 sm:mt-9 sm:gap-5 sm:text-xs">
             <span>BUY</span>
             <span className="text-indigo-400">*</span>
             <span>SELL</span>
@@ -86,7 +86,7 @@ export default function VideoHero() {
             type="button"
             onClick={scrollToNext}
             aria-label="Scroll to next section"
-            className="group mx-auto mt-9 flex flex-col items-center gap-3 sm:mt-12"
+            className="group mx-auto mt-6 flex flex-col items-center gap-3 sm:mt-12"
           >
             <span className="text-[9px] font-bold uppercase tracking-[0.28em] text-[#626B70] transition-colors group-hover:text-[#765A2B]">
               Discover More
