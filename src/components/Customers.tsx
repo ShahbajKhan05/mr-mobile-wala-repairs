@@ -1,6 +1,7 @@
 
 "use client";
 
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import {
@@ -9,7 +10,7 @@ import {
   RefreshCw,
   Smartphone,
   IndianRupee,
-  MessageCircle,
+
   ClipboardList,
   ArrowUpRight,
 } from "lucide-react";
@@ -362,7 +363,7 @@ export default function Customers() {
                       aria-label={`WhatsApp ${customer.name}`}
                       className="inline-flex items-center gap-2 rounded-xl bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-100"
                     >
-                      <MessageCircle size={17} />
+                      <WhatsAppIcon size={17} />
                       WhatsApp
                     </a>
                   </div>
