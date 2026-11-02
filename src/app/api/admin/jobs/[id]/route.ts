@@ -16,7 +16,7 @@ export async function GET(request: NextRequest, context: { params: Promise<{ id:
   try {
     const { id } = await context.params;
     const supabase = createSupabaseAdminClient();
-    const { data: job, error } = await supabase.from("repair_jobs").select("*").eq("job_number", id).single();
+    const { data: job, error } = await supabase.from("repair_jobs").select("*").eq("job_number", id).is("deleted_at", null).single();
     if (error || !job) return fail("Repair job not found.", 404);
 
     const [{ data: customer, error: customerError }, { data: photos, error: photosError }] = await Promise.all([
@@ -51,7 +51,7 @@ export async function PATCH(request: NextRequest, context: { params: Promise<{ i
     const { id } = await context.params;
     const body = await request.json();
     const supabase = createSupabaseAdminClient();
-    const { data: job, error: findError } = await supabase.from("repair_jobs").select("id,status,payment_status,paid_at,pickup_status").eq("job_number", id).single();
+    const { data: job, error: findError } = await supabase.from("repair_jobs").select("id,status,payment_status,paid_at,pickup_status").eq("job_number", id).is("deleted_at", null).single();
     if (findError || !job) return fail("Repair job not found.", 404);
 
     const updates: Record<string, unknown> = {};
@@ -114,5 +114,26 @@ export async function PATCH(request: NextRequest, context: { params: Promise<{ i
   } catch (error) {
     console.error("Admin job update failed:", error);
     return fail("Unable to update repair job.", 500);
+  }
+}
+
+export async function DELETE(request: NextRequest, context: { params: Promise<{ id: string }> }) {
+  if (!requireAdmin(request)) return fail("Unauthorized.", 401);
+  try {
+    const { id } = await context.params;
+    const supabase = createSupabaseAdminClient();
+    const { data, error } = await supabase
+      .from("repair_jobs")
+      .update({ deleted_at: new Date().toISOString(), deleted_by: "Admin" })
+      .eq("job_number", id)
+      .is("deleted_at", null)
+      .select("id")
+      .maybeSingle();
+    if (error) throw error;
+    if (!data) return fail("Repair job not found or already deleted.", 404);
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Repair job recycle-bin action failed:", error);
+    return fail("Unable to move repair job to Recycle Bin.", 500);
   }
 }
