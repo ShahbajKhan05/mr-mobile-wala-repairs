@@ -12,6 +12,7 @@ import {
   Menu,
   MessageCircle,
   Store,
+  ShieldCheck,
   X,
 } from "lucide-react";
 
@@ -19,6 +20,7 @@ const NAV_LINKS = [
   { label: "Home", href: "/", comingSoon: false },
   { label: "Services", href: "/#services", comingSoon: false },
   { label: "Track Repair", href: "/track", comingSoon: false },
+  { label: "Warranty Card", href: "/warranty", comingSoon: false },
   { label: "Contact", href: "https://wa.me/919131383323", comingSoon: false },
 ];
 
@@ -158,7 +160,7 @@ export default function Navbar() {
           </Link>
 
           <Link
-            href="/"
+            href="/#booking"
             className="group inline-flex min-h-11 items-center gap-2 rounded-full bg-slate-900 px-5 text-xs font-bold text-white shadow-lg shadow-indigo-950/15 transition-all duration-200 hover:-translate-y-0.5 hover:bg-indigo-700 hover:shadow-[0_6px_18px_rgba(0,0,0,0.15)] active:scale-[0.98]"
           >
             <Store size={15} />
@@ -233,8 +235,8 @@ export default function Navbar() {
 
             <div className="mt-3 border-t border-[#eeeee9] pt-3">
               <Link
-                href="/"
-                onClick={() => setIsOpen(false)}
+                href="/#booking"
+                onClick={() => setIsOpen(false)
                 className="flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#1e1e1e] text-sm font-bold text-white transition-colors hover:bg-indigo-700"
               >
                 <Store size={16} />
