@@ -16,6 +16,7 @@ import {
   Wallet,
 } from "lucide-react";
 import { saveJob, type JobPhoto, type PhotoKey, type RepairJob } from "@/lib/jobs";
+import { DEVICE_BRANDS, PHONE_MODELS, REPAIR_PROBLEMS } from "@/lib/form-options";
 
 const photoSlots: { key: PhotoKey; label: string }[] = [
   { key: "front", label: "Front Side" },
@@ -28,8 +29,15 @@ export default function NewJobCard() {
   const [customerName, setCustomerName] = useState("");
   const [phone, setPhone] = useState("");
   const [brand, setBrand] = useState("");
+  const [customBrand, setCustomBrand] = useState("");
   const [model, setModel] = useState("");
+  const [customModel, setCustomModel] = useState("");
   const [problem, setProblem] = useState("");
+  const [customProblem, setCustomProblem] = useState("");
+  const finalBrand = brand === "Other" ? customBrand.trim() : brand;
+  const finalModel = brand === "Other" || model === "Other / Not listed" ? customModel.trim() : model;
+  const finalProblem = problem === "Other" ? customProblem.trim() : problem;
+  const modelOptions = PHONE_MODELS[brand] ?? [];
   const [estimate, setEstimate] = useState("");
   const [photos, setPhotos] = useState<
     Partial<Record<PhotoKey, { file: File; preview: string }>>
@@ -96,7 +104,7 @@ export default function NewJobCard() {
       return;
     }
 
-    if (!customerName.trim() || !brand || !model.trim() || !problem.trim()) {
+    if (!customerName.trim() || !finalBrand || !finalModel || !finalProblem) {
       setError("Please fill all required customer and device details.");
       return;
     }
@@ -135,9 +143,9 @@ export default function NewJobCard() {
         id: jobNumber,
         customerName: customerName.trim(),
         phone: cleanPhone,
-        brand,
-        model: model.trim(),
-        problem: problem.trim(),
+        brand: finalBrand,
+        model: finalModel,
+        problem: finalProblem,
         estimate: Number(estimate),
         photos: jobPhotos,
         status: "Received",
@@ -152,8 +160,8 @@ export default function NewJobCard() {
         "",
         "Your mobile repair job card has been created.",
         `Job Number: ${jobNumber}`,
-        `Device: ${brand} ${model}`,
-        `Problem: ${problem.trim()}`,
+        `Device: ${finalBrand} ${finalModel}`,
+        `Problem: ${finalProblem}`,
         `Estimated Cost: ₹${Number(estimate).toLocaleString("en-IN")}`,
         `Private Repair Tracking: ${trackingUrl}`,
         "",
@@ -278,27 +286,32 @@ export default function NewJobCard() {
                     <select
                       required
                       value={brand}
-                      onChange={(e) => setBrand(e.target.value)}
+                      onChange={(e) => { setBrand(e.target.value); setModel(""); setCustomModel(""); setCustomBrand(""); }}
                       className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                     >
-                      <option value="">Select brand</option>
-                      {["Apple", "Samsung", "OnePlus", "Redmi", "POCO", "Realme", "Vivo", "OPPO", "Motorola", "Google Pixel", "Other"].map((item) => (
-                        <option key={item}>{item}</option>
-                      ))}
+                      <option value="">Choose mobile brand</option>
+                      {DEVICE_BRANDS.map((item) => <option key={item} value={item}>{item}</option>)}
                     </select>
+                    {brand === "Other" && (
+                      <input required value={customBrand} onChange={(e) => setCustomBrand(e.target.value)} placeholder="Enter mobile brand" className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-blue-500" />
+                    )}
                   </div>
 
                   <div>
                     <label className="mb-2 block text-sm font-medium text-slate-700">
                       Model Name *
                     </label>
-                    <input
-                      required
-                      value={model}
-                      onChange={(e) => setModel(e.target.value)}
-                      placeholder="e.g. iPhone 13"
-                      className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
-                    />
+                    {brand && brand !== "Other" ? (
+                      <select required value={model} onChange={(e) => setModel(e.target.value)} className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10">
+                        <option value="">Choose {brand} model</option>
+                        {(modelOptions.length ? modelOptions : ["Other / Not listed"]).map((item) => <option key={item} value={item}>{item}</option>)}
+                      </select>
+                    ) : (
+                      <p className="rounded-xl bg-slate-50 px-3 py-3 text-xs text-slate-500">Select a brand first to see available models.</p>
+                    )}
+                    {(brand === "Other" || model === "Other / Not listed") && (
+                      <input required value={customModel} onChange={(e) => setCustomModel(e.target.value)} placeholder="Enter exact phone model" className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-blue-500" />
+                    )}
                   </div>
                 </div>
 
@@ -306,14 +319,11 @@ export default function NewJobCard() {
                   <label className="mb-2 block text-sm font-medium text-slate-700">
                     Repair Problem *
                   </label>
-                  <textarea
-                    required
-                    rows={4}
-                    value={problem}
-                    onChange={(e) => setProblem(e.target.value)}
-                    placeholder="Describe the phone problem..."
-                    className="w-full resize-y rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
-                  />
+                  <select required value={problem} onChange={(e) => { setProblem(e.target.value); setCustomProblem(""); }} className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10">
+                    <option value="">Choose repair problem</option>
+                    {REPAIR_PROBLEMS.map((item) => <option key={item} value={item}>{item}</option>)}
+                  </select>
+                  {problem === "Other" && <textarea required rows={3} value={customProblem} onChange={(e) => setCustomProblem(e.target.value)} placeholder="Describe the other issue..." className="mt-2 w-full resize-y rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-blue-500" />}
                 </div>
               </section>
 
