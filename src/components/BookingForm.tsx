@@ -227,7 +227,7 @@ export default function BookingForm() {
 
         {/* Heading */}
         <div className="mb-8 text-center sm:mb-10">
-          <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/65 shadow-sm backdrop-blur-xl px-4 py-2 text-[9px] font-bold uppercase tracking-[0.2em] text-indigo-600">
+          <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/65 shadow-sm backdrop-blur-xl px-4 py-2 text-[9px] font-bold uppercase tracking-[0.2em] text-indigo-600">
             <span className="h-1.5 w-1.5 rounded-full bg-[#B69A69]" />
             MR MOBILE WALA REPAIRS
           </span>
@@ -273,7 +273,7 @@ export default function BookingForm() {
                     type="button"
                     onClick={() => handleServiceChange(label)}
                     aria-pressed={active}
-                    className={`relative flex min-h-[105px] flex-col items-center justify-center rounded-2xl border p-3 text-center transition-all duration-200 sm:min-h-[125px] ${
+                    className={`relative flex min-h-[84px] flex-col items-center justify-center rounded-xl border p-2.5 sm:min-h-[125px] sm:rounded-2xl sm:p-3 text-center transition-all duration-200 sm:min-h-[125px] ${
                       active
                         ? "border-indigo-600 bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-lg shadow-indigo-600/20"
                         : "border-white/80 bg-white/55 text-slate-700 hover:border-indigo-300 hover:bg-white/85"
@@ -301,7 +301,7 @@ export default function BookingForm() {
           </div>
 
           {/* Phone Selection */}
-          <div className="space-y-5 p-4 sm:p-7">
+          <div className="space-y-4 p-3 sm:space-y-5 sm:p-7">
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-bold text-[#202B32]">
                 Choose your phone
@@ -537,7 +537,7 @@ export default function BookingForm() {
               <button
                 type="submit"
                 disabled={!isFormValid}
-                className="group flex min-h-[56px] w-full items-center justify-center gap-3 rounded-full bg-slate-900 px-6 text-sm font-bold text-white shadow-[0_16px_35px_rgba(49,46,129,0.20)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-indigo-700 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-40"
+                className="group flex min-h-[52px] w-full items-center justify-center gap-3 rounded-full bg-slate-900 px-6 text-sm font-bold text-white shadow-[0_16px_35px_rgba(49,46,129,0.20)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-indigo-700 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <WhatsAppIcon size={19} />
                 Send Booking on WhatsApp
