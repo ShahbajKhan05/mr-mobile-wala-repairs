@@ -1,4 +1,3 @@
-
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import IntroLoader from "@/components/IntroLoader";
@@ -17,58 +16,57 @@ const geistMono = Geist_Mono({
 });
 
 const siteUrl = "https://mr-mobile-wala-repairs.vercel.app";
-
 const logoUrl = "/mr-mobile-wala-logo.png";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-
   title: {
-    default: "MR MOBILE WALA REPAIRS | Mobile Repair Management",
+    default: "MR MOBILE WALA REPAIRS | Mobile Repair in Rewa",
     template: "%s | MR MOBILE WALA",
   },
-
   description:
-    "MR MOBILE WALA REPAIRS — Buy, sell and repair mobile phones with a smarter repair management experience.",
-
+    "MR MOBILE WALA REPAIRS in Rewa, Madhya Pradesh. Get help with mobile phone repair, buying and selling phones, and repair service enquiries.",
   applicationName: "MR MOBILE WALA REPAIRS",
-
   keywords: [
     "MR MOBILE WALA",
-    "Mobile Repair",
-    "Mobile Repair Management",
-    "Repair Shop Management",
-    "Phone Repair",
-    "Mobile Accessories",
+    "mobile repair in Rewa",
+    "mobile phone repair Rewa",
+    "phone repair",
+    "buy sell mobile phones",
+    "mobile repair shop",
   ],
-
   openGraph: {
     type: "website",
     url: siteUrl,
     siteName: "MR MOBILE WALA REPAIRS",
     title: "MR MOBILE WALA REPAIRS",
     description:
-      "Buy, sell and repair mobile phones with MR MOBILE WALA REPAIRS.",
+      "Mobile phone repair, buying and selling enquiries in Rewa, Madhya Pradesh.",
     locale: "en_IN",
     images: [
       {
         url: logoUrl,
-        alt: "MR MOBILE WALA REPAIRS Original Logo",
+        alt: "MR MOBILE WALA REPAIRS logo",
       },
     ],
   },
-
   twitter: {
     card: "summary_large_image",
     title: "MR MOBILE WALA REPAIRS",
     description:
-      "Buy, sell and repair mobile phones with MR MOBILE WALA REPAIRS.",
+      "Mobile phone repair, buying and selling enquiries in Rewa, Madhya Pradesh.",
     images: [logoUrl],
   },
-
   robots: {
-    index: false,
-    follow: false,
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 };
 
@@ -89,8 +87,6 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-[#FAFAF8] font-sans text-[#202B32] antialiased`}
       >
         {children}
-
-        {/* Website intro — once per browser tab session */}
         <IntroLoader />
       </body>
     </html>
