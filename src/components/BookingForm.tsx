@@ -226,22 +226,22 @@ export default function BookingForm() {
 
         {/* Heading */}
         <div className="mb-8 text-center sm:mb-10">
-          <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#B69A69]/25 bg-[#FBFAF7] px-4 py-2 text-[9px] font-bold uppercase tracking-[0.2em] text-[#9A8054]">
+          <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#B69A69]/25 bg-[#FBFAF7] px-4 py-2 text-[9px] font-bold uppercase tracking-[0.2em] text-[#765A2B]">
             <span className="h-1.5 w-1.5 rounded-full bg-[#B69A69]" />
             MR MOBILE WALA
           </span>
 
           <h2 className="text-3xl font-semibold tracking-[-0.055em] text-[#202B32] sm:text-4xl md:text-5xl">
             How can we help{" "}
-            <span className="font-serif font-normal italic text-[#A58A5B]">
+            <span className="font-serif font-normal italic text-[#765A2B]">
               you?
             </span>
           </h2>
 
-          <p className="mt-3 text-sm text-[#858B8B] sm:text-base">
+          <p className="mt-3 text-sm text-[#5E6668] sm:text-base">
             Just a few quick selections. No complicated form.
           </p>
-          <p className="mt-1 text-xs text-[#858B8B]">
+          <p className="mt-1 text-xs text-[#5E6668]">
             बस कुछ आसान विकल्प चुनें और बुकिंग करें।
           </p>
         </div>
@@ -257,7 +257,7 @@ export default function BookingForm() {
               <h3 className="text-sm font-bold text-[#202B32]">
                 Choose your service
               </h3>
-              <span className="text-[10px] font-semibold text-[#92999B]">
+              <span className="text-[10px] font-semibold text-[#5E6668]">
                 STEP 01
               </span>
             </div>
@@ -283,7 +283,7 @@ export default function BookingForm() {
                       {title}
                     </span>
                     <span className={`mt-1 text-[9px] sm:text-[10px] ${
-                      active ? "text-white/65" : "text-[#92999B]"
+                      active ? "text-white/65" : "text-[#5E6668]"
                     }`}>
                       {subtitle}
                     </span>
@@ -305,7 +305,7 @@ export default function BookingForm() {
               <h3 className="text-sm font-bold text-[#202B32]">
                 Choose your phone
               </h3>
-              <span className="text-[10px] font-semibold text-[#92999B]">
+              <span className="text-[10px] font-semibold text-[#5E6668]">
                 STEP 02
               </span>
             </div>
@@ -316,7 +316,7 @@ export default function BookingForm() {
                 Mobile brand *
               </label>
               <div className="relative">
-                <Smartphone className="absolute left-4 top-1/2 -translate-y-1/2 text-[#A58A5B]" size={18} />
+                <Smartphone className="absolute left-4 top-1/2 -translate-y-1/2 text-[#765A2B]" size={18} />
                 <select
                   id="booking-brand"
                   value={brand}
@@ -329,7 +329,7 @@ export default function BookingForm() {
                     <option key={item} value={item}>{item}</option>
                   ))}
                 </select>
-                <ChevronDown className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#858B8B]" size={16} />
+                <ChevronDown className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#5E6668]" size={16} />
               </div>
             </div>
 
@@ -352,7 +352,7 @@ export default function BookingForm() {
                       <option key={item} value={item}>{item}</option>
                     ))}
                   </select>
-                  <ChevronDown className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#858B8B]" size={16} />
+                  <ChevronDown className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#5E6668]" size={16} />
                 </div>
               </div>
             )}
@@ -382,7 +382,7 @@ export default function BookingForm() {
                   <label className={labelClass}>
                     What's the problem? *
                   </label>
-                  <span className="text-[10px] text-[#92999B]">Select one</span>
+                  <span className="text-[10px] text-[#5E6668]">Select one</span>
                 </div>
 
                 <div className="flex flex-wrap gap-2">
@@ -486,7 +486,7 @@ export default function BookingForm() {
                 <h3 className="text-sm font-bold text-[#202B32]">
                   Your contact details
                 </h3>
-                <span className="text-[10px] font-semibold text-[#92999B]">
+                <span className="text-[10px] font-semibold text-[#5E6668]">
                   STEP 03
                 </span>
               </div>
@@ -544,14 +544,14 @@ export default function BookingForm() {
               </button>
 
               <div className="mt-4 flex items-center justify-center gap-2 text-center text-[10px] leading-5 text-[#899194] sm:text-xs">
-                <ShieldCheck size={15} className="shrink-0 text-[#A58A5B]" />
+                <ShieldCheck size={15} className="shrink-0 text-[#765A2B]" />
                 No payment required. We&apos;ll contact you to confirm.
               </div>
             </div>
           </div>
         </form>
 
-        <p className="mt-5 text-center text-[10px] text-[#92999B]">
+        <p className="mt-5 text-center text-[10px] text-[#5E6668]">
           Simple booking · Quick response · Personal assistance
         </p>
       </div>
