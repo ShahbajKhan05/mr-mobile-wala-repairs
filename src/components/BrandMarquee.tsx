@@ -59,30 +59,30 @@ export default function BrandMarquee() {
     <section
       id="brands"
       aria-labelledby="brands-title"
-      className="brand-showcase w-full overflow-hidden border-y border-[#eee8ef] bg-white py-7 sm:py-9"
+      className="brand-showcase w-full overflow-hidden glass-panel border-y border-white/70 bg-white/35 py-8 sm:py-10"
     >
       {/* Centered heading */}
       <div className="mx-auto mb-6 flex max-w-7xl flex-col items-center justify-center gap-3 px-5 text-center sm:mb-7 sm:px-8 lg:px-12">
         <div className="flex flex-col items-center text-center">
-          <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#B51F50] sm:text-[11px]">
+          <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-indigo-600 sm:text-[11px]">
             Trusted technology brands
           </p>
 
           <h2
             id="brands-title"
-            className="text-xl font-semibold tracking-[-0.04em] text-[#1d1d1f] sm:text-2xl"
+            className="text-xl font-semibold tracking-[-0.04em] text-slate-900 sm:text-2xl"
           >
             Find your next favourite.
           </h2>
 
-          <p className="mt-1 text-xs leading-5 text-[#6e6e73] sm:text-sm">
+          <p className="mt-1 text-xs leading-5 text-slate-500 sm:text-sm">
             Explore brands for every style and budget.
           </p>
         </div>
 
         <span
           aria-hidden="true"
-          className="h-1 w-16 shrink-0 rounded-full bg-gradient-to-r from-[#ff792d] via-[#e1306c] to-[#833ab4]"
+          className="h-1 w-16 shrink-0 rounded-full bg-gradient-to-r from-sky-400 via-indigo-500 to-violet-500"
         />
       </div>
 
