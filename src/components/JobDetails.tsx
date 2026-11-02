@@ -18,6 +18,7 @@ import {
   Link2,
   Copy,
   Truck,
+  Trash2,
 } from "lucide-react";
 import {
   getJobById,
@@ -79,6 +80,7 @@ export default function JobDetails() {
   const [trackingUrl, setTrackingUrl] = useState("");
   const [trackingLoading, setTrackingLoading] = useState(false);
   const [trackingMessage, setTrackingMessage] = useState("");
+  const [deletingJob, setDeletingJob] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -115,6 +117,22 @@ export default function JobDetails() {
       active = false;
     };
   }, [params.id]);
+
+  async function handleDeleteJob() {
+    if (!job || deletingJob) return;
+    if (!window.confirm(`Repair job ${job.id} ko Recycle Bin mein move karna hai? Aap baad mein restore kar sakte hain.`)) return;
+    setDeletingJob(true);
+    try {
+      const response = await fetch(`/api/admin/jobs/${encodeURIComponent(job.id)}`, { method: "DELETE" });
+      const result = await response.json().catch(() => null);
+      if (!response.ok || !result?.success) throw new Error(result?.message || "Job delete nahi hua.");
+      router.replace("/jobs/list");
+      router.refresh();
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Job delete nahi hua.");
+      setDeletingJob(false);
+    }
+  }
 
   async function handleGenerateTrackingLink() {
     if (!job || trackingLoading) return;
@@ -355,15 +373,26 @@ Thank you for choosing ${shopName}.`
             </p>
           </div>
 
-          <a
-            href={`https://wa.me/91${customerPhone}?text=${whatsappMessage}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-700"
-          >
-            <WhatsAppIcon size={18} />
-            WhatsApp Customer
-          </a>
+          <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
+            <a
+              href={`https://wa.me/91${customerPhone}?text=${whatsappMessage}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-700"
+            >
+              <WhatsAppIcon size={18} />
+              WhatsApp Customer
+            </a>
+            <button
+              type="button"
+              onClick={() => void handleDeleteJob()}
+              disabled={deletingJob}
+              className="flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl border border-red-200 bg-white px-5 py-3 text-sm font-semibold text-red-600 transition hover:bg-red-50 disabled:opacity-50"
+            >
+              <Trash2 size={16} />
+              {deletingJob ? "Moving..." : "Delete Job"}
+            </button>
+          </div>
         </section>
 
         <div className="grid min-w-0 gap-4 sm:gap-6 lg:grid-cols-3">
