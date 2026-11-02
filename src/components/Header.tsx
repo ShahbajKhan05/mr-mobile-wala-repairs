@@ -510,7 +510,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
           </button>
 
           {notificationsOpen && (
-            <div className="absolute right-0 top-12 z-50 w-[min(360px,calc(100vw-24px))] overflow-hidden rounded-2xl border border border-white/80 bg-white/85 shadow-[0_20px_60px_rgba(39,55,95,0.16)] backdrop-blur-2xl sm:top-14">
+            <div className="absolute right-0 top-12 z-50 w-[min(360px,calc(100vw-24px))] overflow-hidden rounded-2xl border border-white/80 bg-white/85 shadow-[0_20px_60px_rgba(39,55,95,0.16)] backdrop-blur-2xl sm:top-14">
 
               {/* Header */}
               <div className="flex items-center justify-between border-b border-white/70 p-4">
@@ -671,7 +671,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
           </button>
 
           {profileOpen && (
-            <div className="absolute right-0 top-12 z-50 w-64 overflow-hidden rounded-2xl border border border-white/80 bg-white/85 shadow-[0_20px_60px_rgba(39,55,95,0.16)] backdrop-blur-2xl sm:top-14">
+            <div className="absolute right-0 top-12 z-50 w-64 overflow-hidden rounded-2xl border border-white/80 bg-white/85 shadow-[0_20px_60px_rgba(39,55,95,0.16)] backdrop-blur-2xl sm:top-14">
 
               <div className="border-b border-slate-100 bg-white/55 p-4">
                 <div className="flex items-center gap-3">
