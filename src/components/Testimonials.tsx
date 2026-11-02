@@ -1,5 +1,5 @@
 import WhatsAppIcon from "@/components/WhatsAppIcon";
-import { MessageCircle, Quote } from "lucide-react";
+import { Quote } from "lucide-react";
 
 const REVIEWS = [
   { name: "Sajid", review: "Badhiya service hai." },
