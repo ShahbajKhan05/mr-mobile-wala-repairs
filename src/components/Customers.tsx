@@ -162,8 +162,8 @@ export default function Customers() {
   );
 
   return (
-    <main className="min-h-screen bg-slate-50 p-4 sm:p-6 lg:p-8">
-      <div className="mx-auto max-w-7xl space-y-6">
+    <main className="min-h-screen bg-slate-50 px-3 py-4 sm:p-6 lg:p-8">
+      <div className="mx-auto max-w-7xl space-y-4 sm:space-y-6">
         {/* Header */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
@@ -196,7 +196,7 @@ export default function Customers() {
 
         {/* Stats */}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="rounded-2xl border border-slate-200 bg-white p-5">
+          <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
             <div className="flex items-center justify-between">
               <p className="text-sm text-slate-500">Total Customers</p>
               <div className="rounded-xl bg-blue-50 p-2 text-blue-600">
@@ -208,7 +208,7 @@ export default function Customers() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-5">
+          <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
             <div className="flex items-center justify-between">
               <p className="text-sm text-slate-500">Total Received</p>
               <div className="rounded-xl bg-emerald-50 p-2 text-emerald-600">
@@ -220,7 +220,7 @@ export default function Customers() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-5">
+          <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
             <div className="flex items-center justify-between">
               <p className="text-sm text-slate-500">Pending Amount</p>
               <div className="rounded-xl bg-amber-50 p-2 text-amber-600">
@@ -304,7 +304,7 @@ export default function Customers() {
               {filteredCustomers.map((customer) => (
                 <article
                   key={customer.key}
-                  className="flex flex-col gap-4 p-4 transition hover:bg-slate-50 sm:flex-row sm:items-center sm:justify-between sm:p-5"
+                  className="flex flex-col gap-3 p-3 transition hover:bg-slate-50 sm:flex-row sm:gap-4 sm:p-5 sm:items-center sm:justify-between sm:p-5"
                 >
                   <div className="flex min-w-0 items-start gap-3">
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-lg font-bold text-blue-700">
