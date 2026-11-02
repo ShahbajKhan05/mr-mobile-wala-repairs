@@ -132,7 +132,7 @@ export default function Devices() {
 
   return (
     <div className="box-border w-full min-w-0 max-w-full overflow-x-clip px-3 py-4 sm:px-5 sm:py-6 lg:px-6 xl:px-8">
-      <div className="mx-auto w-full min-w-0 max-w-[1600px] space-y-5 sm:space-y-6">
+      <div className="mx-auto w-full min-w-0 max-w-[1600px] space-y-5 sm:space-y-4 sm:space-y-6">
 
         {/* Header */}
         <header className="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
