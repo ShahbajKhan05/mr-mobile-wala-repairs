@@ -1,8 +1,6 @@
-
 import type { MetadataRoute } from "next";
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com";
+const siteUrl = "https://mr-mobile-wala-repairs.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -13,16 +11,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${siteUrl}/phones`,
+      url: `${siteUrl}/privacy-policy`,
       lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
+      changeFrequency: "yearly",
+      priority: 0.3,
     },
     {
-      url: `${siteUrl}/accessories`,
+      url: `${siteUrl}/terms`,
       lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.7,
+      changeFrequency: "yearly",
+      priority: 0.3,
     },
   ];
 }
