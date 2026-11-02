@@ -27,7 +27,7 @@ export default function VideoHero() {
         {/* Brand Introduction */}
         <div className="mx-auto text-center">
 
-          <p className="mb-6 text-[9px] font-bold uppercase tracking-[0.35em] text-[#A58A5B] sm:mb-8 sm:text-xs">
+          <p className="mb-6 text-[9px] font-bold uppercase tracking-[0.35em] text-[#765A2B] sm:mb-8 sm:text-xs">
             Your Trusted Mobile Destination
           </p>
 
@@ -38,7 +38,7 @@ export default function VideoHero() {
           >
             Welcome in the World of
             <br className="sm:hidden" />{" "}
-            <span className="font-serif font-normal italic text-[#A58A5B]">
+            <span className="font-serif font-normal italic text-[#765A2B]">
               Mr Mobile Wala
             </span>
           </h1>
@@ -61,13 +61,13 @@ export default function VideoHero() {
           {/* Tagline */}
           <h2 className="mt-8 text-[clamp(1.7rem,4vw,3.5rem)] font-semibold leading-tight tracking-[-0.055em] text-[#202B32] sm:mt-10">
             Your Phone.{" "}
-            <span className="font-serif font-normal italic text-[#A58A5B]">
+            <span className="font-serif font-normal italic text-[#765A2B]">
               Our Passion.
             </span>
           </h2>
 
           {/* Description */}
-          <p className="mx-auto mt-4 max-w-lg text-sm leading-7 text-[#777D80] sm:text-base">
+          <p className="mx-auto mt-4 max-w-lg text-sm leading-7 text-[#626B70] sm:text-base">
             Everything your phone needs, from buying and selling
             to expert repairs. All in one place.
           </p>
@@ -88,11 +88,11 @@ export default function VideoHero() {
             aria-label="Scroll to next section"
             className="group mx-auto mt-9 flex flex-col items-center gap-3 sm:mt-12"
           >
-            <span className="text-[9px] font-bold uppercase tracking-[0.28em] text-[#777D80] transition-colors group-hover:text-[#A58A5B]">
+            <span className="text-[9px] font-bold uppercase tracking-[0.28em] text-[#626B70] transition-colors group-hover:text-[#765A2B]">
               Discover More
             </span>
 
-            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#E9E5DC] text-[#A58A5B] transition-all duration-300 group-hover:translate-y-1 group-hover:border-[#A58A5B] group-hover:bg-[#A58A5B] group-hover:text-white">
+            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#E9E5DC] text-[#765A2B] transition-all duration-300 group-hover:translate-y-1 group-hover:border-[#A58A5B] group-hover:bg-[#A58A5B] group-hover:text-white">
               <ArrowDown size={17} strokeWidth={1.7} />
             </span>
           </button>
