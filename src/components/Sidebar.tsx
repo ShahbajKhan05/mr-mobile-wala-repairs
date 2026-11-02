@@ -1,8 +1,11 @@
+
 "use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
+
 import {
   LayoutDashboard,
   ClipboardList,
@@ -11,15 +14,14 @@ import {
   Package,
   BarChart3,
   Settings,
-  Headphones,
   ChevronRight,
   X,
   PlusCircle,
 } from "lucide-react";
 
 type SidebarProps = {
-  isOpen?: boolean;
-  onClose?: () => void;
+  isOpen: boolean;
+  onClose: () => void;
 };
 
 const navigation = [
@@ -81,41 +83,71 @@ const navigation = [
 ];
 
 function isActiveRoute(pathname: string, href: string) {
-  if (href === "/dashboard") {
-    return pathname === "/dashboard";
-  }
-
-  if (href === "/jobs") {
-    return pathname === "/jobs";
+  if (href === "/dashboard" || href === "/jobs") {
+    return pathname === href;
   }
 
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
 export default function Sidebar({
-  isOpen = false,
+  isOpen,
   onClose,
 }: SidebarProps) {
   const pathname = usePathname();
 
+  // Escape key and body scroll lock
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isOpen, onClose]);
+
+  // Close after navigation
+  useEffect(() => {
+    onClose();
+  }, [pathname]);
+
   return (
     <>
-      {isOpen && (
-        <button
-          type="button"
-          aria-label="Close sidebar"
-          onClick={onClose}
-          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm lg:hidden"
-        />
-      )}
+      {/* Mobile Overlay */}
+      <button
+        type="button"
+        aria-label="Close sidebar overlay"
+        tabIndex={isOpen ? 0 : -1}
+        onClick={onClose}
+        className={`fixed inset-0 z-40 cursor-default bg-black/40 backdrop-blur-[2px] transition-opacity duration-300 lg:hidden ${
+          isOpen
+            ? "pointer-events-auto opacity-100"
+            : "pointer-events-none opacity-0"
+        }`}
+      />
 
+      {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-[260px] flex-col border-r border-[#1E1E1E]/10 bg-[#FAFAF8] transition-transform duration-300 lg:translate-x-0 ${
+        id="admin-sidebar"
+        aria-label="Admin sidebar"
+        aria-hidden={!isOpen}
+        className={`fixed inset-y-0 left-0 z-50 flex w-[260px] flex-col border-r border-[#1E1E1E]/10 bg-[#FAFAF8] shadow-xl transition-transform duration-300 ease-in-out lg:translate-x-0 lg:shadow-none ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         {/* Brand */}
-        <div className="flex h-[76px] items-center justify-between border-b border-[#1E1E1E]/10 px-5">
+        <div className="flex h-[76px] shrink-0 items-center justify-between border-b border-[#1E1E1E]/10 px-5">
           <Link
             href="/dashboard"
             onClick={onClose}
@@ -137,20 +169,21 @@ export default function Sidebar({
             </div>
           </Link>
 
+          {/* Close Button */}
           <button
             type="button"
             onClick={onClose}
-            aria-label="Close menu"
-            className="rounded-lg p-2 text-[#1E1E1E]/60 transition hover:bg-[#1E1E1E]/5 lg:hidden"
+            aria-label="Close sidebar"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[#1E1E1E]/10 text-[#1E1E1E]/70 transition hover:bg-[#1E1E1E]/5 hover:text-[#1E1E1E] active:scale-95 lg:hidden"
           >
-            <X size={20} />
+            <X size={19} />
           </button>
         </div>
 
         {/* Navigation */}
         <nav
           aria-label="Main navigation"
-          className="flex-1 space-y-7 overflow-y-auto px-4 py-7"
+          className="flex-1 space-y-7 overflow-y-auto overscroll-contain px-4 py-7"
         >
           {navigation.map((section) => (
             <div key={section.title}>
@@ -200,34 +233,14 @@ export default function Sidebar({
           ))}
         </nav>
 
-        {/* Support */}
-        <div className="px-4 pb-5">
-          <div className="rounded-2xl bg-[#1E1E1E] p-4 text-white">
-            <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-xl bg-white/10">
-              <Headphones size={19} />
-            </div>
-
-            <p className="text-sm font-bold">Need help?</p>
-
-            <p className="mt-1 text-xs leading-relaxed text-white/55">
-              Manage your repair shop with confidence.
-            </p>
-
-            <a
-              href="https://wa.me/919131383323"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 flex w-full items-center justify-center rounded-lg bg-white/10 px-3 py-2 text-xs font-semibold transition hover:bg-white/20"
-            >
-              Contact Support
-            </a>
-          </div>
-        </div>
-
         {/* Shop Profile */}
-        <div className="border-t border-[#1E1E1E]/10 p-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1E1E1E] text-sm font-bold text-white">
+        <div className="shrink-0 border-t border-[#1E1E1E]/10 p-4">
+          <Link
+            href="/settings"
+            onClick={onClose}
+            className="group flex items-center gap-3 rounded-xl p-2 transition hover:bg-[#1E1E1E]/5"
+          >
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#1E1E1E] text-sm font-bold text-white">
               MR
             </div>
 
@@ -237,12 +250,15 @@ export default function Sidebar({
               </p>
 
               <p className="truncate text-xs text-[#1E1E1E]/45">
-                Owner Account
+                Admin Account
               </p>
             </div>
 
-            <Settings size={17} className="text-[#1E1E1E]/40" />
-          </div>
+            <Settings
+              size={17}
+              className="text-[#1E1E1E]/40 transition group-hover:text-[#1E1E1E]"
+            />
+          </Link>
         </div>
       </aside>
     </>
