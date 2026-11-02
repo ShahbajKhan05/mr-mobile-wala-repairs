@@ -15,6 +15,7 @@ import {
   CalendarDays,
   ArrowUpRight,
   MonitorSmartphone,
+  Trash2,
 } from "lucide-react";
 import { getJobs, type RepairJob } from "@/lib/jobs";
 
@@ -49,6 +50,7 @@ export default function Devices() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [deletingDevice, setDeletingDevice] = useState("");
 
   const loadDevices = useCallback(async () => {
     try {
@@ -65,6 +67,26 @@ export default function Devices() {
   useEffect(() => {
     void loadDevices();
   }, [loadDevices]);
+
+  async function deleteDevice(device: DeviceSummary) {
+    const confirmed = window.confirm(
+      `Delete ${device.brand} ${device.model} and move all ${device.totalRepairs} linked repair job(s) to Recycle Bin? You can restore them later.`
+    );
+    if (!confirmed || deletingDevice) return;
+    setDeletingDevice(device.key);
+    setError("");
+    try {
+      const params = new URLSearchParams({ brand: device.brand, model: device.model });
+      const response = await fetch(`/api/admin/devices?${params.toString()}`, { method: "DELETE" });
+      const result = await response.json().catch(() => null);
+      if (!response.ok || !result?.success) throw new Error(result?.message || "Device delete nahi hua.");
+      await loadDevices();
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Device delete nahi hua.");
+    } finally {
+      setDeletingDevice("");
+    }
+  }
 
   const devices = useMemo<DeviceSummary[]>(() => {
     const grouped = new Map<string, DeviceSummary>();
@@ -340,13 +362,24 @@ export default function Devices() {
                       </p>
                     </div>
 
-                    <Link
-                      href={`/jobs/${encodeURIComponent(device.latestJob.id)}`}
-                      className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-600 sm:w-auto"
-                    >
-                      Latest Repair
-                      <ArrowUpRight size={16} />
-                    </Link>
+                    <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
+                      <Link
+                        href={`/jobs/${encodeURIComponent(device.latestJob.id)}`}
+                        className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-600"
+                      >
+                        Latest Repair
+                        <ArrowUpRight size={16} />
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => void deleteDevice(device)}
+                        disabled={deletingDevice === device.key}
+                        className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-red-200 bg-white px-4 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-red-50 disabled:opacity-50"
+                      >
+                        <Trash2 size={15} />
+                        {deletingDevice === device.key ? "Moving..." : "Delete"}
+                      </button>
+                    </div>
                   </div>
                 </article>
               ))}
