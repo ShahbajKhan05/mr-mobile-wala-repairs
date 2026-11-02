@@ -156,7 +156,7 @@ export default function NewJobCard() {
         `Problem: ${problem.trim()}`,
         `Estimated Cost: ₹${Number(estimate).toLocaleString("en-IN")}`,
         "",
-        "Please review the repair estimate with MR MOBILE WALA.",
+        "We have received your device for repair. We will keep you updated.",
         "",
         "Thank you!",
       ].join("\n");
@@ -437,18 +437,7 @@ export default function NewJobCard() {
                 </div>
               </section>
 
-              <section className="rounded-2xl border border-blue-100 bg-blue-50/70 p-5">
-                <div className="flex items-center gap-2 text-blue-700">
-                  <MessageCircle size={19} />
-                  <h3 className="font-bold">Customer Approval</h3>
-                </div>
-                <p className="mt-3 text-sm leading-6 text-slate-600">
-                  The job is saved locally before WhatsApp opens with a pre-filled summary.
-                </p>
-                <p className="mt-3 text-xs leading-5 text-slate-500">
-                  WhatsApp does not send automatically. Customer approval is not yet recorded.
-                </p>
-              </section>
+
             </div>
           </div>
 
