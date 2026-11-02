@@ -22,6 +22,7 @@ export type RepairJob = {
   approvalStatus: "Pending" | "Approved" | "Rejected";
   createdAt: string;
   paidAt?: string;
+  pickupStatus?: "Pending" | "Picked Up";
 };
 
 type ApiResponse<T> = { success: boolean; message?: string } & T;
