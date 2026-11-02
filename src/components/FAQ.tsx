@@ -79,7 +79,7 @@ export default function FAQ() {
           <div className="relative flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-center">
 
             <div>
-              <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.35em] text-[#A58A5B]">
+              <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.35em] text-[#765A2B]">
                 Got Questions?
               </p>
 
@@ -87,11 +87,11 @@ export default function FAQ() {
                 Frequently Asked Questions
               </h2>
 
-              <p className="mt-3 text-sm font-medium text-[#A58A5B]">
+              <p className="mt-3 text-sm font-medium text-[#765A2B]">
                 अक्सर पूछे जाने वाले सवाल
               </p>
 
-              <p className="mt-4 max-w-md text-sm leading-7 text-[#777D80]">
+              <p className="mt-4 max-w-md text-sm leading-7 text-[#626B70]">
                 Everything you need to know about our mobile services.
                 <br />
                 हमारी मोबाइल सर्विस से जुड़ी जरूरी जानकारी यहाँ पाएँ।
@@ -111,7 +111,7 @@ export default function FAQ() {
               className="group flex shrink-0 items-center gap-4 rounded-full border border-[#202B32]/15 bg-white py-3 pl-5 pr-3 transition-all duration-300 hover:border-[#B69A69] hover:shadow-[0_8px_25px_rgba(32,43,50,0.07)]"
             >
               <span className="text-left">
-                <span className="block text-[9px] font-bold uppercase tracking-[0.2em] text-[#A58A5B]">
+                <span className="block text-[9px] font-bold uppercase tracking-[0.2em] text-[#765A2B]">
                   {fullView ? "Close FAQs" : "Explore Answers"}
                 </span>
 
@@ -166,7 +166,7 @@ export default function FAQ() {
                       onClick={() =>
                         setOpenIndex(isOpen ? null : index)
                       }
-                      className="flex w-full items-center justify-between gap-5 py-6 text-left transition-colors duration-200 hover:text-[#A58A5B] sm:py-7"
+                      className="flex w-full items-center justify-between gap-5 py-6 text-left transition-colors duration-200 hover:text-[#765A2B] sm:py-7"
                     >
                       <span className="min-w-0">
                         <span className="mb-2 block text-[9px] font-semibold tracking-[0.2em] text-[#B69A69]">
@@ -177,7 +177,7 @@ export default function FAQ() {
                           {faq.question}
                         </span>
 
-                        <span className="mt-1 block text-xs leading-6 text-[#8A8D8E] sm:text-sm">
+                        <span className="mt-1 block text-xs leading-6 text-[#626B70] sm:text-sm">
                           {faq.hindi}
                         </span>
                       </span>
@@ -206,7 +206,7 @@ export default function FAQ() {
                             {faq.answer}
                           </p>
 
-                          <p className="mt-2 text-sm leading-7 text-[#8A8D8E]">
+                          <p className="mt-2 text-sm leading-7 text-[#626B70]">
                             {faq.answerHindi}
                           </p>
                         </div>
@@ -217,7 +217,7 @@ export default function FAQ() {
               })}
             </div>
 
-            <p className="mt-7 text-center text-xs leading-6 text-[#8A8D8E]">
+            <p className="mt-7 text-center text-xs leading-6 text-[#626B70]">
               Still have questions? Contact us on WhatsApp.
               <br />
               अभी भी कोई सवाल है? WhatsApp पर हमसे संपर्क करें।
@@ -227,7 +227,7 @@ export default function FAQ() {
               <button
                 type="button"
                 onClick={() => setFullView(false)}
-                className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[#A58A5B] transition-colors hover:bg-[#A58A5B]/10"
+                className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[#765A2B] transition-colors hover:bg-[#A58A5B]/10"
               >
                 <ArrowDown size={14} className="rotate-180" />
                 Close Full View
