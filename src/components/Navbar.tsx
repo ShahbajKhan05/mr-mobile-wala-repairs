@@ -128,7 +128,7 @@ export default function Navbar() {
             </button>
 
             {isSocialOpen && (
-              <div className="absolute right-0 top-[calc(100%+14px)] w-56 overflow-hidden rounded-2xl border border-[#e8e7e2] border border-white/80 bg-white/85 p-2 shadow-[0_20px_60px_rgba(39,55,95,0.16)] backdrop-blur-2xl">
+              <div className="absolute right-0 top-[calc(100%+14px)] w-56 overflow-hidden rounded-2xl border border-white/80 bg-white/85 p-2 shadow-[0_20px_60px_rgba(39,55,95,0.16)] backdrop-blur-2xl">
                 <p className="px-3 pb-2 pt-2 text-[10px] font-bold uppercase tracking-[0.14em] text-[#999990]">
                   Get in touch
                 </p>
