@@ -87,6 +87,7 @@ export async function GET(
         warrantyDays: warrantyActive ? WARRANTY_DAYS : 0,
         warrantyStartDate: warranty.startDate,
         warrantyEndDate: warranty.endDate,
+        warrantyExpiresAt: warranty.expiresAt,
         photos: safePhotos,
         events: events ?? [],
       },
