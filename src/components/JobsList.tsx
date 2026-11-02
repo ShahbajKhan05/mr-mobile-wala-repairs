@@ -78,8 +78,8 @@ export default function JobsList() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 p-4 sm:p-6 lg:p-8">
-      <div className="mx-auto max-w-7xl space-y-6">
+    <main className="min-h-screen bg-slate-50 px-3 py-4 sm:p-6 lg:p-8">
+      <div className="mx-auto max-w-7xl space-y-4 sm:space-y-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-sm font-medium text-blue-600">
@@ -115,28 +115,28 @@ export default function JobsList() {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-2xl border border-slate-200 bg-white p-5">
+          <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
             <p className="text-sm text-slate-500">Total Jobs</p>
             <p className="mt-2 text-3xl font-bold text-slate-900">
               {jobs.length}
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-5">
+          <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
             <p className="text-sm text-slate-500">Received</p>
             <p className="mt-2 text-3xl font-bold text-blue-600">
               {jobs.filter((job) => job.status === "Received").length}
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-5">
+          <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
             <p className="text-sm text-slate-500">Repairing</p>
             <p className="mt-2 text-3xl font-bold text-violet-600">
               {jobs.filter((job) => job.status === "Repairing").length}
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-5">
+          <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
             <p className="text-sm text-slate-500">Ready for Pickup</p>
             <p className="mt-2 text-3xl font-bold text-emerald-600">
               {jobs.filter((job) => job.status === "Ready").length}
@@ -214,7 +214,7 @@ export default function JobsList() {
               
 <article
   key={job.id}
-  className="flex flex-col gap-4 p-4 transition hover:bg-slate-50 sm:flex-row sm:items-center sm:justify-between sm:p-5"
+  className="flex flex-col gap-3 p-3 transition hover:bg-slate-50 sm:flex-row sm:gap-4 sm:p-5 sm:items-center sm:justify-between sm:p-5"
 >
   <div className="flex min-w-0 items-start gap-3">
     <div className="rounded-xl bg-slate-100 p-3 text-slate-600">
