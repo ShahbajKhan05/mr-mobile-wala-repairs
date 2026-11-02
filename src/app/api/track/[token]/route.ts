@@ -3,8 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/server";
 import { createRepairPhotoUrl } from "@/lib/supabase/storage";
 
-export const dynamic = "force-dynamic";
-
 export async function GET(
   request: NextRequest,
   context: { params: Promise<{ token: string }> }
