@@ -17,6 +17,10 @@ import {
 
 type BookingType = "Buy Mobile" | "Sell Mobile" | "Repair Mobile";
 
+type BookingFormProps = {
+  initialService?: BookingType;
+};
+
 const SERVICES = [
   { label: "Buy Mobile" as const, title: "Buy", subtitle: "Find a phone", icon: ShoppingBag },
   { label: "Sell Mobile" as const, title: "Sell", subtitle: "Get best value", icon: Tag },
@@ -129,9 +133,8 @@ const inputClass =
 const labelClass =
   "mb-2 block text-[11px] font-bold uppercase tracking-[0.12em] text-slate-600";
 
-export default function BookingForm() {
-  const [bookingType, setBookingType] =
-    useState<BookingType>("Repair Mobile");
+export default function BookingForm({ initialService = "Repair Mobile" }: BookingFormProps) {
+  const [bookingType, setBookingType] = useState<BookingType>(initialService);
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -144,11 +147,8 @@ export default function BookingForm() {
   const [expectedPrice, setExpectedPrice] = useState("");
 
   useEffect(() => {
-    const service = new URLSearchParams(window.location.search).get("service");
-    if (service === "buy") setBookingType("Buy Mobile");
-    if (service === "sell") setBookingType("Sell Mobile");
-    if (service === "repair") setBookingType("Repair Mobile");
-  }, []);
+    setBookingType(initialService);
+  }, [initialService]);
 
   const modelOptions = PHONE_MODELS[brand] || [];
 
