@@ -17,6 +17,7 @@ import {
   Truck,
   Layers3,
 } from "lucide-react";
+import { INVENTORY_CATEGORIES } from "@/lib/form-options";
 import {
   deleteInventoryPart,
   getInventoryParts,
@@ -24,14 +25,7 @@ import {
   type InventoryPart,
 } from "@/lib/inventory";
 
-const categories = [
-  "Display",
-  "Battery",
-  "Charging",
-  "Camera",
-  "Speaker",
-  "Other",
-];
+const categories = [...INVENTORY_CATEGORIES];
 
 const emptyForm = {
   name: "",
