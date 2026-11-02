@@ -12,7 +12,6 @@ import {
   Menu,
   MessageCircle,
   Store,
-  ShieldCheck,
   X,
 } from "lucide-react";
 
