@@ -34,7 +34,7 @@ async function readResponse<T>(response: Response): Promise<T> {
   return result as T;
 }
 
-export async function saveJob(job: RepairJob): Promise<void> {
+export async function saveJob(job: RepairJob): Promise<string> {
   const form = new FormData();
   form.set("jobNumber", job.id);
   form.set("customerName", job.customerName);
