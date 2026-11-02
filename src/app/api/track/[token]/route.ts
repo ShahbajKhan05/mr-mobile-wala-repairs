@@ -1,9 +1,10 @@
 import { createHash } from "crypto";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/server";
 import { createRepairPhotoUrl } from "@/lib/supabase/storage";
 
 export async function GET(
+  _request: NextRequest,
   context: { params: Promise<{ token: string }> }
 ) {
   try {
