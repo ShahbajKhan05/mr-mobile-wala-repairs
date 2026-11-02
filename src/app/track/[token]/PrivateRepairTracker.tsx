@@ -170,7 +170,7 @@ export default function PrivateRepairTracker({ token }: { token: string }) {
                     <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
                       {job.photos.map((photo) => (
                         <a key={photo.key} href={photo.url} target="_blank" rel="noreferrer" className="group overflow-hidden rounded-xl border border-white/80 bg-white/60">
-                          <img src={photo.url} alt={`${photo.key} side of device`} className="aspect-square w-full object-cover transition duration-300 group-hover:scale-[1.03]" />
+                          <Image src={photo.url} alt={`${photo.key} side of device`} width={480} height={480} unoptimized className="aspect-square w-full object-cover transition duration-300 group-hover:scale-[1.03]" />
                           <p className="px-2 py-2 text-center text-[10px] font-semibold capitalize text-slate-600">{photo.key} side</p>
                         </a>
                       ))}
