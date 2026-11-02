@@ -5,7 +5,7 @@ import Link from "next/link";
 import {
   Activity, ArrowRight, ArrowUpRight, CalendarDays, CheckCircle2,
   ClipboardList, Clock3, IndianRupee, Package, Plus, RefreshCw,
-  Smartphone, Users, Wallet, Wrench, AlertCircle,
+  Smartphone, Users, Wallet, Wrench, AlertCircle, Trash2,
 } from "lucide-react";
 import { getJobs, type RepairJob } from "@/lib/jobs";
 
@@ -49,6 +49,19 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => { void loadDashboard(); }, [loadDashboard]);
+
+  async function moveJobToRecycleBin(job: RepairJob) {
+    if (!window.confirm(`Repair job ${job.id} ko Recycle Bin mein move karna hai?`)) return;
+    setError("");
+    try {
+      const response = await fetch(`/api/admin/jobs/${encodeURIComponent(job.id)}`, { method: "DELETE" });
+      const result = await response.json().catch(() => null);
+      if (!response.ok || !result?.success) throw new Error(result?.message || "Job delete nahi hua.");
+      await loadDashboard();
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Job delete nahi hua.");
+    }
+  }
 
   const metrics = useMemo(() => {
     const ready = jobs.filter((job) => job.status === "Ready").length;
@@ -141,7 +154,7 @@ export default function Dashboard() {
               <Link href="/jobs/list" className="inline-flex items-center gap-1 text-xs font-bold text-indigo-700 transition hover:text-indigo-800">View all jobs <ArrowRight size={14} /></Link>
             </div>
             {loading ? <div className="space-y-4 p-6">{Array.from({length:4}).map((_,i)=><div key={i} className="h-12 animate-pulse rounded-xl bg-slate-100" />)}</div> : recentJobs.length === 0 ? <div className="flex flex-col items-center px-5 py-12 text-center"><span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-500"><Smartphone size={25}/></span><h3 className="mt-4 font-bold text-slate-800">No repair jobs yet</h3><p className="mt-1 max-w-xs text-sm text-slate-500">Create your first job card to see customer repairs here.</p><Link href="/jobs" className="mt-4 inline-flex items-center gap-2 rounded-xl border border-white/80 bg-white/55 text-slate-800 shadow-[0_18px_55px_rgba(39,55,95,0.10)] backdrop-blur-2xl px-4 py-2.5 text-xs font-bold text-slate-900"><Plus size={15}/> Create first job</Link></div> :
-              <div className="overflow-x-auto"><table className="w-full min-w-[680px] text-left"><thead className="bg-white/45 text-[10px] font-bold uppercase tracking-[.12em] text-slate-500"><tr><th className="px-5 py-3.5 sm:px-6">Job / Customer</th><th className="px-4 py-3.5">Device</th><th className="px-4 py-3.5">Estimate</th><th className="px-4 py-3.5">Status</th><th className="px-5 py-3.5">Date</th></tr></thead><tbody>{recentJobs.map((job)=><tr key={job.id} className="border-t border-white/70 transition hover:bg-white/50"><td className="px-5 py-4 sm:px-6"><Link href={`/jobs/${encodeURIComponent(job.id)}`} className="font-bold text-slate-800 hover:text-indigo-700">{job.id}</Link><p className="mt-1 text-xs text-slate-500">{job.customerName}</p></td><td className="px-4 py-4"><p className="text-sm font-semibold text-slate-700">{job.brand} {job.model}</p><p className="mt-1 max-w-[170px] truncate text-xs text-slate-500">{job.problem}</p></td><td className="px-4 py-4 text-sm font-semibold text-slate-700">{money(Number(job.estimate || 0))}<p className={`mt-1 text-[10px] font-semibold ${job.paymentStatus === "Paid" ? "text-emerald-600" : "text-amber-600"}`}>{job.paymentStatus === "Paid" ? "Paid" : "Payment pending"}</p></td><td className="px-4 py-4"><span className={`inline-flex whitespace-nowrap rounded-full px-2.5 py-1 text-[11px] font-bold ring-1 ring-inset ${statusClass[job.status]}`}>{job.status}</span></td><td className="px-5 py-4 text-xs text-slate-500">{dateLabel(job.createdAt)}</td></tr>)}</tbody></table></div>}
+              <div className="overflow-x-auto"><table className="w-full min-w-[760px] text-left"><thead className="bg-white/45 text-[10px] font-bold uppercase tracking-[.12em] text-slate-500"><tr><th className="px-5 py-3.5 sm:px-6">Job / Customer</th><th className="px-4 py-3.5">Device</th><th className="px-4 py-3.5">Estimate</th><th className="px-4 py-3.5">Status</th><th className="px-5 py-3.5">Date</th><th className="px-5 py-3.5 text-right">Action</th></tr></thead><tbody>{recentJobs.map((job)=><tr key={job.id} className="border-t border-white/70 transition hover:bg-white/50"><td className="px-5 py-4 sm:px-6"><Link href={`/jobs/${encodeURIComponent(job.id)}`} className="font-bold text-slate-800 hover:text-indigo-700">{job.id}</Link><p className="mt-1 text-xs text-slate-500">{job.customerName}</p></td><td className="px-4 py-4"><p className="text-sm font-semibold text-slate-700">{job.brand} {job.model}</p><p className="mt-1 max-w-[170px] truncate text-xs text-slate-500">{job.problem}</p></td><td className="px-4 py-4 text-sm font-semibold text-slate-700">{money(Number(job.estimate || 0))}<p className={`mt-1 text-[10px] font-semibold ${job.paymentStatus === "Paid" ? "text-emerald-600" : "text-amber-600"}`}>{job.paymentStatus === "Paid" ? "Paid" : "Payment pending"}</p></td><td className="px-4 py-4"><span className={`inline-flex whitespace-nowrap rounded-full px-2.5 py-1 text-[11px] font-bold ring-1 ring-inset ${statusClass[job.status]}`}>{job.status}</span></td><td className="px-5 py-4 text-xs text-slate-500">{dateLabel(job.createdAt)}</td><td className="px-5 py-4 text-right"><button type="button" onClick={() => void moveJobToRecycleBin(job)} aria-label={`Move ${job.id} to Recycle Bin`} className="inline-flex items-center gap-1.5 rounded-lg border border-red-100 px-2.5 py-2 text-[11px] font-bold text-red-600 transition hover:bg-red-50"><Trash2 size={14}/> Delete</button></td></tr>)}</tbody></table></div>}
           </article>
 
           <div className="space-y-5">
