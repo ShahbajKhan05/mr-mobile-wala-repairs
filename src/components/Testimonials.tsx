@@ -1,3 +1,4 @@
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { MessageCircle, Quote } from "lucide-react";
 
 const REVIEWS = [
@@ -68,7 +69,7 @@ export default function Testimonials() {
             rel="noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-xs font-bold uppercase tracking-[0.14em] text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-indigo-600 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
           >
-            <MessageCircle size={16} />
+            <WhatsAppIcon size={16} />
             Share Your Feedback
           </a>
         </div>
