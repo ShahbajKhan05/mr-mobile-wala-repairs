@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function WhatsAppIcon({ size = 18, className = "" }: { size?: number; className?: string }) {
   return (
     <Image
-      src="/whatsapp.png"
+      src="/Whatsapp-3d.svg"
       alt=""
       aria-hidden="true"
       width={size}
