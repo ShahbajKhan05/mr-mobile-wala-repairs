@@ -50,12 +50,12 @@ export default function WhyChooseUs() {
   return (
     <section
       aria-labelledby="why-choose-heading"
-      className="glass-page px-4 py-14 sm:px-8 sm:py-20 lg:px-12 lg:py-24"
+      className="glass-page px-4 py-10 sm:px-8 sm:py-20 lg:px-12 lg:py-24"
     >
       <div className="mx-auto max-w-[1200px]">
 
         {/* Section Heading */}
-        <div className="mb-9 text-center sm:mb-14">
+        <div className="mb-6 text-center sm:mb-14">
           <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.3em] text-indigo-600">
             The MR MOBILE WALA REPAIRS Difference
           </p>
@@ -84,7 +84,7 @@ export default function WhyChooseUs() {
             return (
               <article
                 key={feature.number}
-                className="glass-card group relative rounded-[24px] p-5 sm:rounded-[28px] sm:p-7"
+                className="glass-card group relative rounded-[20px] p-4 sm:rounded-[28px] sm:p-7"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex h-11 w-11 items-center justify-center border border-[#E9E5DC] text-[#765A2B] transition-all duration-300 group-hover:border-[#A58A5B] group-hover:bg-[#A58A5B] group-hover:text-white">
@@ -96,7 +96,7 @@ export default function WhyChooseUs() {
                   </span>
                 </div>
 
-                <h3 className="mt-5 text-lg font-semibold tracking-tight text-[#202B32]">
+                <h3 className="mt-4 text-lg font-semibold tracking-tight text-[#202B32]">
                   {feature.title}
                 </h3>
 
