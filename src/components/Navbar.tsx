@@ -17,12 +17,10 @@ import {
 } from "lucide-react";
 
 const NAV_LINKS = [
-  { label: "Phones", href: "/phones", comingSoon: true },
-  { label: "Accessories", href: "/accessories", comingSoon: true },
-  { label: "Services", href: "/services", comingSoon: true },
+  { label: "Home", href: "/", comingSoon: false },
+  { label: "Services", href: "/#services", comingSoon: false },
   { label: "Track Repair", href: "/track", comingSoon: false },
-  { label: "About", href: "/about", comingSoon: true },
-  { label: "Contact", href: "/contact", comingSoon: true },
+  { label: "Contact", href: "https://wa.me/919131383323", comingSoon: false },
 ];
 
 const SOCIAL_LINKS = [
