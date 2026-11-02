@@ -67,7 +67,7 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="w-full bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24"
+      className="w-full bg-white/55 px-5 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24"
     >
       <div className="mx-auto max-w-4xl">
 
@@ -79,19 +79,19 @@ export default function FAQ() {
           <div className="relative flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-center">
 
             <div>
-              <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.35em] text-[#765A2B]">
+              <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.35em] text-indigo-600">
                 Got Questions?
               </p>
 
-              <h2 className="text-3xl font-semibold tracking-[-0.045em] text-[#202B32] sm:text-4xl">
+              <h2 className="text-3xl font-semibold tracking-[-0.045em] text-slate-900 sm:text-4xl">
                 Frequently Asked Questions
               </h2>
 
-              <p className="mt-3 text-sm font-medium text-[#765A2B]">
+              <p className="mt-3 text-sm font-medium text-indigo-600">
                 अक्सर पूछे जाने वाले सवाल
               </p>
 
-              <p className="mt-4 max-w-md text-sm leading-7 text-[#626B70]">
+              <p className="mt-4 max-w-md text-sm leading-7 text-slate-500">
                 Everything you need to know about our mobile services.
                 <br />
                 हमारी मोबाइल सर्विस से जुड़ी जरूरी जानकारी यहाँ पाएँ।
@@ -108,14 +108,14 @@ export default function FAQ() {
               onClick={() => setFullView(!fullView)}
               aria-expanded={fullView}
               aria-controls="faq-full-content"
-              className="group flex shrink-0 items-center gap-4 rounded-full border border-[#202B32]/15 bg-white py-3 pl-5 pr-3 transition-all duration-300 hover:border-[#B69A69] hover:shadow-[0_8px_25px_rgba(32,43,50,0.07)]"
+              className="group flex shrink-0 items-center gap-4 rounded-full border border-[#202B32]/15 bg-white/55 py-3 pl-5 pr-3 transition-all duration-300 hover:border-[#B69A69] hover:shadow-[0_8px_25px_rgba(32,43,50,0.07)]"
             >
               <span className="text-left">
-                <span className="block text-[9px] font-bold uppercase tracking-[0.2em] text-[#765A2B]">
+                <span className="block text-[9px] font-bold uppercase tracking-[0.2em] text-indigo-600">
                   {fullView ? "Close FAQs" : "Explore Answers"}
                 </span>
 
-                <span className="mt-1 block text-xs font-semibold text-[#202B32]">
+                <span className="mt-1 block text-xs font-semibold text-slate-900">
                   {fullView ? "BACK TO OVERVIEW" : "CLICK TO FULL VIEW"}
                 </span>
               </span>
@@ -166,18 +166,18 @@ export default function FAQ() {
                       onClick={() =>
                         setOpenIndex(isOpen ? null : index)
                       }
-                      className="flex w-full items-center justify-between gap-5 py-6 text-left transition-colors duration-200 hover:text-[#765A2B] sm:py-7"
+                      className="flex w-full items-center justify-between gap-5 py-6 text-left transition-colors duration-200 hover:text-indigo-600 sm:py-7"
                     >
                       <span className="min-w-0">
                         <span className="mb-2 block text-[9px] font-semibold tracking-[0.2em] text-[#B69A69]">
                           QUESTION 0{index + 1}
                         </span>
 
-                        <span className="block text-sm font-semibold leading-6 text-[#202B32] sm:text-base">
+                        <span className="block text-sm font-semibold leading-6 text-slate-900 sm:text-base">
                           {faq.question}
                         </span>
 
-                        <span className="mt-1 block text-xs leading-6 text-[#626B70] sm:text-sm">
+                        <span className="mt-1 block text-xs leading-6 text-slate-500 sm:text-sm">
                           {faq.hindi}
                         </span>
                       </span>
@@ -186,7 +186,7 @@ export default function FAQ() {
                         className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${
                           isOpen
                             ? "rotate-180 border-[#A58A5B] bg-[#A58A5B] text-white"
-                            : "border-[#202B32]/10 text-[#202B32]"
+                            : "border-[#202B32]/10 text-slate-900"
                         }`}
                       >
                         <ChevronDown size={17} />
@@ -202,11 +202,11 @@ export default function FAQ() {
                     >
                       <div className="overflow-hidden">
                         <div className="max-w-3xl pb-6 pr-8 sm:pb-7">
-                          <p className="text-sm leading-7 text-[#626B70]">
+                          <p className="text-sm leading-7 text-slate-500">
                             {faq.answer}
                           </p>
 
-                          <p className="mt-2 text-sm leading-7 text-[#626B70]">
+                          <p className="mt-2 text-sm leading-7 text-slate-500">
                             {faq.answerHindi}
                           </p>
                         </div>
@@ -217,7 +217,7 @@ export default function FAQ() {
               })}
             </div>
 
-            <p className="mt-7 text-center text-xs leading-6 text-[#626B70]">
+            <p className="mt-7 text-center text-xs leading-6 text-slate-500">
               Still have questions? Contact us on WhatsApp.
               <br />
               अभी भी कोई सवाल है? WhatsApp पर हमसे संपर्क करें।
@@ -227,7 +227,7 @@ export default function FAQ() {
               <button
                 type="button"
                 onClick={() => setFullView(false)}
-                className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[#765A2B] transition-colors hover:bg-[#A58A5B]/10"
+                className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-indigo-600 transition-colors hover:bg-[#A58A5B]/10"
               >
                 <ArrowDown size={14} className="rotate-180" />
                 Close Full View
