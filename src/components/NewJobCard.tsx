@@ -145,7 +145,7 @@ export default function NewJobCard() {
         createdAt: new Date().toISOString(),
       };
 
-      await saveJob(job);
+      const trackingUrl = await saveJob(job);
 
       const message = [
         `Hello ${customerName.trim()},`,
@@ -155,8 +155,9 @@ export default function NewJobCard() {
         `Device: ${brand} ${model}`,
         `Problem: ${problem.trim()}`,
         `Estimated Cost: ₹${Number(estimate).toLocaleString("en-IN")}`,
+        `Private Repair Tracking: ${trackingUrl}`,
         "",
-        "We have received your device for repair. We will keep you updated.",
+        "We have received your device for repair. Use the private link below to check progress anytime.",
         "",
         "Thank you!",
       ].join("\n");
