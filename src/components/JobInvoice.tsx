@@ -1,12 +1,13 @@
 
 "use client";
 
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   ArrowLeft,
   Download,
-  MessageCircle,
+
 } from "lucide-react";
 import {
   getJobById,
@@ -163,7 +164,7 @@ Invoice: ${typeof window !== "undefined" ? window.location.href : ""}`
               rel="noopener noreferrer"
               className="flex min-h-11 items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-3 text-sm font-semibold text-white hover:bg-emerald-700"
             >
-              <MessageCircle size={17} />
+              <WhatsAppIcon size={17} />
               WhatsApp
             </a>
 
