@@ -18,6 +18,7 @@ export async function POST(
       .from("repair_jobs")
       .select("id")
       .eq("job_number", jobNumber)
+      .is("deleted_at", null)
       .maybeSingle();
 
     if (jobError) throw jobError;
