@@ -48,7 +48,13 @@ export async function POST(request: NextRequest) {
     const part = await request.json();
     if (!validPart(part)) return fail("Please provide valid inventory details.");
     const supabase = createSupabaseAdminClient();
-    const { error } = await supabase.from("inventory_parts").upsert({ id: part.id, data: part, updated_at: part.updatedAt });
+    const { error } = await supabase.from("inventory_parts").upsert({
+      id: part.id,
+      // Keep the legacy NOT NULL column populated while storing the full app model in JSONB.
+      part_name: part.name,
+      data: part,
+      updated_at: part.updatedAt,
+    });
     if (error) throw error;
     return NextResponse.json({ success: true });
   } catch (error) {
