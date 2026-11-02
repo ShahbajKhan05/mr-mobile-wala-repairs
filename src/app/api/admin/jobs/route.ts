@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createHash, randomBytes } from "crypto";
 import { requireAdmin } from "@/lib/supabase/require-admin";
 import { createSupabaseAdminClient } from "@/lib/supabase/server";
 import { createRepairPhotoUrl } from "@/lib/supabase/storage";
@@ -173,13 +174,26 @@ export async function POST(request: NextRequest) {
     });
     if (eventError) throw eventError;
 
-    return NextResponse.json({ success: true, jobNumber }, { status: 201 });
+    const trackingToken = randomBytes(32).toString("base64url");
+    const tokenHash = createHash("sha256").update(trackingToken).digest("hex");
+    const expiresAt = new Date();
+    expiresAt.setFullYear(expiresAt.getFullYear() + 1);
+    const { error: tokenError } = await supabase.from("customer_access_tokens").insert({
+      job_id: job.id,
+      token_hash: tokenHash,
+      expires_at: expiresAt.toISOString(),
+    });
+    if (tokenError) throw tokenError;
+
+    const trackingUrl = `${request.nextUrl.origin}/track/${trackingToken}`;
+    return NextResponse.json({ success: true, jobNumber, trackingUrl }, { status: 201 });
   } catch (error) {
     console.error("Admin job creation failed:", error);
     if (uploadedPaths.length) {
       await supabase.storage.from("repair-photos").remove(uploadedPaths);
     }
     if (createdJobId) {
+      await supabase.from("customer_access_tokens").delete().eq("job_id", createdJobId);
       await supabase.from("job_photos").delete().eq("job_id", createdJobId);
       await supabase.from("job_events").delete().eq("job_id", createdJobId);
       await supabase.from("repair_jobs").delete().eq("id", createdJobId);
