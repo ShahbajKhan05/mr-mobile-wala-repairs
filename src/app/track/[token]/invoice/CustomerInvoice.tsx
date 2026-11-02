@@ -51,12 +51,12 @@ export default function CustomerInvoice({ token }: { token: string }) {
           <Link href={`/track/${encodeURIComponent(token)}`} className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600"><ArrowLeft size={16}/> Back to Tracking</Link>
           <button type="button" onClick={() => window.print()} className="inline-flex min-h-10 items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2 text-sm font-bold text-white"><Download size={16}/> Download PDF</button>
         </div>
-        <article id="paid-invoice" className="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg sm:p-10 print:rounded-none print:border-0 print:shadow-none">
-          <header className="flex flex-wrap items-start justify-between gap-5 border-b border-slate-200 pb-7">
+        <article id="paid-invoice" className="rounded-2xl border border-slate-200 bg-white p-4 shadow-lg sm:p-10 print:rounded-none print:border-0 print:shadow-none">
+          <header className="flex flex-wrap items-start justify-between gap-3 border-b sm:gap-5 border-slate-200 pb-7">
             <div><Image src="/mr-mobile-wala-logo.png" alt="MR MOBILE WALA REPAIRS" width={190} height={64} className="h-auto w-40 object-contain"/><p className="mt-3 text-sm text-slate-500">Mobile Repair & Service · Rewa</p><p className="mt-1 text-xs text-slate-500">WhatsApp: +91 91313 83323</p></div>
             <div className="text-left sm:text-right"><h1 className="text-3xl font-black text-slate-900">INVOICE</h1><p className="mt-2 text-sm text-slate-500">Invoice No: {job.jobNumber}</p><p className="text-sm text-slate-500">Date: {formatDate(job.paidAt)}</p><span className="mt-3 inline-flex rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-700">PAID</span></div>
           </header>
-          <section className="grid gap-6 border-b border-slate-200 py-7 sm:grid-cols-2">
+          <section className="grid gap-4 border-b border-slate-200 py-5 sm:gap-6 sm:py-7 sm:grid-cols-2">
             <div><p className="text-xs font-bold uppercase tracking-wider text-slate-400">Bill To</p><p className="mt-2 font-bold text-slate-900">{job.customerName}</p><p className="mt-1 text-sm text-slate-600">+91 {job.customerPhone}</p></div>
             <div><p className="text-xs font-bold uppercase tracking-wider text-slate-400">Device Details</p><p className="mt-2 font-bold text-slate-900">{job.brand} {job.model}</p><p className="mt-1 text-sm text-slate-600">Job ID: {job.jobNumber}</p></div>
           </section>
