@@ -433,7 +433,7 @@ export default function NewJobCard() {
                     ₹{Number(estimate || 0).toLocaleString("en-IN")}
                   </p>
                   <p className="mt-2 text-xs text-slate-400">
-                    Final cost may change after customer approval.
+                    Final cost may change after device diagnosis; we will confirm it with you.
                   </p>
                 </div>
               </section>
