@@ -613,24 +613,6 @@ Thank you for choosing ${shopName}.`
               )}
             </section>
 
-            {/* Customer Approval */}
-            <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-              <h2 className="font-bold text-slate-900">
-                Customer Approval
-              </h2>
-
-              <p className="mt-3 text-sm text-slate-500">
-                Approval Status
-              </p>
-
-              <span className="mt-2 inline-flex rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">
-                {job.approvalStatus}
-              </span>
-
-              <p className="mt-3 text-xs leading-5 text-slate-400">
-                Customer approval is not yet connected to this job.
-              </p>
-            </section>
           </div>
         </div>
       </div>
