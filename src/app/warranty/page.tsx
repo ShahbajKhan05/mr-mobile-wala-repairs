@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { MessageCircle, ShieldCheck, ArrowUpRight, LockKeyhole } from "lucide-react";
+import { ShieldCheck, ArrowUpRight, LockKeyhole } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export const metadata: Metadata = {
   title: "Digital Warranty Card | MR MOBILE WALA REPAIRS",
@@ -34,7 +35,7 @@ export default function PublicWarrantyPage() {
             Open Private Tracking <ArrowUpRight size={16} />
           </Link>
           <a href="https://wa.me/919131383323?text=Hello%20MR%20MOBILE%20WALA%20REPAIRS%2C%20please%20share%20my%20private%20repair%20tracking%20link%20and%20digital%20warranty%20card." target="_blank" rel="noreferrer" className="mt-3 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-5 py-3 text-sm font-bold text-emerald-800 transition hover:bg-emerald-100">
-            <MessageCircle size={17} /> Request Warranty Link on WhatsApp
+            <WhatsAppIcon size={17} /> Request Warranty Link on WhatsApp
           </a>
         </section>
         <p className="mt-4 text-center text-[10px] text-slate-400">7-day repair warranty · Rewa, Madhya Pradesh</p>
