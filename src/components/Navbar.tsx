@@ -55,7 +55,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-[100] px-3 pt-3 sm:px-5 sm:pt-4">
-      <nav className="relative mx-auto flex min-h-[68px] max-w-[1440px] items-center justify-between rounded-[20px] border border-[#e8e7e2] bg-white/95 px-4 shadow-[0_8px_35px_rgba(20,20,20,0.055)] backdrop-blur-2xl sm:min-h-[76px] sm:rounded-full sm:px-6 lg:px-8">
+      <nav className="relative mx-auto flex min-h-[68px] max-w-[1440px] items-center justify-between rounded-[22px] border border-white/80 bg-white/65 px-4 shadow-[0_18px_55px_rgba(39,55,95,0.10)] backdrop-blur-2xl sm:min-h-[76px] sm:rounded-full sm:px-6 lg:px-8">
 
         {/* Brand */}
         <Link
@@ -98,8 +98,8 @@ export default function Navbar() {
                     href={item.href}
                     className={`relative flex items-center rounded-full px-4 py-3 text-[12px] font-semibold transition-colors ${
                       active
-                        ? "bg-[#f3f2ee] text-[#1e1e1e]"
-                        : "text-[#66665f] hover:bg-[#f7f7f4] hover:text-[#1e1e1e]"
+                        ? "bg-indigo-50 text-indigo-700"
+                        : "text-slate-600 hover:bg-white/80 hover:text-indigo-700"
                     }`}
                   >
                     {item.label}
@@ -122,15 +122,15 @@ export default function Navbar() {
               aria-expanded={isSocialOpen}
               className={`flex h-10 w-10 items-center justify-center rounded-full border transition-all ${
                 isSocialOpen
-                  ? "border-[#1e1e1e] bg-[#1e1e1e] text-white"
-                  : "border-[#e8e7e2] text-[#55554e] hover:border-[#1e1e1e] hover:text-[#1e1e1e]"
+                  ? "border-[#1e1e1e] bg-slate-900 text-white"
+                  : "border-slate-200/80 bg-white/60 text-slate-600 hover:border-indigo-300 hover:text-indigo-700"
               }`}
             >
               <MessageCircle size={17} />
             </button>
 
             {isSocialOpen && (
-              <div className="absolute right-0 top-[calc(100%+14px)] w-56 overflow-hidden rounded-2xl border border-[#e8e7e2] bg-white p-2 shadow-[0_15px_45px_rgba(0,0,0,0.12)]">
+              <div className="absolute right-0 top-[calc(100%+14px)] w-56 overflow-hidden rounded-2xl border border-[#e8e7e2] border border-white/80 bg-white/85 p-2 shadow-[0_20px_60px_rgba(39,55,95,0.16)] backdrop-blur-2xl">
                 <p className="px-3 pb-2 pt-2 text-[10px] font-bold uppercase tracking-[0.14em] text-[#999990]">
                   Get in touch
                 </p>
@@ -162,7 +162,7 @@ export default function Navbar() {
 
           <Link
             href="/"
-            className="group inline-flex min-h-11 items-center gap-2 rounded-full bg-[#1e1e1e] px-5 text-xs font-bold text-white transition-all duration-200 hover:bg-[#383832] hover:shadow-[0_6px_18px_rgba(0,0,0,0.15)] active:scale-[0.98]"
+            className="group inline-flex min-h-11 items-center gap-2 rounded-full bg-slate-900 px-5 text-xs font-bold text-white shadow-lg shadow-indigo-950/15 transition-all duration-200 hover:-translate-y-0.5 hover:bg-indigo-700 hover:shadow-[0_6px_18px_rgba(0,0,0,0.15)] active:scale-[0.98]"
           >
             <Store size={15} />
             Book a Service
@@ -199,7 +199,7 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="absolute left-0 right-0 top-[calc(100%+10px)] overflow-hidden rounded-[22px] border border-[#e8e7e2] bg-white p-4 shadow-[0_18px_50px_rgba(0,0,0,0.12)] xl:hidden">
+          <div className="absolute left-0 right-0 top-[calc(100%+10px)] overflow-hidden rounded-[22px] border border-white/80 bg-white/85 p-4 shadow-[0_20px_60px_rgba(39,55,95,0.16)] backdrop-blur-2xl xl:hidden">
 
             <div className="mb-3 flex items-center justify-between px-2">
               <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#999990]">
@@ -238,7 +238,7 @@ export default function Navbar() {
               <Link
                 href="/"
                 onClick={() => setIsOpen(false)}
-                className="flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#1e1e1e] text-sm font-bold text-white transition-colors hover:bg-[#383832]"
+                className="flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#1e1e1e] text-sm font-bold text-white transition-colors hover:bg-indigo-700"
               >
                 <Store size={16} />
                 Book a Service
