@@ -7,8 +7,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   ArrowUpRight,
-  Camera,
-  Mail,
   Menu,
   Store,
   X,
@@ -27,17 +25,17 @@ const SOCIAL_LINKS = [
   {
     label: "WhatsApp",
     href: "https://wa.me/919131383323",
-    icon: "whatsapp",
+    icon: "Whatsapp-3d.svg",
   },
   {
     label: "Instagram",
     href: "https://instagram.com/mrmobilewala.2.0",
-    icon: Camera,
+    icon: "Instagram-3d.svg",
   },
   {
     label: "Email",
     href: "mailto:mrmobilewala610@gmail.com",
-    icon: Mail,
+    icon: "Gmail-3d.svg",
   },
 ];
 
@@ -142,7 +140,7 @@ export default function Navbar() {
                     onClick={() => setIsSocialOpen(false)}
                     className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-[#44443e] transition-colors hover:bg-[#f7f7f4]"
                   >
-                    {icon === "whatsapp" ? <WhatsAppIcon size={18} /> : label === "Instagram" ? <Camera size={17} /> : <Mail size={17} />}
+                    <Image src={`/${icon}`} alt="" aria-hidden="true" width={22} height={22} className="shrink-0 object-contain" />
                     {label}
                     <ArrowUpRight size={14} className="ml-auto text-[#999990]" />
                   </a>
@@ -254,7 +252,7 @@ export default function Navbar() {
                   aria-label={label}
                   className="flex h-10 w-10 items-center justify-center rounded-full border border-[#e8e7e2] text-[#55554e] transition-colors hover:bg-[#f5f4f0]"
                 >
-                  {icon === "whatsapp" ? <WhatsAppIcon size={19} /> : label === "Instagram" ? <Camera size={17} /> : <Mail size={17} />}
+                  <Image src={`/${icon}`} alt="" aria-hidden="true" width={24} height={24} className="shrink-0 object-contain" />
                 </a>
               ))}
             </div>
