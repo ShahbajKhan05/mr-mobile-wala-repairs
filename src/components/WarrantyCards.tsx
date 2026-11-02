@@ -3,11 +3,15 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { CalendarDays, RefreshCw, Search, ShieldCheck, Smartphone } from "lucide-react";
-import { getJobs, type RepairJob } from "@/lib/jobs";
 import { formatWarrantyDate, getWarrantyDetails, isWarrantyActive } from "@/lib/warranty";
 
+type WarrantyListItem = {
+  id: string; customerName: string; phone: string; brand: string; model: string;
+  paymentStatus: string; paidAt?: string;
+};
+
 export default function WarrantyCards() {
-  const [jobs, setJobs] = useState<RepairJob[]>([]);
+  const [jobs, setJobs] = useState<WarrantyListItem[]>([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -16,7 +20,10 @@ export default function WarrantyCards() {
     setLoading(true);
     setError("");
     try {
-      setJobs(await getJobs());
+      const response = await fetch("/api/admin/warranties", { cache: "no-store" });
+      const result = await response.json();
+      if (!response.ok || !result.success) throw new Error(result.message || "Unable to load warranty cards.");
+      setJobs(result.warranties ?? []);
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Unable to load warranty cards.");
     } finally {
@@ -28,7 +35,7 @@ export default function WarrantyCards() {
 
   const paidJobs = useMemo(() => {
     const query = search.trim().toLowerCase();
-    return jobs.filter((job) => job.paymentStatus === "Paid" && job.paidAt)
+    return jobs.filter((job) => job.paidAt)
       .filter((job) => !query || [job.id, job.customerName, job.phone, job.brand, job.model].some((value) => value.toLowerCase().includes(query)));
   }, [jobs, search]);
 
