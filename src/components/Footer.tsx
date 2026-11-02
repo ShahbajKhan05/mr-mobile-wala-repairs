@@ -39,25 +39,25 @@ const FOOTER_GROUPS = [
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-[#E9E5DC] bg-[#F5F3EE] text-[#202B32]">
+    <footer className="relative overflow-hidden glass-panel relative overflow-hidden border-t border-white/70 bg-white/45 text-slate-800">
       {/* Decorative background */}
       <div className="pointer-events-none absolute -right-40 -top-40 h-96 w-96 rounded-full bg-[#DCC69E]/10 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
 
         {/* Brand statement */}
-        <div className="border-b border-[#DDD8CE] py-8 text-center sm:py-20">
-          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.4em] text-[#765A2B] sm:mb-5 sm:text-xs">
+        <div className="border-b border-white/70 py-8 text-center sm:py-20">
+          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.4em] text-indigo-600 sm:mb-5 sm:text-xs">
             The Mobile Experience
           </p>
 
           <h2 className="text-4xl font-black uppercase leading-[0.95] tracking-[-0.07em] sm:text-6xl md:text-7xl">
-            BUY <span className="font-light text-[#75664A]">/</span> SELL
+            BUY <span className="font-light text-indigo-400">/</span> SELL
             <br className="sm:hidden" />{" "}
             <span className="text-[#765A2B]">/</span> REPAIR
           </h2>
 
-          <p className="mx-auto mt-4 max-w-xl text-xs leading-6 text-[#626B70] sm:mt-7 sm:text-base sm:leading-7">
+          <p className="mx-auto mt-4 max-w-xl text-xs leading-6 text-slate-500 sm:mt-7 sm:text-base sm:leading-7">
             At MR MOBILE WALA, anything phone related. Walk in with a
             question, walk out with confidence.
           </p>
@@ -93,7 +93,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Chat with us on WhatsApp"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-[#DDD8CE] bg-white text-[#202B32] transition-all duration-300 hover:-translate-y-1 hover:border-[#A17D45] hover:bg-[#202B32] hover:text-white sm:h-11 sm:w-11"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/80 bg-white/60 text-slate-700 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#A17D45] hover:bg-[#202B32] hover:text-white sm:h-11 sm:w-11"
               >
                 <MessageCircle size={18} />
               </a>
@@ -103,7 +103,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-[#DDD8CE] bg-white text-[#202B32] transition-all duration-300 hover:-translate-y-1 hover:border-[#A17D45] hover:bg-[#202B32] hover:text-white sm:h-11 sm:w-11"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-[#DDD8CE] bg-white text-slate-800 transition-all duration-300 hover:-translate-y-1 hover:border-[#A17D45] hover:bg-[#202B32] hover:text-white sm:h-11 sm:w-11"
               >
                 <Camera size={18} />
               </a>
@@ -122,7 +122,7 @@ export default function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="group inline-flex items-center gap-1 text-[11px] font-medium leading-5 text-[#626A6D] transition-colors duration-200 hover:text-[#765A2B] sm:text-sm"
+                      className="group inline-flex items-center gap-1 text-[11px] font-medium leading-5 text-slate-500 transition-colors duration-200 hover:text-[#765A2B] sm:text-sm"
                     >
                       {link.label}
                       <ArrowUpRight
@@ -138,8 +138,8 @@ export default function Footer() {
         </div>
 
         {/* Trust strip */}
-        <div className="flex flex-col items-center justify-between gap-3 border-t border-[#DDD8CE] py-4 text-center sm:flex-row sm:gap-4 sm:py-6 sm:text-left">
-          <div className="flex flex-col items-center gap-2.5 text-[10px] text-[#777E81] sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-6 sm:gap-y-3 sm:text-xs">
+        <div className="flex flex-col items-center justify-between gap-3 border-t border-white/70 py-4 text-center sm:flex-row sm:gap-4 sm:py-6 sm:text-left">
+          <div className="flex flex-col items-center gap-2.5 text-[10px] text-slate-500 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-6 sm:gap-y-3 sm:text-xs">
             <span className="inline-flex items-center gap-2">
               <ShieldCheck size={15} className="shrink-0 text-[#765A2B]" />
               Customer focused service
