@@ -54,7 +54,7 @@ export async function GET(
 
     const { data: customer, error: customerError } = await supabase
       .from("customers")
-      .select("name")
+      .select("name,phone")
       .eq("id", job.customer_id)
       .maybeSingle();
     if (customerError) throw customerError;
@@ -74,6 +74,7 @@ export async function GET(
       job: {
         jobNumber: job.job_number,
         customerName: customer?.name ?? "Customer",
+        customerPhone: customer?.phone ?? "",
         brand: job.brand,
         model: job.model,
         problem: job.problem,
