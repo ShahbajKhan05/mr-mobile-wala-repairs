@@ -65,7 +65,6 @@ export async function getJobs(): Promise<RepairJob[]> {
   );
   return result.jobs.map((job) => ({
     ...job,
-    approvalStatus: "Pending",
     photos: job.photos.map((photo) => ({ ...photo, blob: new Blob() })),
   }));
 }
