@@ -46,9 +46,9 @@ const FAQS = [
     question: "How can I check my repair status?",
     hindi: "अपने मोबाइल रिपेयर का स्टेटस कैसे चेक करें?",
     answer:
-      "Open Track Repair and enter your job number and registered mobile number to view your repair progress.",
+      "Open the private tracking link shared with you by our team on WhatsApp to view your repair progress.",
     answerHindi:
-      "Track Repair पर अपना जॉब नंबर और रजिस्टर्ड मोबाइल नंबर डालकर रिपेयर का स्टेटस देखें।",
+      "हमारी टीम द्वारा WhatsApp पर भेजे गए प्राइवेट ट्रैकिंग लिंक को खोलकर अपने रिपेयर का स्टेटस देखें।",
   },
   {
     question: "Do you provide a repair warranty?",
@@ -72,7 +72,7 @@ export default function FAQ() {
       <div className="mx-auto max-w-4xl">
 
         {/* Compact FAQ Header */}
-        <div className="relative overflow-hidden glass-panel rounded-[20px] border border-white/80 bg-white/55 px-4 py-5 sm:rounded-[28px] sm:px-10 sm:py-11 sm:px-10 sm:py-11">
+        <div className="relative overflow-hidden glass-panel rounded-[20px] border border-white/80 bg-white/55 px-4 py-5 sm:rounded-[28px] sm:px-10 sm:py-11">
 
           <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-[#B69A69]/[0.06] blur-3xl" />
 
