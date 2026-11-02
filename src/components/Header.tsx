@@ -3,7 +3,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import {
   Menu,
   Search,
@@ -47,6 +48,9 @@ export default function Header({ onMenuClick }: HeaderProps) {
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [today, setToday] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+  const router = useRouter();
 
   const [profile, setProfile] = useState<AdminProfile | null>(null);
   const [profileLoading, setProfileLoading] = useState(true);
@@ -297,6 +301,14 @@ export default function Header({ onMenuClick }: HeaderProps) {
     };
   }, []);
 
+  const submitSearch = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const query = searchQuery.trim();
+    if (!query) return;
+    router.push(`/jobs/list?search=${encodeURIComponent(query)}`);
+    setMobileSearchOpen(false);
+  };
+
   const getInitials = (username: string) => {
     const words = username.trim().split(/[\s._-]+/).filter(Boolean);
 
@@ -401,6 +413,22 @@ export default function Header({ onMenuClick }: HeaderProps) {
   return (
     <header className="sticky top-0 z-30 flex h-[68px] items-center justify-between gap-2 border-b border-white/75 bg-white/65 shadow-[0_8px_35px_rgba(39,55,95,0.06)] px-3 backdrop-blur-xl sm:h-[76px] sm:px-6 lg:px-8">
 
+      {mobileSearchOpen && (
+        <form onSubmit={submitSearch} className="absolute left-3 right-3 top-[calc(100%+8px)] z-40 flex items-center gap-2 rounded-2xl border border-white/80 bg-white/95 p-2 shadow-xl backdrop-blur-xl md:hidden">
+          <Search size={18} className="ml-2 shrink-0 text-slate-400" />
+          <input
+            autoFocus
+            type="search"
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+            aria-label="Search repair jobs"
+            placeholder="Job ID, customer, phone or model..."
+            className="min-w-0 flex-1 bg-transparent px-1 py-2 text-sm outline-none"
+          />
+          <button type="submit" className="rounded-xl bg-slate-900 px-3 py-2 text-xs font-semibold text-white">Search</button>
+        </form>
+      )}
+
       {/* Left Section */}
       <div className="flex min-w-0 items-center gap-3">
 
@@ -435,20 +463,30 @@ export default function Header({ onMenuClick }: HeaderProps) {
       <div className="flex shrink-0 items-center gap-1.5 sm:gap-4">
 
         {/* Search */}
-        <div className="hidden items-center gap-2 rounded-xl border border-slate-200 bg-white/60 px-3 py-2.5 md:flex md:w-64">
-          <Search size={17} className="text-slate-400" />
-
+        <form onSubmit={submitSearch} className="hidden items-center gap-2 rounded-xl border border-slate-200 bg-white/60 px-3 py-2.5 md:flex md:w-64">
+          <Search size={17} className="shrink-0 text-slate-400" />
           <input
             type="search"
-            aria-label="Search"
-            placeholder="Search anything..."
-            className="w-full bg-transparent text-xs text-slate-700 outline-none placeholder:text-slate-400"
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+            aria-label="Search repair jobs"
+            placeholder="Search jobs or customers..."
+            className="w-full min-w-0 bg-transparent text-xs text-slate-700 outline-none placeholder:text-slate-400"
           />
+          <button type="submit" aria-label="Submit search" className="rounded border border-white/80 bg-white/70 px-1.5 py-0.5 text-[10px] text-slate-500 hover:bg-white">
+            <Command size={10} />
+          </button>
+        </form>
 
-          <span className="flex items-center gap-1 rounded border border-white/80 bg-white/70 px-1.5 py-0.5 text-[10px] text-slate-400">
-            <Command size={10} /> K
-          </span>
-        </div>
+        <button
+          type="button"
+          onClick={() => setMobileSearchOpen((open) => !open)}
+          aria-label="Open repair search"
+          aria-expanded={mobileSearchOpen}
+          className="rounded-xl border border-white/80 bg-white/55 p-2 text-slate-600 transition hover:bg-white/70 md:hidden"
+        >
+          <Search size={18} />
+        </button>
 
         {/* Notifications */}
         <div className="relative" ref={notificationRef}>
