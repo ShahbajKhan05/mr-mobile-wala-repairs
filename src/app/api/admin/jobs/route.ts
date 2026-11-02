@@ -81,14 +81,14 @@ export async function POST(request: NextRequest) {
   try {
     const form = await request.formData();
     const customerName = String(form.get("customerName") ?? "").trim();
-    const phone = String(form.get("phone") ?? "").replace(/\\D/g, "");
+    const phone = String(form.get("phone") ?? "").replace(/\D/g, "");
     const brand = String(form.get("brand") ?? "").trim();
     const model = String(form.get("model") ?? "").trim();
     const problem = String(form.get("problem") ?? "").trim();
     const estimate = Number(form.get("estimate"));
     const jobNumber = String(form.get("jobNumber") ?? "").trim();
 
-    if (!customerName || !brand || !model || !problem || !jobNumber || !/^\\d{10}$/.test(phone)) {
+    if (!customerName || !brand || !model || !problem || !jobNumber || !/^\d{10}$/.test(phone)) {
       return fail("Please provide valid customer and repair details.");
     }
     if (!Number.isFinite(estimate) || estimate < 0) return fail("Invalid repair estimate.");
