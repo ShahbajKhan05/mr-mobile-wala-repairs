@@ -220,7 +220,7 @@ export default function Customers() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
+          <div className="col-span-2 rounded-2xl border border-slate-200 bg-white p-4 sm:col-span-1 sm:p-5">
             <div className="flex items-center justify-between">
               <p className="text-sm text-slate-500">Pending Amount</p>
               <div className="rounded-xl bg-amber-50 p-2 text-amber-600">
