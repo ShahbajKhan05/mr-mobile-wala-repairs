@@ -52,8 +52,8 @@ export default function Navbar() {
   }
 
   return (
-    <header className="fixed inset-x-0 top-0 z-[100] px-3 pt-3 sm:px-5 sm:pt-4">
-      <nav className="relative mx-auto flex min-h-[68px] max-w-[1440px] items-center justify-between rounded-[22px] border border-white/80 bg-white/65 px-4 shadow-[0_18px_55px_rgba(39,55,95,0.10)] backdrop-blur-2xl sm:min-h-[76px] sm:rounded-full sm:px-6 lg:px-8">
+    <header className="fixed inset-x-0 top-0 z-[100] px-2 pt-2 sm:px-5 sm:pt-4">
+      <nav className="relative mx-auto flex min-h-[58px] max-w-[1440px] items-center justify-between rounded-[18px] border border-white/80 bg-white/65 px-3 shadow-[0_18px_55px_rgba(39,55,95,0.10)] backdrop-blur-2xl sm:min-h-[76px] sm:rounded-full sm:px-6 lg:px-8">
 
         {/* Brand */}
         <Link
@@ -68,7 +68,7 @@ export default function Navbar() {
             width={190}
             height={65}
             priority
-            className="h-auto w-[126px] object-contain sm:w-[150px] lg:w-[165px]"
+            className="h-auto w-[112px] object-contain sm:w-[150px] lg:w-[165px]"
           />
         </Link>
 
@@ -175,7 +175,7 @@ export default function Navbar() {
         <div className="flex items-center gap-2 xl:hidden">
           <Link
             href="/admin-login"
-            className="rounded-full border border-[#e8e7e2] px-3.5 py-2.5 text-[10px] font-bold text-[#33332e] transition-colors hover:bg-[#f5f4f0] sm:text-xs"
+            className="rounded-full border border-[#e8e7e2] px-3 py-2 text-[10px] font-bold text-[#33332e] transition-colors hover:bg-[#f5f4f0] sm:text-xs"
           >
             Admin
           </Link>
