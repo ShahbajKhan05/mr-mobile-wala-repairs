@@ -45,8 +45,8 @@ export default function WarrantyCards() {
   }).length;
 
   return (
-    <main className="min-h-screen bg-slate-50 p-4 sm:p-6 lg:p-8">
-      <div className="mx-auto max-w-7xl space-y-5">
+    <main className="min-h-screen bg-slate-50 px-3 py-4 sm:p-6 lg:p-8">
+      <div className="mx-auto max-w-7xl space-y-4 sm:space-y-5">
         <header className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-indigo-600">Business</p>
@@ -67,7 +67,7 @@ export default function WarrantyCards() {
         </div>
 
         {loading ? <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center text-sm text-slate-500">Loading warranty cards...</div> :
-          error ? <div role="alert" className="rounded-2xl border border-red-200 bg-red-50 p-5 text-sm text-red-700">{error}<button type="button" onClick={() => void load()} className="ml-3 font-bold underline">Try again</button></div> :
+          error ? <div role="alert" className="rounded-2xl border border-red-200 bg-red-50 p-4 text-sm sm:p-5 text-red-700">{error}<button type="button" onClick={() => void load()} className="ml-3 font-bold underline">Try again</button></div> :
           paidJobs.length === 0 ? <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center"><ShieldCheck size={30} className="mx-auto text-slate-300" /><h2 className="mt-3 font-bold text-slate-800">No warranty cards found</h2><p className="mt-1 text-sm text-slate-500">Warranty cards appear here after a repair payment is marked Paid.</p></div> :
           <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
             <div className="divide-y divide-slate-100">
