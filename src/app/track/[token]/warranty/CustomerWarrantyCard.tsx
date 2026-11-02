@@ -68,8 +68,8 @@ export default function CustomerWarrantyCard({ token }: { token: string }) {
             </div>
           </header>
           <section className="grid gap-5 p-6 sm:grid-cols-2 sm:p-10">
-            <div className="sm:col-span-2 flex flex-wrap items-center justify-between gap-3 rounded-2xl border p-4 ${active ? "border-emerald-200 bg-emerald-50" : "border-red-200 bg-red-50"}">
-              <div className="flex items-center gap-2 font-bold ${active ? "text-emerald-800" : "text-red-800"}"><ShieldCheck size={20}/>{active ? "Warranty Active" : "Warranty Expired"}</div>
+            <div className={`sm:col-span-2 flex flex-wrap items-center justify-between gap-3 rounded-2xl border p-4 ${active ? "border-emerald-200 bg-emerald-50" : "border-red-200 bg-red-50"}`}>
+              <div className={`flex items-center gap-2 font-bold ${active ? "text-emerald-800" : "text-red-800"}`}><ShieldCheck size={20}/>{active ? "Warranty Active" : "Warranty Expired"}</div>
               <p className="text-sm font-bold text-slate-700">{active ? `${remaining} days remaining` : "0 days remaining"}</p>
             </div>
             <div className="rounded-xl bg-slate-50 p-4"><p className="text-xs text-slate-500">Warranty Start</p><p className="mt-1 font-bold text-slate-900">{formatWarrantyDate(job.warrantyStartDate)}</p></div>
