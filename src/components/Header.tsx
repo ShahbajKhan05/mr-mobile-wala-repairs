@@ -20,6 +20,7 @@ import {
   PackageCheck,
   IndianRupee,
   X,
+  LogOut,
 } from "lucide-react";
 
 import { getJobs, type RepairJob } from "@/lib/jobs";
@@ -54,6 +55,8 @@ export default function Header({ onMenuClick }: HeaderProps) {
 
   const [profile, setProfile] = useState<AdminProfile | null>(null);
   const [profileLoading, setProfileLoading] = useState(true);
+  const [loggingOut, setLoggingOut] = useState(false);
+  const [logoutError, setLogoutError] = useState("");
 
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
   const [readIds, setReadIds] = useState<string[]>([]);
@@ -356,6 +359,29 @@ export default function Header({ onMenuClick }: HeaderProps) {
       return updated;
     });
   };
+
+  async function handleLogout() {
+    if (loggingOut) return;
+    setLoggingOut(true);
+    setLogoutError("");
+    try {
+      const response = await fetch("/api/admin/logout", {
+        method: "POST",
+        credentials: "same-origin",
+        cache: "no-store",
+      });
+      const result = await response.json().catch(() => null);
+      if (!response.ok || !result?.success) {
+        throw new Error(result?.message || "Logout nahi ho paya. Dobara try karein.");
+      }
+      setProfileOpen(false);
+      router.replace("/admin-login");
+      router.refresh();
+    } catch (error) {
+      setLogoutError(error instanceof Error ? error.message : "Logout nahi ho paya.");
+      setLoggingOut(false);
+    }
+  }
 
   const displayName = profile?.username || "Admin";
   const initials = getInitials(displayName);
@@ -720,12 +746,15 @@ export default function Header({ onMenuClick }: HeaderProps) {
                   </div>
                 </div>
 
+                {logoutError && <p role="alert" className="mx-2 mb-2 rounded-lg bg-red-50 px-3 py-2 text-[11px] text-red-700">{logoutError}</p>}
                 <button
                   type="button"
-                  onClick={() => setProfileOpen(false)}
-                  className="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2.5 text-xs font-semibold text-slate-600 transition hover:border-slate-300 hover:bg-white/70"
+                  onClick={() => void handleLogout()}
+                  disabled={loggingOut}
+                  className="mt-1 flex w-full items-center justify-center gap-2 rounded-xl bg-red-50 px-3 py-2.5 text-xs font-bold text-red-700 transition hover:bg-red-100 disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  Close Menu
+                  <LogOut size={15} />
+                  {loggingOut ? "Signing out..." : "Logout"}
                 </button>
               </div>
             </div>
