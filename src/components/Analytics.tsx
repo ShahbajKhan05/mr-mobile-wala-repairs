@@ -356,7 +356,7 @@ export default function Analytics() {
             {metrics.paidJobs === 0 ? (
               <EmptyChart message="Paid jobs hone ke baad revenue chart dikhega." />
             ) : (
-              <div className="h-[260px] w-full min-w-0">
+              <div className="h-[210px] w-full min-w-0 sm:h-[260px]">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart
                     data={monthlyRevenue}
@@ -434,7 +434,7 @@ export default function Analytics() {
               <EmptyChart message="Repair jobs add hone par status chart dikhega." />
             ) : (
               <>
-                <div className="h-[220px] w-full min-w-0">
+                <div className="h-[190px] w-full min-w-0 sm:h-[220px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                       <Pie
@@ -443,8 +443,8 @@ export default function Analytics() {
                         nameKey="name"
                         cx="50%"
                         cy="50%"
-                        innerRadius={55}
-                        outerRadius={85}
+                        innerRadius="28%"
+                        outerRadius="43%"
                         paddingAngle={3}
                       >
                         {statusData.map((entry) => (
@@ -576,7 +576,7 @@ export default function Analytics() {
         </section>
 
         <p className="text-center text-xs text-slate-400">
-          Analytics are calculated from repair jobs and inventory saved in this browser.
+          Analytics are calculated from repair jobs and inventory in your shared shop workspace.
         </p>
       </div>
     </main>
@@ -614,7 +614,7 @@ function StatCard({
         </div>
       </div>
 
-      <p className="mt-3 break-words text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
+      <p className="mt-3 break-all text-lg font-bold tracking-tight text-slate-900 sm:break-normal sm:text-2xl">
         {value}
       </p>
 
@@ -664,7 +664,7 @@ function SummaryRow({
     <div className="flex items-center justify-between gap-3">
       <span className="min-w-0 text-sm text-slate-500">{label}</span>
       <span
-        className={`shrink-0 font-bold ${valueClass} ${
+        className={`max-w-[58%] break-words text-right font-bold ${valueClass} ${
           large ? "text-lg" : "text-sm"
         }`}
       >
