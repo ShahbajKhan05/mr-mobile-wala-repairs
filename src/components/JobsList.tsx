@@ -11,6 +11,7 @@ import {
   IndianRupee,
   RefreshCw,
   ClipboardList,
+  Trash2,
 } from "lucide-react";
 import { getJobs, type RepairJob } from "@/lib/jobs";
 
@@ -59,6 +60,19 @@ export default function JobsList() {
       return matchesSearch && matchesStatus;
     });
   }, [jobs, search, status]);
+
+  async function moveJobToRecycleBin(job: RepairJob) {
+    if (!window.confirm(`Repair job ${job.id} ko Recycle Bin mein move karna hai? Aap baad mein restore kar sakte hain.`)) return;
+    setError("");
+    try {
+      const response = await fetch(`/api/admin/jobs/${encodeURIComponent(job.id)}`, { method: "DELETE" });
+      const result = await response.json().catch(() => null);
+      if (!response.ok || !result?.success) throw new Error(result?.message || "Job delete nahi hua.");
+      await loadJobs();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Job delete nahi hua.");
+    }
+  }
 
   function formatDate(date: string) {
     return new Intl.DateTimeFormat("en-IN", {
@@ -243,6 +257,14 @@ export default function JobsList() {
       >
         View Details <span aria-hidden="true">→</span>
       </Link>
+      <button
+        type="button"
+        onClick={() => void moveJobToRecycleBin(job)}
+        className="mt-3 ml-4 inline-flex items-center gap-1.5 text-sm font-semibold text-red-600 transition hover:text-red-700"
+        aria-label={`Move job ${job.id} to Recycle Bin`}
+      >
+        <Trash2 size={14} /> Delete
+      </button>
     </div>
   </div>
 
