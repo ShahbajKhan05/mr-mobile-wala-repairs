@@ -12,11 +12,11 @@ export async function DELETE(request: NextRequest, context: { params: Promise<{ 
     const { id } = await context.params;
     if (!id || id.length > 120) return fail("Invalid inventory item.");
     const supabase = createSupabaseAdminClient();
-    const { error } = await supabase.from("inventory_parts").delete().eq("id", id);
+    const { error } = await supabase.from("inventory_parts").update({ deleted_at: new Date().toISOString(), deleted_by: "Admin" }).eq("id", id).is("deleted_at", null);
     if (error) throw error;
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Inventory delete failed:", error);
-    return fail("Unable to delete inventory item.", 500);
+    console.error("Inventory move to recycle bin failed:", error);
+    return fail("Unable to move inventory item to Recycle Bin.", 500);
   }
 }
