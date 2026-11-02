@@ -56,7 +56,7 @@ export default function WhyChooseUs() {
 
         {/* Section Heading */}
         <div className="mb-9 text-center sm:mb-14">
-          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.3em] text-[#A58A5B]">
+          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.3em] text-[#765A2B]">
             The MR MOBILE WALA Difference
           </p>
 
@@ -65,12 +65,12 @@ export default function WhyChooseUs() {
             className="text-3xl font-semibold tracking-[-0.05em] text-[#202B32] sm:text-5xl"
           >
             Why Choose{" "}
-            <span className="font-serif font-normal italic text-[#A58A5B]">
+            <span className="font-serif font-normal italic text-[#765A2B]">
               MR MOBILE WALA?
             </span>
           </h2>
 
-          <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-[#777D80]">
+          <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-[#626B70]">
             आपके मोबाइल की हर जरूरत के लिए एक भरोसेमंद जगह।
             Quality, care और service — सब एक साथ।
           </p>
@@ -87,11 +87,11 @@ export default function WhyChooseUs() {
                 className="group relative border border-[#E9E5DC] bg-white p-5 transition-all duration-300 hover:border-[#A58A5B] hover:shadow-[0_12px_35px_rgba(32,43,50,0.06)] sm:p-7"
               >
                 <div className="flex items-start justify-between">
-                  <div className="flex h-11 w-11 items-center justify-center border border-[#E9E5DC] text-[#A58A5B] transition-all duration-300 group-hover:border-[#A58A5B] group-hover:bg-[#A58A5B] group-hover:text-white">
+                  <div className="flex h-11 w-11 items-center justify-center border border-[#E9E5DC] text-[#765A2B] transition-all duration-300 group-hover:border-[#A58A5B] group-hover:bg-[#A58A5B] group-hover:text-white">
                     <Icon size={21} strokeWidth={1.6} />
                   </div>
 
-                  <span className="text-[11px] font-medium tracking-widest text-[#B7B0A3]">
+                  <span className="text-[11px] font-medium tracking-widest text-[#625D52]">
                     {feature.number}
                   </span>
                 </div>
@@ -100,17 +100,17 @@ export default function WhyChooseUs() {
                   {feature.title}
                 </h3>
 
-                <p className="mt-1 text-sm font-medium text-[#A58A5B]">
+                <p className="mt-1 text-sm font-medium text-[#765A2B]">
                   {feature.hindi}
                 </p>
 
-                <p className="mt-3 text-[13px] leading-6 text-[#777D80]">
+                <p className="mt-3 text-[13px] leading-6 text-[#626B70]">
                   {feature.description}
                 </p>
 
                 <ArrowUpRight
                   size={17}
-                  className="absolute bottom-5 right-5 text-[#B7B0A3] transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#A58A5B] sm:bottom-7 sm:right-7"
+                  className="absolute bottom-5 right-5 text-[#625D52] transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#765A2B] sm:bottom-7 sm:right-7"
                 />
               </article>
             );
@@ -122,7 +122,7 @@ export default function WhyChooseUs() {
           <p className="text-sm font-semibold text-[#202B32]">
             आपकी संतुष्टि, हमारी प्राथमिकता।
           </p>
-          <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.2em] text-[#A58A5B]">
+          <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.2em] text-[#765A2B]">
             Quality You Trust. Service You Deserve.
           </p>
         </div>
