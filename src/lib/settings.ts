@@ -20,7 +20,7 @@ export const defaultShopSettings: ShopSettings = {
   address: "",
   upiId: "",
   googleReviewLink: "",
-  warrantyDays: 30,
+  warrantyDays: 7,
   invoiceFooter: "Thank you for choosing MR MOBILE WALA.",
   updatedAt: "",
 };
