@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Download, AlertCircle } from "lucide-react";
-import { formatWarrantyDate } from "@/lib/warranty";
 
 type InvoiceJob = {
   jobNumber: string; customerName: string; customerPhone: string;
