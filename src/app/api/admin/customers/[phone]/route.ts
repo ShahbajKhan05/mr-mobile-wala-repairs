@@ -17,18 +17,18 @@ export async function DELETE(
     if (!/^\d{10}$/.test(phone)) return fail("Invalid customer phone number.");
 
     const supabase = createSupabaseAdminClient();
-    const { data: customer, error: customerError } = await supabase
+    const { data: customers, error: customerError } = await supabase
       .from("customers")
       .select("id")
-      .eq("phone", phone)
-      .maybeSingle();
+      .eq("phone", phone);
     if (customerError) throw customerError;
-    if (!customer) return fail("Customer not found.", 404);
+    const customerIds = (customers ?? []).map((customer) => customer.id);
+    if (!customerIds.length) return fail("Customer not found.", 404);
 
     const { data: jobs, error: jobsError } = await supabase
       .from("repair_jobs")
       .select("id")
-      .eq("customer_id", customer.id)
+      .in("customer_id", customerIds)
       .is("deleted_at", null);
     if (jobsError) throw jobsError;
     const ids = (jobs ?? []).map((job) => job.id);
