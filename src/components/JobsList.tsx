@@ -116,7 +116,7 @@ export default function JobsList() {
           </div>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
             <p className="text-sm text-slate-500">Total Jobs</p>
             <p className="mt-2 text-3xl font-bold text-slate-900">
