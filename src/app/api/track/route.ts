@@ -5,15 +5,15 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const jobNumber = String(body.jobNumber ?? "").trim().toUpperCase();
-    const phone = String(body.phone ?? "").replace(/\\D/g, "").slice(-10);
-    if (!jobNumber || !/^\\d{10}$/.test(phone)) return NextResponse.json({ success: false, message: "Enter a valid job number and 10-digit mobile number." }, { status: 400 });
+    const phone = String(body.phone ?? "").replace(/\D/g, "").slice(-10);
+    if (!jobNumber || !/^\d{10}$/.test(phone)) return NextResponse.json({ success: false, message: "Enter a valid job number and 10-digit mobile number." }, { status: 400 });
     const supabase = createSupabaseAdminClient();
     const { data: job, error } = await supabase.from("repair_jobs").select("id,job_number,customer_id,brand,model,problem,estimate,status,payment_status,created_at,warranty_days,warranty_start_date,warranty_end_date").eq("job_number", jobNumber).maybeSingle();
     if (error) throw error;
     if (!job) return NextResponse.json({ success: false, message: "No repair found. Check your job number and mobile number." }, { status: 404 });
     const { data: customer, error: customerError } = await supabase.from("customers").select("name,phone").eq("id", job.customer_id).maybeSingle();
     if (customerError) throw customerError;
-    const savedPhone = String(customer?.phone ?? "").replace(/\\D/g, "").slice(-10);
+    const savedPhone = String(customer?.phone ?? "").replace(/\D/g, "").slice(-10);
     if (!customer || savedPhone !== phone) return NextResponse.json({ success: false, message: "No repair found. Check your job number and mobile number." }, { status: 404 });
     const { data: events, error: eventsError } = await supabase.from("job_events").select("event_type,description,created_at").eq("job_id", job.id).order("created_at", { ascending: true });
     if (eventsError) throw eventsError;
