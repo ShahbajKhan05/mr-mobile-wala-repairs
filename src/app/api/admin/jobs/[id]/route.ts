@@ -82,11 +82,8 @@ export async function PATCH(request: NextRequest, context: { params: Promise<{ i
         updates.warranty_start_date = warranty.startDate;
         updates.warranty_end_date = warranty.endDate;
       } else {
-        // Reset to Pending: clear all warranty fields
-        updates.paid_at = null;
-        updates.warranty_days = 0;
-        updates.warranty_start_date = null;
-        updates.warranty_end_date = null;
+        // Keep the original payment timestamp and warranty record for audit history.
+        // Re-marking the job Paid must never restart or extend its original warranty.
       }
     }
 
