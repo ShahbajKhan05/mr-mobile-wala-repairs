@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { CalendarDays, RefreshCw, Search, ShieldCheck, Smartphone } from "lucide-react";
+import { CalendarDays, RefreshCw, Search, ShieldCheck, Smartphone, Trash2 } from "lucide-react";
 import { formatWarrantyDate, getWarrantyDetails, isWarrantyActive } from "@/lib/warranty";
 
 type WarrantyListItem = {
@@ -15,6 +15,7 @@ export default function WarrantyCards() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [deletingJob, setDeletingJob] = useState("");
 
   async function load() {
     setLoading(true);
@@ -28,6 +29,23 @@ export default function WarrantyCards() {
       setError(cause instanceof Error ? cause.message : "Unable to load warranty cards.");
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function moveToRecycleBin(job: WarrantyListItem) {
+    if (!window.confirm(`Repair job ${job.id} aur iski warranty ko Recycle Bin mein move karna hai?`)) return;
+    if (deletingJob) return;
+    setDeletingJob(job.id);
+    setError("");
+    try {
+      const response = await fetch(`/api/admin/jobs/${encodeURIComponent(job.id)}`, { method: "DELETE" });
+      const result = await response.json().catch(() => null);
+      if (!response.ok || !result?.success) throw new Error(result?.message || "Warranty record delete nahi hua.");
+      await load();
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Warranty record delete nahi hua.");
+    } finally {
+      setDeletingJob("");
     }
   }
 
@@ -87,6 +105,7 @@ export default function WarrantyCards() {
                   <div className="flex items-center gap-3 sm:justify-end">
                     <span className={`rounded-full px-3 py-1 text-xs font-bold ${active ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-slate-600"}`}>{active ? "Active" : "Expired"}</span>
                     <Link href={`/jobs/${encodeURIComponent(job.id)}/warranty`} className="inline-flex min-h-10 items-center justify-center rounded-xl bg-indigo-600 px-4 py-2 text-xs font-bold text-white hover:bg-indigo-700">View Card</Link>
+                    <button type="button" onClick={() => void moveToRecycleBin(job)} disabled={deletingJob === job.id} className="inline-flex min-h-10 items-center justify-center gap-1.5 rounded-xl border border-red-200 bg-white px-3 py-2 text-xs font-bold text-red-600 hover:bg-red-50 disabled:opacity-50"><Trash2 size={14}/>{deletingJob === job.id ? "Moving..." : "Delete"}</button>
                   </div>
                 </article>;
               })}
