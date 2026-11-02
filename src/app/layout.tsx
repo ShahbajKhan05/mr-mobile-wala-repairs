@@ -10,20 +10,29 @@ const geistSans = Geist({
   display: "swap",
 });
 
-const geistMono = Geist({
+const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "swap",
 });
 
+const siteUrl = "https://mr-mobile-wala-repairs.vercel.app";
+
+const logoUrl = "/mr-mobile-wala-logo.png";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+
   title: {
     default: "MR MOBILE WALA REPAIRS | Mobile Repair Management",
     template: "%s | MR MOBILE WALA",
   },
+
   description:
     "MR MOBILE WALA REPAIRS — Buy, sell and repair mobile phones with a smarter repair management experience.",
+
   applicationName: "MR MOBILE WALA REPAIRS",
+
   keywords: [
     "MR MOBILE WALA",
     "Mobile Repair",
@@ -32,6 +41,31 @@ export const metadata: Metadata = {
     "Phone Repair",
     "Mobile Accessories",
   ],
+
+  openGraph: {
+    type: "website",
+    url: siteUrl,
+    siteName: "MR MOBILE WALA REPAIRS",
+    title: "MR MOBILE WALA REPAIRS",
+    description:
+      "Buy, sell and repair mobile phones with MR MOBILE WALA REPAIRS.",
+    locale: "en_IN",
+    images: [
+      {
+        url: logoUrl,
+        alt: "MR MOBILE WALA REPAIRS Original Logo",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "MR MOBILE WALA REPAIRS",
+    description:
+      "Buy, sell and repair mobile phones with MR MOBILE WALA REPAIRS.",
+    images: [logoUrl],
+  },
+
   robots: {
     index: false,
     follow: false,
