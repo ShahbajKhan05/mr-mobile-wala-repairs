@@ -121,7 +121,7 @@ export default function Navbar() {
                   : "border-slate-200/80 bg-white/60 text-slate-600 hover:border-indigo-300 hover:text-indigo-700"
               }`}
             >
-              <WhatsAppIcon size={19} />
+              <Image src="/Whatsapp-3d.svg" alt="" aria-hidden="true" width={24} height={24} className="object-contain" />
             </button>
 
             {isSocialOpen && (
