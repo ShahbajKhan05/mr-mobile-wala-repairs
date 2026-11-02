@@ -541,7 +541,7 @@ export default function JobWarranty() {
               WARRANTY CARD - BACK SIDE
             </h3>
 
-            <div className="mt-6 grid grid-cols-2 gap-6 text-sm">
+            <div className="mt-5 grid grid-cols-2 gap-3 text-sm sm:mt-6 sm:gap-6">
               <Detail
                 icon={<UserRound size={17} />}
                 label="Customer"
@@ -569,7 +569,7 @@ export default function JobWarranty() {
               />
             </div>
 
-            <p className="mt-8 border-t border-slate-300 pt-4 text-xs leading-5 text-slate-600">
+            <p className="mt-6 border-t sm:mt-8 border-slate-300 pt-4 text-xs leading-5 text-slate-600">
               Keep this card and Job ID for reference. Warranty is subject to
               shop inspection and applicable repair terms.
             </p>
