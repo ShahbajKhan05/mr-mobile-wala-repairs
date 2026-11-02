@@ -25,8 +25,8 @@ const warranty = {
   device: "iPhone 13",
   service: "Display Replacement",
   start: "01 November 2026",
-  expiry: "01 December 2026",
-  duration: "30 Days",
+  expiry: "08 November 2026",
+  duration: "7 Days",
 };
 
 export default function WarrantyCard() {
@@ -72,7 +72,7 @@ Thank you for choosing MR MOBILE WALA!
 
           <div className="rounded-full bg-green-100 px-3 py-2 text-xs font-bold text-green-700">
             <ShieldCheck size={14} className="mr-1 inline" />
-            30 Days
+            7 Days
           </div>
         </header>
 
@@ -164,7 +164,7 @@ Thank you for choosing MR MOBILE WALA!
                         Valid Until
                       </p>
                       <p className="mt-1 text-xs font-bold text-white">
-                        01 DEC 2026
+                        08 NOV 2026
                       </p>
                     </div>
                   </div>
@@ -255,7 +255,7 @@ Thank you for choosing MR MOBILE WALA!
                       Valid Until
                     </p>
                     <p className="mt-1 text-[10px] font-bold text-white">
-                      01 DEC 2026
+                      08 NOV 2026
                     </p>
                   </div>
                 </div>
