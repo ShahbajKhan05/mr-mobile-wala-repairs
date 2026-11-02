@@ -40,8 +40,8 @@ export default function CustomerWarrantyCard({ token }: { token: string }) {
     return <main className="flex min-h-screen flex-col items-center justify-center bg-slate-50 p-6 text-center"><AlertCircle size={32} className="text-amber-600" /><h1 className="mt-4 text-xl font-bold text-slate-900">Warranty Card Unavailable</h1><p className="mt-2 max-w-md text-sm text-slate-500">{error || "The warranty card becomes available after payment is marked as Paid."}</p><Link href={`/track/${encodeURIComponent(token)}`} className="mt-5 rounded-xl bg-slate-900 px-5 py-3 text-sm font-bold text-white">Back to Repair Tracking</Link></main>;
   }
 
-  const active = isWarrantyActive(job.warrantyEndDate);
-  const remaining = getRemainingWarrantyDays(job.warrantyEndDate);
+  const active = isWarrantyActive(job.warrantyEndDate, new Date(), job.warrantyExpiresAt);
+  const remaining = getRemainingWarrantyDays(job.warrantyEndDate, new Date(), job.warrantyExpiresAt);
   const warrantyId = job.jobNumber;
 
   return (
