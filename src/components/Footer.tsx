@@ -38,7 +38,7 @@ const FOOTER_GROUPS = [
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden glass-panel relative overflow-hidden border-t border-white/70 bg-white/45 text-slate-800">
+    <footer className="glass-panel relative overflow-hidden border-t border-white/70 bg-white/45 text-slate-800">
       {/* Decorative background */}
       <div className="pointer-events-none absolute -right-40 -top-40 h-96 w-96 rounded-full bg-[#DCC69E]/10 blur-3xl" />
 
@@ -98,7 +98,7 @@ export default function Footer() {
               </a>
 
               <a
-                href="https://www.instagram.com/"
+                href="https://instagram.com/mrmobilewala.2.0"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
