@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import VideoHero from "@/components/VideoHero";
@@ -9,34 +8,25 @@ import Footer from "@/components/Footer";
 import BrandMarquee from "@/components/BrandMarquee";
 
 export const metadata: Metadata = {
-  title: "MR MOBILE WALA | Buy, Sell & Repair Mobile Phones",
+  title: "MR MOBILE WALA | Buy, Sell & Repair Mobile Phones in Rewa",
   description:
-    "Buy, sell and repair mobile phones with MR MOBILE WALA. Book your mobile service quickly through WhatsApp.",
+    "Looking for mobile phone repair in Rewa? Contact MR MOBILE WALA for mobile repair enquiries, and help with buying or selling phones.",
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function HomePage() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#FAFAF8] text-[#202B32]">
-      {/* Navigation */}
       <Navbar />
-
       <main>
-        
-        {/* Cinematic Video Hero */}
         <VideoHero />
-        {/* Branding & Service Highlights */}
         <BrandMarquee />
-
-        {/* Glassmorphism Booking Form */}
         <BookingForm />
       </main>
-      {/* Why Choose Us Section */}
       <WhyChooseUs />
-
-      {/* English + Hindi FAQ */}
       <FAQ />
-
-      {/* Website Footer */}
       <Footer />
     </div>
   );
