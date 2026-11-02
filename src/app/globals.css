@@ -349,13 +349,33 @@ svg {
 @media (max-width: 640px) {
   .glass-page > main > section,
   .glass-page > section {
-    padding-top: 2.25rem !important;
-    padding-bottom: 2.25rem !important;
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
   }
 
   .glass-page > main > section:first-child {
-    padding-top: 6.5rem !important;
-    padding-bottom: 2rem !important;
+    padding-top: 5.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+
+  .glass-page {
+    overflow-x: clip;
+  }
+
+  .glass-panel,
+  .glass-card {
+    border-radius: 18px;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 16px;
   }
 
   .glass-page footer > div {
