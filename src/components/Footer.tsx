@@ -47,17 +47,17 @@ export default function Footer() {
 
         {/* Brand statement */}
         <div className="border-b border-[#DDD8CE] py-8 text-center sm:py-20">
-          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.4em] text-[#A17D45] sm:mb-5 sm:text-xs">
+          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.4em] text-[#765A2B] sm:mb-5 sm:text-xs">
             The Mobile Experience
           </p>
 
           <h2 className="text-4xl font-black uppercase leading-[0.95] tracking-[-0.07em] sm:text-6xl md:text-7xl">
-            BUY <span className="font-light text-[#C5B99F]">/</span> SELL
+            BUY <span className="font-light text-[#75664A]">/</span> SELL
             <br className="sm:hidden" />{" "}
-            <span className="text-[#A17D45]">/</span> REPAIR
+            <span className="text-[#765A2B]">/</span> REPAIR
           </h2>
 
-          <p className="mx-auto mt-4 max-w-xl text-xs leading-6 text-[#737A7C] sm:mt-7 sm:text-base sm:leading-7">
+          <p className="mx-auto mt-4 max-w-xl text-xs leading-6 text-[#626B70] sm:mt-7 sm:text-base sm:leading-7">
             At MR MOBILE WALA, anything phone related. Walk in with a
             question, walk out with confidence.
           </p>
@@ -82,7 +82,7 @@ export default function Footer() {
               />
             </Link>
 
-            <p className="mt-3 max-w-xs text-xs leading-6 text-[#737A7C] sm:mt-5 sm:text-sm sm:leading-7">
+            <p className="mt-3 max-w-xs text-xs leading-6 text-[#626B70] sm:mt-5 sm:text-sm sm:leading-7">
               Your trusted destination for mobile buying, selling and
               professional repair services.
             </p>
@@ -113,7 +113,7 @@ export default function Footer() {
           {/* Navigation groups */}
           {FOOTER_GROUPS.map((group) => (
             <div key={group.title} className="min-w-0">
-              <h3 className="mb-3 text-[10px] font-bold uppercase tracking-[0.13em] text-[#A17D45] sm:mb-6 sm:text-xs sm:tracking-[0.2em]">
+              <h3 className="mb-3 text-[10px] font-bold uppercase tracking-[0.13em] text-[#765A2B] sm:mb-6 sm:text-xs sm:tracking-[0.2em]">
                 {group.title}
               </h3>
 
@@ -122,7 +122,7 @@ export default function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="group inline-flex items-center gap-1 text-[11px] font-medium leading-5 text-[#626A6D] transition-colors duration-200 hover:text-[#A17D45] sm:text-sm"
+                      className="group inline-flex items-center gap-1 text-[11px] font-medium leading-5 text-[#626A6D] transition-colors duration-200 hover:text-[#765A2B] sm:text-sm"
                     >
                       {link.label}
                       <ArrowUpRight
@@ -141,12 +141,12 @@ export default function Footer() {
         <div className="flex flex-col items-center justify-between gap-3 border-t border-[#DDD8CE] py-4 text-center sm:flex-row sm:gap-4 sm:py-6 sm:text-left">
           <div className="flex flex-col items-center gap-2.5 text-[10px] text-[#777E81] sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-6 sm:gap-y-3 sm:text-xs">
             <span className="inline-flex items-center gap-2">
-              <ShieldCheck size={15} className="shrink-0 text-[#A17D45]" />
+              <ShieldCheck size={15} className="shrink-0 text-[#765A2B]" />
               Customer focused service
             </span>
 
             <span className="inline-flex items-center gap-2">
-              <FileText size={15} className="shrink-0 text-[#A17D45]" />
+              <FileText size={15} className="shrink-0 text-[#765A2B]" />
               Transparent service details
             </span>
           </div>
@@ -155,7 +155,7 @@ export default function Footer() {
             href="https://wa.me/919131383323"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-xs font-semibold text-[#202B32] transition-colors hover:text-[#A17D45]"
+            className="inline-flex items-center gap-2 text-xs font-semibold text-[#202B32] transition-colors hover:text-[#765A2B]"
           >
             <MapPin size={14} />
             Get in touch
@@ -165,11 +165,11 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="flex flex-col items-center justify-between gap-2 border-t border-[#DDD8CE] py-4 text-center sm:flex-row sm:gap-3 sm:py-6">
-          <p className="text-[10px] text-[#858B8B] sm:text-xs">
+          <p className="text-[10px] text-[#5E6668] sm:text-xs">
             © 2026 MR MOBILE WALA. All rights reserved.
           </p>
 
-          <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#A17D45]">
+          <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#765A2B]">
             BUY · SELL · REPAIR
           </p>
         </div>
