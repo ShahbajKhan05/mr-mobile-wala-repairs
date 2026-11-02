@@ -67,16 +67,16 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="glass-page w-full px-5 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24"
+      className="glass-page w-full px-4 py-10 sm:px-8 sm:py-20 lg:px-12 lg:py-24"
     >
       <div className="mx-auto max-w-4xl">
 
         {/* Compact FAQ Header */}
-        <div className="relative overflow-hidden glass-panel rounded-[28px] border border-white/80 bg-white/55 px-6 py-9 sm:px-10 sm:py-11">
+        <div className="relative overflow-hidden glass-panel rounded-[20px] border border-white/80 bg-white/55 px-4 py-5 sm:rounded-[28px] sm:px-10 sm:py-11 sm:px-10 sm:py-11">
 
           <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-[#B69A69]/[0.06] blur-3xl" />
 
-          <div className="relative flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-center">
+          <div className="relative flex flex-col items-start justify-between gap-4 sm:gap-8 sm:flex-row sm:items-center">
 
             <div>
               <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.35em] text-indigo-600">
@@ -166,7 +166,7 @@ export default function FAQ() {
                       onClick={() =>
                         setOpenIndex(isOpen ? null : index)
                       }
-                      className="flex w-full items-center justify-between gap-5 py-6 text-left transition-colors duration-200 hover:text-indigo-600 sm:py-7"
+                      className="flex w-full items-center justify-between gap-5 py-4 text-left sm:py-6 transition-colors duration-200 hover:text-indigo-600 sm:py-7"
                     >
                       <span className="min-w-0">
                         <span className="mb-2 block text-[9px] font-semibold tracking-[0.2em] text-[#B69A69]">
@@ -201,7 +201,7 @@ export default function FAQ() {
                       }`}
                     >
                       <div className="overflow-hidden">
-                        <div className="max-w-3xl pb-6 pr-8 sm:pb-7">
+                        <div className="max-w-3xl pb-4 pr-3 sm:pb-7 sm:pr-8">
                           <p className="text-sm leading-7 text-slate-500">
                             {faq.answer}
                           </p>
