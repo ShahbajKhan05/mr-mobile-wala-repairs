@@ -68,10 +68,10 @@ export async function PATCH(request: NextRequest, context: { params: Promise<{ i
       eventType = "payment_updated";
       description = `Payment marked as ${body.paymentStatus}.`;
       if (body.paymentStatus === "Paid") {
-        updates.warranty_days = 30;
+        updates.warranty_days = 7;
         updates.warranty_start_date = new Date().toISOString().slice(0, 10);
         const end = new Date();
-        end.setDate(end.getDate() + 30);
+        end.setDate(end.getDate() + 7);
         updates.warranty_end_date = end.toISOString().slice(0, 10);
       } else {
         updates.warranty_days = 0;
