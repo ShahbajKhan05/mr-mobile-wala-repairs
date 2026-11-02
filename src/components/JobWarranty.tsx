@@ -141,7 +141,7 @@ export default function JobWarranty() {
 
   const today = new Date();
 
-  // Use end-of-day UTC boundary so warranty stays active through the full last calendar day.
+  // Use the exact 7 x 24 hour expiry derived from the original paid_at timestamp.
   const active = isWarrantyActive(warranty.endDate, today, warranty.expiresAt);
   const remainingDays = getRemainingWarrantyDays(warranty.endDate, today, warranty.expiresAt);
 
