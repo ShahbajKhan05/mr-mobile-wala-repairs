@@ -1,4 +1,3 @@
-
 export type ShopSettings = {
   shopName: string;
   ownerName: string;
@@ -25,118 +24,29 @@ export const defaultShopSettings: ShopSettings = {
   updatedAt: "",
 };
 
-const DB_NAME = "mr-mobile-wala-settings";
-const DB_VERSION = 1;
-const STORE_NAME = "settings";
-const SETTINGS_KEY = "shop-profile";
+type SettingsResponse = { success: boolean; message?: string; settings?: ShopSettings };
 
-function openSettingsDatabase(): Promise<IDBDatabase> {
-  return new Promise((resolve, reject) => {
-    if (typeof window === "undefined" || !window.indexedDB) {
-      reject(new Error("IndexedDB is not supported in this browser."));
-      return;
-    }
-
-    const request = window.indexedDB.open(DB_NAME, DB_VERSION);
-
-    request.onupgradeneeded = () => {
-      const database = request.result;
-
-      if (!database.objectStoreNames.contains(STORE_NAME)) {
-        database.createObjectStore(STORE_NAME, {
-          keyPath: "id",
-        });
-      }
-    };
-
-    request.onsuccess = () => resolve(request.result);
-
-    request.onerror = () => {
-      reject(request.error || new Error("Settings database open failed."));
-    };
+async function requestSettings(method: "GET" | "PUT" | "DELETE", settings?: ShopSettings): Promise<ShopSettings> {
+  const response = await fetch("/api/admin/settings", {
+    method,
+    cache: "no-store",
+    ...(settings ? { headers: { "Content-Type": "application/json" }, body: JSON.stringify(settings) } : {}),
   });
+  const result = await response.json().catch(() => null) as SettingsResponse | null;
+  if (!response.ok || !result?.success || !result.settings) {
+    throw new Error(result?.message || "Shop settings request failed.");
+  }
+  return { ...defaultShopSettings, ...result.settings };
 }
 
-export async function getShopSettings(): Promise<ShopSettings> {
-  const database = await openSettingsDatabase();
-
-  return new Promise((resolve, reject) => {
-    const transaction = database.transaction(STORE_NAME, "readonly");
-    const request = transaction.objectStore(STORE_NAME).get(SETTINGS_KEY);
-
-    request.onsuccess = () => {
-      const saved = request.result?.data as ShopSettings | undefined;
-
-      resolve({
-        ...defaultShopSettings,
-        ...(saved || {}),
-      });
-    };
-
-    request.onerror = () => {
-      reject(request.error || new Error("Could not load shop settings."));
-    };
-
-    transaction.oncomplete = () => database.close();
-    transaction.onerror = () => database.close();
-    transaction.onabort = () => database.close();
-  });
+export function getShopSettings(): Promise<ShopSettings> {
+  return requestSettings("GET");
 }
 
-export async function saveShopSettings(
-  settings: ShopSettings
-): Promise<void> {
-  const database = await openSettingsDatabase();
-
-  return new Promise((resolve, reject) => {
-    const transaction = database.transaction(STORE_NAME, "readwrite");
-
-    transaction.objectStore(STORE_NAME).put({
-      id: SETTINGS_KEY,
-      data: {
-        ...settings,
-        updatedAt: new Date().toISOString(),
-      },
-    });
-
-    transaction.oncomplete = () => {
-      database.close();
-      resolve();
-    };
-
-    transaction.onerror = () => {
-      database.close();
-      reject(transaction.error || new Error("Could not save settings."));
-    };
-
-    transaction.onabort = () => {
-      database.close();
-      reject(transaction.error || new Error("Settings save aborted."));
-    };
-  });
+export async function saveShopSettings(settings: ShopSettings): Promise<void> {
+  await requestSettings("PUT", settings);
 }
 
 export async function resetShopSettings(): Promise<void> {
-  const database = await openSettingsDatabase();
-
-  return new Promise((resolve, reject) => {
-    const transaction = database.transaction(STORE_NAME, "readwrite");
-
-    transaction.objectStore(STORE_NAME).delete(SETTINGS_KEY);
-
-    transaction.oncomplete = () => {
-      database.close();
-      resolve();
-    };
-
-    transaction.onerror = () => {
-      database.close();
-      reject(transaction.error || new Error("Could not reset settings."));
-    };
-
-    transaction.onabort = () => {
-      database.close();
-      reject(transaction.error || new Error("Settings reset aborted."));
-    };
-  });
+  await requestSettings("DELETE");
 }
