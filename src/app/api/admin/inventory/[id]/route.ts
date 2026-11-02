@@ -1,0 +1,22 @@
+import { NextRequest, NextResponse } from "next/server";
+import { requireAdmin } from "@/lib/supabase/require-admin";
+import { createSupabaseAdminClient } from "@/lib/supabase/server";
+
+function fail(message: string, status = 400) {
+  return NextResponse.json({ success: false, message }, { status });
+}
+
+export async function DELETE(request: NextRequest, context: { params: Promise<{ id: string }> }) {
+  if (!requireAdmin(request)) return fail("Unauthorized.", 401);
+  try {
+    const { id } = await context.params;
+    if (!id || id.length > 120) return fail("Invalid inventory item.");
+    const supabase = createSupabaseAdminClient();
+    const { error } = await supabase.from("inventory_parts").delete().eq("id", id);
+    if (error) throw error;
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Inventory delete failed:", error);
+    return fail("Unable to delete inventory item.", 500);
+  }
+}
