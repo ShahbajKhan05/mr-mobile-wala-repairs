@@ -2,7 +2,7 @@
 "use client";
 
 import WhatsAppIcon from "@/components/WhatsAppIcon";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import {
   ArrowRight,
   Check,
@@ -143,6 +143,13 @@ export default function BookingForm() {
   const [condition, setCondition] = useState("Good");
   const [expectedPrice, setExpectedPrice] = useState("");
 
+  useEffect(() => {
+    const service = new URLSearchParams(window.location.search).get("service");
+    if (service === "buy") setBookingType("Buy Mobile");
+    if (service === "sell") setBookingType("Sell Mobile");
+    if (service === "repair") setBookingType("Repair Mobile");
+  }, []);
+
   const modelOptions = PHONE_MODELS[brand] || [];
 
   const needsCustomModel =
@@ -221,7 +228,7 @@ export default function BookingForm() {
   return (
     <section
       id="booking"
-      className="glass-page w-full px-4 pb-10 pt-8 sm:px-6 sm:pb-20 sm:pt-16 lg:px-8 lg:pb-24"
+      className="glass-page w-full scroll-mt-24 px-4 pb-10 pt-8 sm:scroll-mt-28 sm:px-6 sm:pb-20 sm:pt-16 lg:px-8 lg:pb-24"
     >
       <div className="mx-auto max-w-4xl">
 
@@ -273,7 +280,7 @@ export default function BookingForm() {
                     type="button"
                     onClick={() => handleServiceChange(label)}
                     aria-pressed={active}
-                    className={`relative flex min-h-[84px] flex-col items-center justify-center rounded-xl border p-2.5 sm:min-h-[125px] sm:rounded-2xl sm:p-3 text-center transition-all duration-200 sm:min-h-[125px] ${
+                    className={`relative flex min-h-[84px] flex-col items-center justify-center rounded-xl border p-2.5 sm:min-h-[125px] sm:rounded-2xl sm:p-3 text-center transition-all duration-200 ${
                       active
                         ? "border-indigo-600 bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-lg shadow-indigo-600/20"
                         : "border-white/80 bg-white/55 text-slate-700 hover:border-indigo-300 hover:bg-white/85"
