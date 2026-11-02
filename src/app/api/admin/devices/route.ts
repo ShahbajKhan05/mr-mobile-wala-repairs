@@ -16,14 +16,15 @@ export async function DELETE(request: NextRequest) {
     }
 
     const supabase = createSupabaseAdminClient();
-    const { data: jobs, error: jobsError } = await supabase
+    const { data: allJobs, error: jobsError } = await supabase
       .from("repair_jobs")
-      .select("id")
-      .eq("brand", brand)
-      .eq("model", model)
+      .select("id,brand,model")
       .is("deleted_at", null);
     if (jobsError) throw jobsError;
-    const ids = (jobs ?? []).map((job) => job.id);
+    const ids = (allJobs ?? [])
+      .filter((job) => String(job.brand).trim().toLowerCase() === brand.toLowerCase()
+        && String(job.model).trim().toLowerCase() === model.toLowerCase())
+      .map((job) => job.id);
     if (!ids.length) return fail("No active repair history found for this device.", 404);
 
     const { data: moved, error: updateError } = await supabase
