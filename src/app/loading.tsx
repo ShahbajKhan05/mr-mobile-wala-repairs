@@ -31,7 +31,7 @@ export default function Loading() {
 
             <Image
               src="/mr-mobile-wala-logo.png"
-              alt="MR MOBILE WALA"
+              alt="MR MOBILE WALA REPAIRS"
               width={180}
               height={80}
               priority
@@ -46,7 +46,7 @@ export default function Loading() {
         {/* Brand title */}
         <div className="mt-10 text-center">
           <p className="text-[11px] font-semibold uppercase tracking-[0.42em] text-[#202B32] sm:text-xs">
-            MR MOBILE WALA
+            MR MOBILE WALA REPAIRS
           </p>
 
           <div className="mx-auto mt-4 flex items-center justify-center gap-3">
@@ -71,15 +71,15 @@ export default function Loading() {
               Please wait
             </span>
             <span className="loading-dots text-[10px] tracking-[0.2em] text-[#A58A5B]">
-              • • •
+              * * *
             </span>
           </div>
         </div>
 
         {/* Bottom brand signature */}
         <p className="mt-12 text-[9px] font-medium tracking-[0.3em] text-[#B4B0A7]">
-          BUY <span className="px-2 text-[#C5A675]">·</span>
-          SELL <span className="px-2 text-[#C5A675]">·</span>
+          BUY <span className="px-2 text-[#C5A675]">.</span>
+          SELL <span className="px-2 text-[#C5A675]">.</span>
           REPAIR
         </p>
       </div>

@@ -174,7 +174,7 @@ export default function CustomerProfile() {
   const whatsappNumber = getWhatsAppNumber(customer.phone);
 
   const whatsappMessage = encodeURIComponent(
-    `Hello ${customer.customerName}, thank you for choosing MR MOBILE WALA. How can we help you?`
+    `Hello ${customer.customerName}, thank you for choosing MR MOBILE WALA REPAIRS. How can we help you?`
   );
 
   return (
@@ -193,7 +193,7 @@ export default function CustomerProfile() {
           <div className="mt-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-sm font-medium text-blue-600">
-                MR MOBILE WALA
+                MR MOBILE WALA REPAIRS
               </p>
 
               <h1 className="mt-1 text-2xl font-bold text-slate-900 sm:text-3xl">

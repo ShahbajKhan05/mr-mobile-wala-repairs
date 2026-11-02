@@ -6,7 +6,7 @@ import { ArrowLeft, FileText } from "lucide-react";
 export const metadata: Metadata = {
   title: "Terms & Conditions",
   description:
-    "Read the terms and conditions for mobile repair, buying and selling services at MR MOBILE WALA.",
+    "Read the terms and conditions for mobile repair, buying and selling services at MR MOBILE WALA REPAIRS.",
   robots: {
     index: true,
     follow: true,
@@ -32,7 +32,7 @@ const terms = [
   {
     title: "4. Customer Data and Backup",
     content:
-      "Customers are responsible for backing up important data before handing over a device. Although reasonable care will be taken, MR MOBILE WALA cannot guarantee that data will remain intact during diagnosis or repair. Please remove sensitive information where possible.",
+      "Customers are responsible for backing up important data before handing over a device. Although reasonable care will be taken, MR MOBILE WALA REPAIRS cannot guarantee that data will remain intact during diagnosis or repair. Please remove sensitive information where possible.",
   },
   {
     title: "5. Device Access and Security",
@@ -89,7 +89,7 @@ export default function TermsPage() {
           </div>
 
           <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#B08D57]">
-            MR MOBILE WALA
+            MR MOBILE WALA REPAIRS
           </p>
 
           <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-5xl">
@@ -134,7 +134,7 @@ export default function TermsPage() {
         </div>
 
         <p className="mt-8 text-center text-xs text-[#9A9D9B]">
-          © 2026 MR MOBILE WALA. All rights reserved.
+          © 2026 MR MOBILE WALA REPAIRS. All rights reserved.
         </p>
       </div>
     </main>

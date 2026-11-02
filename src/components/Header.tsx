@@ -166,7 +166,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
             return {
               id: `${job.id}-payment`,
               title: "Payment Pending",
-              message: `${job.customerName} has a pending payment of ₹${job.estimate}.`,
+              message: `${job.customerName} has a pending payment of Rs.${job.estimate}.`,
               time: job.createdAt,
               href,
               type: "payment",
@@ -229,7 +229,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
           } else if (job.paymentStatus === "Pending") {
             type = "payment";
             title = "Payment Pending";
-            message = `${job.customerName} has a pending payment of ₹${job.estimate}.`;
+            message = `${job.customerName} has a pending payment of Rs.${job.estimate}.`;
           } else if (job.status === "Received") {
             type = "job";
             title = "New Repair Job";
@@ -417,7 +417,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
         {/* Logo Only */}
         <Image
           src="/mr-mobile-wala-logo.png"
-          alt="MR MOBILE WALA"
+          alt="MR MOBILE WALA REPAIRS"
           width={180}
           height={60}
           priority

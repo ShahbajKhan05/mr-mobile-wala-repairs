@@ -13,7 +13,7 @@ export type ShopSettings = {
 };
 
 export const defaultShopSettings: ShopSettings = {
-  shopName: "MR MOBILE WALA",
+  shopName: "MR MOBILE WALA REPAIRS",
   ownerName: "",
   phone: "",
   email: "",
@@ -21,7 +21,7 @@ export const defaultShopSettings: ShopSettings = {
   upiId: "",
   googleReviewLink: "",
   warrantyDays: 7,
-  invoiceFooter: "Thank you for choosing MR MOBILE WALA.",
+  invoiceFooter: "Thank you for choosing MR MOBILE WALA REPAIRS.",
   updatedAt: "",
 };
 

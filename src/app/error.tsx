@@ -24,7 +24,7 @@ export default function Error({
         </div>
 
         <p className="mt-7 text-xs font-bold uppercase tracking-[0.3em] text-[#B08D57]">
-          MR MOBILE WALA
+          MR MOBILE WALA REPAIRS
         </p>
 
         <h1 className="mt-4 text-3xl font-semibold tracking-tight text-[#202B32]">

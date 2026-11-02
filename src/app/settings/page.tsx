@@ -4,7 +4,7 @@ import DashboardLayout from "@/components/DashboardLayout";
 import Settings from "@/components/Settings";
 
 export const metadata: Metadata = {
-  title: "Shop Settings | MR MOBILE WALA",
+  title: "Shop Settings | MR MOBILE WALA REPAIRS",
   description:
     "Manage shop profile, contact details, payment preferences and warranty settings.",
   robots: {

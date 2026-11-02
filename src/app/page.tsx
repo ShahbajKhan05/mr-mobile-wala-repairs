@@ -10,9 +10,9 @@ import ServiceShowcase from "@/components/ServiceShowcase";
 import Testimonials from "@/components/Testimonials";
 
 export const metadata: Metadata = {
-  title: "MR MOBILE WALA | Buy, Sell & Repair Mobile Phones in Rewa",
+  title: "MR MOBILE WALA REPAIRS | Buy, Sell & Repair Mobile Phones in Rewa",
   description:
-    "Looking for mobile phone repair in Rewa? Contact MR MOBILE WALA for mobile repair enquiries, and help with buying or selling phones.",
+    "Looking for mobile phone repair in Rewa? Contact MR MOBILE WALA REPAIRS for mobile repair enquiries, and help with buying or selling phones.",
   alternates: {
     canonical: "/",
   },

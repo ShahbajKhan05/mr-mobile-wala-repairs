@@ -224,7 +224,7 @@ export default function Settings() {
                   onChange={(event) =>
                     updateField("shopName", event.target.value)
                   }
-                  placeholder="MR MOBILE WALA"
+                  placeholder="MR MOBILE WALA REPAIRS"
                   className="settings-input"
                 />
               </FormField>
@@ -362,9 +362,6 @@ export default function Settings() {
                   step="1"
                   value={7}
                   readOnly
-                  onChange={(event) =>
-                    updateField("warrantyDays", Number(event.target.value))
-                  }
                   className="settings-input"
                 />
               </FormField>
@@ -387,7 +384,7 @@ export default function Settings() {
                 onChange={(event) =>
                   updateField("invoiceFooter", event.target.value)
                 }
-                placeholder="Thank you for choosing MR MOBILE WALA."
+                placeholder="Thank you for choosing MR MOBILE WALA REPAIRS."
                 className="settings-input resize-y"
               />
             </FormField>

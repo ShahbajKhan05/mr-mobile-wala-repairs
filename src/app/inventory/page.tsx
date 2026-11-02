@@ -4,7 +4,7 @@ import DashboardLayout from "@/components/DashboardLayout";
 import Inventory from "@/components/Inventory";
 
 export const metadata: Metadata = {
-  title: "Parts Inventory | MR MOBILE WALA",
+  title: "Parts Inventory | MR MOBILE WALA REPAIRS",
   description:
     "Manage mobile repair spare parts, stock quantities, suppliers, purchase prices and low stock alerts.",
   robots: {

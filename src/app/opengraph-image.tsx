@@ -19,7 +19,7 @@ export default async function OpenGraphImage() {
   const logoResponse = await fetch(logoUrl);
 
   if (!logoResponse.ok) {
-    throw new Error("Unable to load MR MOBILE WALA original logo.");
+    throw new Error("Unable to load MR MOBILE WALA REPAIRS original logo.");
   }
 
   const logoBuffer = await logoResponse.arrayBuffer();
@@ -49,7 +49,7 @@ export default async function OpenGraphImage() {
 
         <img
           src={logoBuffer as unknown as string}
-          alt="MR MOBILE WALA"
+          alt="MR MOBILE WALA REPAIRS"
           width="900"
           height="470"
           style={{

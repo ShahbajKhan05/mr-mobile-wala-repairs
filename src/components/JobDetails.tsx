@@ -28,6 +28,7 @@ import {
   defaultShopSettings,
   type ShopSettings,
 } from "@/lib/settings";
+import { WARRANTY_DAYS } from "@/lib/warranty";
 
 const statusSteps: RepairJob["status"][] = [
   "Received",
@@ -245,11 +246,7 @@ export default function JobDetails() {
 
   const paidDate = job.paidAt ? formatDate(job.paidAt) : null;
 
-  const warrantyDays =
-    Number.isFinite(settings.warrantyDays) &&
-    settings.warrantyDays > 0
-      ? Math.floor(settings.warrantyDays)
-      : defaultShopSettings.warrantyDays;
+  const warrantyDays = WARRANTY_DAYS;
 
   const whatsappMessage = encodeURIComponent(
     `Hello ${job.customerName},

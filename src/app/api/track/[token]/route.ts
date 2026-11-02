@@ -2,6 +2,7 @@ import { createHash } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/server";
 import { createRepairPhotoUrl } from "@/lib/supabase/storage";
+import { getWarrantyDetails, WARRANTY_DAYS } from "@/lib/warranty";
 
 export async function GET(
   _request: NextRequest,
@@ -65,14 +66,8 @@ export async function GET(
       url: await createRepairPhotoUrl(photo.file_path),
     })));
 
-    const warrantyActive = job.payment_status === "Paid" && Boolean(job.paid_at);
-    const warrantyStart = warrantyActive ? (job.warranty_start_date || new Date(job.paid_at).toISOString().slice(0, 10)) : null;
-    const warrantyEnd = warrantyActive ? (() => {
-      if (job.warranty_end_date) return job.warranty_end_date;
-      const expiry = new Date(job.paid_at);
-      expiry.setUTCDate(expiry.getUTCDate() + 7);
-      return expiry.toISOString().slice(0, 10);
-    })() : null;
+    const warranty = getWarrantyDetails(job.payment_status, job.paid_at);
+    const warrantyActive = Boolean(warranty.startDate && warranty.endDate);
 
     return NextResponse.json({
       success: true,
@@ -88,9 +83,9 @@ export async function GET(
         pickupStatus: job.pickup_status ?? "Pending",
         createdAt: job.created_at,
         paidAt: job.paid_at,
-        warrantyDays: warrantyActive ? 7 : 0,
-        warrantyStartDate: warrantyStart,
-        warrantyEndDate: warrantyEnd,
+        warrantyDays: warrantyActive ? WARRANTY_DAYS : 0,
+        warrantyStartDate: warranty.startDate,
+        warrantyEndDate: warranty.endDate,
         photos: safePhotos,
         events: events ?? [],
       },

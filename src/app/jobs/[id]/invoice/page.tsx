@@ -4,7 +4,7 @@ import DashboardLayout from "@/components/DashboardLayout";
 import JobInvoice from "@/components/JobInvoice";
 
 export const metadata: Metadata = {
-  title: "Repair Invoice | MR MOBILE WALA",
+  title: "Repair Invoice | MR MOBILE WALA REPAIRS",
   description: "View and save your mobile repair payment invoice.",
   robots: {
     index: false,

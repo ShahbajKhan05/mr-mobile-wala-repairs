@@ -83,7 +83,7 @@ export default function JobsList() {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-sm font-medium text-blue-600">
-              MR MOBILE WALA
+              MR MOBILE WALA REPAIRS
             </p>
             <h1 className="mt-1 text-2xl font-bold text-slate-900 sm:text-3xl">
               All Repair Jobs
@@ -229,7 +229,7 @@ export default function JobsList() {
         {job.brand} {job.model}
       </p>
       <p className="mt-1 text-xs text-slate-400">
-        {job.id} · {job.phone}
+        {job.id} . {job.phone}
       </p>
       <p className="mt-2 line-clamp-2 text-sm text-slate-600">
         {job.problem}

@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/supabase/require-admin";
 import { createSupabaseAdminClient } from "@/lib/supabase/server";
+import {
+  getWarrantyDetails,
+  parseWarrantyTimestamp,
+  WARRANTY_DAYS,
+} from "@/lib/warranty";
 
 function fail(message: string, status = 400) {
   return NextResponse.json({ success: false, message }, { status });
@@ -62,18 +67,23 @@ export async function PATCH(request: NextRequest, context: { params: Promise<{ i
     if (body.paymentStatus !== undefined) {
       if (!["Pending", "Paid"].includes(body.paymentStatus)) return fail("Invalid payment status.");
       updates.payment_status = body.paymentStatus;
-      updates.paid_at = body.paymentStatus === "Paid"
-        ? (job.payment_status === "Paid" && job.paid_at ? job.paid_at : new Date().toISOString())
-        : null;
       eventType = "payment_updated";
       description = `Payment marked as ${body.paymentStatus}.`;
       if (body.paymentStatus === "Paid") {
-        updates.warranty_days = 7;
-        updates.warranty_start_date = new Date().toISOString().slice(0, 10);
-        const end = new Date();
-        end.setDate(end.getDate() + 7);
-        updates.warranty_end_date = end.toISOString().slice(0, 10);
+        // Preserve original paid_at on repeated Paid requests; record now on first transition only.
+        const existingPaidAt = parseWarrantyTimestamp(job.paid_at);
+        const paidAt = existingPaidAt
+          ? existingPaidAt.toISOString()
+          : new Date().toISOString();
+
+        updates.paid_at = paidAt;
+        const warranty = getWarrantyDetails("Paid", paidAt);
+        updates.warranty_days = warranty.startDate ? WARRANTY_DAYS : 0;
+        updates.warranty_start_date = warranty.startDate;
+        updates.warranty_end_date = warranty.endDate;
       } else {
+        // Reset to Pending: clear all warranty fields
+        updates.paid_at = null;
         updates.warranty_days = 0;
         updates.warranty_start_date = null;
         updates.warranty_end_date = null;

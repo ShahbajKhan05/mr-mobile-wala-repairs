@@ -167,7 +167,7 @@ export default function Customers() {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-sm font-medium text-blue-600">
-              MR MOBILE WALA
+              MR MOBILE WALA REPAIRS
             </p>
 
             <h1 className="mt-1 text-2xl font-bold text-slate-900 sm:text-3xl">

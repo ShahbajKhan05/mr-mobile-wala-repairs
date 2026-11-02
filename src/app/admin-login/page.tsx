@@ -61,7 +61,7 @@ export default function AdminLoginPage() {
           <Link href="/" className="inline-flex justify-center">
             <Image
               src="/mr-mobile-wala-logo.png"
-              alt="MR MOBILE WALA"
+              alt="MR MOBILE WALA REPAIRS"
               width={220}
               height={75}
               priority

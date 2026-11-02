@@ -8,7 +8,6 @@ import { usePathname } from "next/navigation";
 import {
   ArrowUpRight,
   Camera,
-  ChevronDown,
   Mail,
   Menu,
   MessageCircle,
@@ -58,13 +57,13 @@ export default function Navbar() {
         {/* Brand */}
         <Link
           href="/"
-          aria-label="MR MOBILE WALA Home"
+          aria-label="MR MOBILE WALA REPAIRS Home"
           onClick={() => setIsOpen(false)}
           className="relative z-10 flex shrink-0 items-center"
         >
           <Image
             src="/mr-mobile-wala-logo.png"
-            alt="MR MOBILE WALA"
+            alt="MR MOBILE WALA REPAIRS"
             width={190}
             height={65}
             priority

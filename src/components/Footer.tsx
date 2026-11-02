@@ -57,7 +57,7 @@ export default function Footer() {
           </h2>
 
           <p className="mx-auto mt-4 max-w-xl text-xs leading-6 text-slate-500 sm:mt-7 sm:text-base sm:leading-7">
-            At MR MOBILE WALA, anything phone related. Walk in with a
+            At MR MOBILE WALA REPAIRS, anything phone related. Walk in with a
             question, walk out with confidence.
           </p>
         </div>
@@ -69,12 +69,12 @@ export default function Footer() {
           <div className="col-span-2 flex flex-col items-center text-center lg:col-span-1 lg:items-start lg:text-left">
             <Link
               href="/"
-              aria-label="MR MOBILE WALA Home"
+              aria-label="MR MOBILE WALA REPAIRS Home"
               className="inline-flex items-center"
             >
               <Image
                 src="/mr-mobile-wala-logo.png"
-                alt="MR MOBILE WALA"
+                alt="MR MOBILE WALA REPAIRS"
                 width={220}
                 height={90}
                 className="h-auto w-[145px] object-contain sm:w-[200px]"
@@ -165,11 +165,11 @@ export default function Footer() {
         {/* Copyright */}
         <div className="flex flex-col items-center justify-between gap-2 border-t border-[#DDD8CE] py-4 text-center sm:flex-row sm:gap-3 sm:py-6">
           <p className="text-[10px] text-[#5E6668] sm:text-xs">
-            © 2026 MR MOBILE WALA. All rights reserved.
+            © 2026 MR MOBILE WALA REPAIRS. All rights reserved.
           </p>
 
           <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#765A2B]">
-            BUY · SELL · REPAIR
+            BUY . SELL . REPAIR
           </p>
         </div>
       </div>

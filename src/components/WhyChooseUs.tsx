@@ -57,7 +57,7 @@ export default function WhyChooseUs() {
         {/* Section Heading */}
         <div className="mb-9 text-center sm:mb-14">
           <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.3em] text-indigo-600">
-            The MR MOBILE WALA Difference
+            The MR MOBILE WALA REPAIRS Difference
           </p>
 
           <h2
@@ -66,7 +66,7 @@ export default function WhyChooseUs() {
           >
             Why Choose{" "}
             <span className="font-serif font-normal italic text-[#765A2B]">
-              MR MOBILE WALA?
+              MR MOBILE WALA REPAIRS?
             </span>
           </h2>
 

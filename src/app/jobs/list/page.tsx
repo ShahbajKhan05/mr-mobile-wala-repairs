@@ -4,7 +4,7 @@ import DashboardLayout from "@/components/DashboardLayout";
 import JobsList from "@/components/JobsList";
 
 export const metadata: Metadata = {
-  title: "All Repair Jobs | MR MOBILE WALA",
+  title: "All Repair Jobs | MR MOBILE WALA REPAIRS",
   description:
     "View and manage mobile repair jobs, customer details and repair status.",
   robots: {

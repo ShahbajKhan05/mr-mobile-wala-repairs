@@ -1,4 +1,4 @@
-import { MessageCircle, Quote, Star } from "lucide-react";
+import { MessageCircle, Quote } from "lucide-react";
 
 const REVIEWS = [
   { name: "Sajid", review: "Badhiya service hai." },
@@ -9,7 +9,7 @@ const REVIEWS = [
 
 const WHATSAPP_URL =
   "https://wa.me/919131383323?text=" +
-  encodeURIComponent("Hello MR MOBILE WALA, I would like to share my feedback.");
+  encodeURIComponent("Hello MR MOBILE WALA REPAIRS, I would like to share my feedback.");
 
 export default function Testimonials() {
   return (

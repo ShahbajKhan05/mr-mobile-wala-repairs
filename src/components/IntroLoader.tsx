@@ -37,7 +37,7 @@ export default function IntroLoader() {
         <div className="relative animate-[logoReveal_1s_cubic-bezier(0.16,1,0.3,1)_both]">
           <Image
             src="/mr-mobile-wala-logo.png"
-            alt="MR MOBILE WALA"
+            alt="MR MOBILE WALA REPAIRS"
             width={420}
             height={180}
             priority
@@ -51,13 +51,13 @@ export default function IntroLoader() {
         {/* Brand */}
         <div className="mt-7 text-center animate-[textReveal_0.8s_ease-out_0.5s_both]">
           <p className="text-[10px] font-semibold uppercase tracking-[0.42em] text-[#202B32] sm:text-xs">
-            MR MOBILE WALA
+            MR MOBILE WALA REPAIRS
           </p>
 
           <div className="mx-auto mt-4 h-px w-10 bg-[#B69A69]" />
 
           <p className="mt-4 text-[9px] font-medium uppercase tracking-[0.32em] text-[#A58A5B]">
-            BUY · SELL · REPAIR
+            BUY . SELL . REPAIR
           </p>
         </div>
 

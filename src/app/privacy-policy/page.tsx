@@ -6,7 +6,7 @@ import { ArrowLeft, ShieldCheck } from "lucide-react";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "Read the privacy policy of MR MOBILE WALA and understand how your booking information is handled.",
+    "Read the privacy policy of MR MOBILE WALA REPAIRS and understand how your booking information is handled.",
   robots: {
     index: true,
     follow: true,
@@ -79,7 +79,7 @@ export default function PrivacyPolicyPage() {
           </div>
 
           <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#B08D57]">
-            MR MOBILE WALA
+            MR MOBILE WALA REPAIRS
           </p>
 
           <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-5xl">
@@ -124,7 +124,7 @@ export default function PrivacyPolicyPage() {
         </div>
 
         <p className="mt-8 text-center text-xs text-[#9A9D9B]">
-         © 2026 MR MOBILE WALA. All rights reserved.
+         © 2026 MR MOBILE WALA REPAIRS. All rights reserved.
         </p>
       </div>
     </main>

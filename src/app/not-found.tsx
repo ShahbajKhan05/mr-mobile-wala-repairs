@@ -9,7 +9,7 @@ export default function NotFound() {
         <div className="mb-9 flex justify-center">
           <Image
             src="/w.svg"
-            alt="MR MOBILE WALA"
+            alt="MR MOBILE WALA REPAIRS"
             width={100}
             height={100}
             priority
@@ -23,7 +23,7 @@ export default function NotFound() {
         </h1>
 
         <p className="mt-4 text-sm leading-7 text-[#777D80]">
-          We're working on something for you. Please be patient and
+          We&apos;re working on something for you. Please be patient and
           check back soon. Thank you for your understanding.
         </p>
 
@@ -45,10 +45,10 @@ export default function NotFound() {
         {/* Logos */}
 <div className="mb-9 flex flex-col items-center gap-5">
   
-  {/* Original MR MOBILE WALA logo */}
+  {/* Original MR MOBILE WALA REPAIRS logo */}
   <Image
     src="/mr-mobile-wala-logo.png"
-    alt="MR MOBILE WALA"
+    alt="MR MOBILE WALA REPAIRS"
     width={220}
     height={90}
     priority

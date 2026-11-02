@@ -17,6 +17,11 @@ import {
   defaultShopSettings,
   type ShopSettings,
 } from "@/lib/settings";
+import {
+  formatWarrantyDate,
+  getWarrantyDetails,
+  parseWarrantyTimestamp,
+} from "@/lib/warranty";
 
 export default function JobInvoice() {
   const params = useParams<{ id: string }>();
@@ -109,10 +114,14 @@ export default function JobInvoice() {
     settings.shopName.trim() || defaultShopSettings.shopName;
 
   const invoiceDate = job.paidAt || job.createdAt;
-
-  const formattedDate = new Intl.DateTimeFormat("en-IN", {
-    dateStyle: "long",
-  }).format(new Date(invoiceDate));
+  const invoiceTimestamp = parseWarrantyTimestamp(invoiceDate);
+  const formattedDate = invoiceTimestamp
+    ? new Intl.DateTimeFormat("en-IN", {
+        dateStyle: "long",
+        timeZone: "UTC",
+      }).format(invoiceTimestamp)
+    : "Date unavailable";
+  const warranty = getWarrantyDetails(job.paymentStatus, job.paidAt);
 
   const amount = job.estimate.toLocaleString("en-IN");
 
@@ -289,6 +298,22 @@ Invoice: ${typeof window !== "undefined" ? window.location.href : ""}`
                 </p>
               </div>
             </div>
+          </section>
+
+          <section className="mb-7 rounded-xl border border-blue-200 bg-blue-50 p-4">
+            <p className="text-xs font-bold uppercase tracking-wider text-blue-700">
+              Warranty Period
+            </p>
+            {warranty.startDate && warranty.endDate ? (
+              <p className="mt-2 text-sm font-semibold text-slate-800">
+                7 days: {formatWarrantyDate(warranty.startDate)} -{" "}
+                {formatWarrantyDate(warranty.endDate)}
+              </p>
+            ) : (
+              <p className="mt-2 text-sm font-semibold text-slate-800">
+                Warranty dates unavailable
+              </p>
+            )}
           </section>
 
           {/* Total */}

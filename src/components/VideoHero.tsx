@@ -36,10 +36,10 @@ export default function VideoHero() {
             id="hero-heading"
             className="text-[clamp(2rem,5.5vw,4.5rem)] font-bold leading-[1.12] tracking-[-0.06em] text-slate-900"
           >
-            Welcome in the World of
+            &quot;MrMobileWala&quot;
             <br className="sm:hidden" />{" "}
             <span className="font-serif font-normal italic text-[#765A2B]">
-              Mr Mobile Wala
+            Sahi Daam,Best Kaam!
             </span>
           </h1>
 
@@ -51,7 +51,7 @@ export default function VideoHero() {
               loop
               playsInline
               preload="metadata"
-              aria-label="MR MOBILE WALA brand video"
+              aria-label="MR MOBILE WALA REPAIRS brand video"
               className="h-full w-full rounded-[22px] object-cover object-center sm:rounded-[28px]"
             >
               <source src="/hero.mp4" type="video/mp4" />
@@ -75,9 +75,9 @@ export default function VideoHero() {
           {/* Services */}
           <div className="mt-7 flex items-center justify-center gap-4 text-[10px] font-bold tracking-[0.22em] text-slate-700 sm:mt-9 sm:gap-5 sm:text-xs">
             <span>BUY</span>
-            <span className="text-indigo-400">•</span>
+            <span className="text-indigo-400">*</span>
             <span>SELL</span>
-            <span className="text-[#B69A69]">•</span>
+            <span className="text-[#B69A69]">*</span>
             <span>REPAIR</span>
           </div>
 

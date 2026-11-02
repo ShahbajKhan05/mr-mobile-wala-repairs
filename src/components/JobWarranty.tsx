@@ -23,26 +23,13 @@ import {
   defaultShopSettings,
   type ShopSettings,
 } from "@/lib/settings";
-
-function formatDate(dateString: string) {
-  const date = new Date(dateString);
-
-  if (Number.isNaN(date.getTime())) {
-    return "Date unavailable";
-  }
-
-  return new Intl.DateTimeFormat("en-IN", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  }).format(date);
-}
-
-function addDays(dateString: string, days: number) {
-  const date = new Date(dateString);
-  date.setDate(date.getDate() + days);
-  return date;
-}
+import {
+  formatWarrantyDate,
+  getWarrantyDetails,
+  isWarrantyActive,
+  getRemainingWarrantyDays,
+  WARRANTY_DAYS,
+} from "@/lib/warranty";
 
 export default function JobWarranty() {
   const params = useParams<{ id: string }>();
@@ -135,23 +122,28 @@ export default function JobWarranty() {
   const shopName =
     settings.shopName.trim() || defaultShopSettings.shopName;
 
-  const warrantyDays = 7;
+  const warrantyDays = WARRANTY_DAYS;
+  const warranty = getWarrantyDetails(job.paymentStatus, job.paidAt);
 
-  const expiryDate = addDays(job.paidAt, warrantyDays);
+  if (!warranty.startDate || !warranty.endDate) {
+    return (
+      <main className="flex min-h-[60vh] flex-col items-center justify-center p-6 text-center">
+        <div className="rounded-2xl bg-amber-50 p-4 text-amber-600">
+          <AlertCircle size={30} />
+        </div>
+        <h1 className="mt-4 text-xl font-bold text-slate-900">Warranty Unavailable</h1>
+        <p className="mt-2 max-w-md text-sm text-slate-500">
+          The recorded payment date is invalid.
+        </p>
+      </main>
+    );
+  }
 
   const today = new Date();
 
-  const active = today.getTime() <= expiryDate.getTime();
-
-  const remainingDays = active
-    ? Math.max(
-        0,
-        Math.ceil(
-          (expiryDate.getTime() - today.getTime()) /
-            (1000 * 60 * 60 * 24)
-        )
-      )
-    : 0;
+  // Use end-of-day UTC boundary so warranty stays active through the full last calendar day.
+  const active = isWarrantyActive(warranty.endDate, today);
+  const remainingDays = getRemainingWarrantyDays(warranty.endDate, today);
 
   const warrantyPeriod = `${warrantyDays} Days`;
 
@@ -160,8 +152,8 @@ export default function JobWarranty() {
       `Warranty ID: ${job.id}\n` +
       `Customer: ${job.customerName}\n` +
       `Device: ${job.brand} ${job.model}\n` +
-      `Warranty Start: ${formatDate(job.paidAt)}\n` +
-      `Warranty Expiry: ${formatDate(expiryDate.toISOString())}\n` +
+      `Warranty Start: ${formatWarrantyDate(warranty.startDate)}\n` +
+      `Warranty Expiry: ${formatWarrantyDate(warranty.endDate)}\n` +
       `Warranty Period: ${warrantyPeriod}\n` +
       `Status: ${active ? "Active" : "Expired"}\n\n` +
       `${settings.phone ? `Shop Contact: ${settings.phone}\n` : ""}` +
@@ -174,7 +166,7 @@ export default function JobWarranty() {
 
   return (
     <main className="box-border min-h-screen w-full overflow-x-clip bg-slate-50 px-3 py-4 sm:px-5 sm:py-6 lg:px-8 lg:py-8">
-      <div className="mx-auto w-full min-w-0 max-w-5xl space-y-7">
+      <div className="mx-auto w-full min-w-0 max-w-5xl space-y-5 sm:space-y-7">
 
         {/* Header */}
         <div className="flex min-w-0 flex-col justify-between gap-4 sm:flex-row sm:items-center">
@@ -182,7 +174,7 @@ export default function JobWarranty() {
             <button
               type="button"
               onClick={() => router.push(`/jobs/${job.id}`)}
-              className="mb-4 flex items-center gap-2 text-sm font-semibold text-slate-500 transition hover:text-blue-600 print:hidden"
+              className="mb-3 flex items-center gap-2 text-sm font-semibold text-slate-500 transition hover:text-blue-600 print:hidden"
             >
               <ArrowLeft size={17} />
               Back to Job Details
@@ -192,20 +184,20 @@ export default function JobWarranty() {
               {shopName}
             </p>
 
-            <h1 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
+            <h1 className="mt-2 text-xl font-bold text-slate-900 sm:text-3xl">
               Digital Warranty Card
             </h1>
 
-            <p className="mt-2 text-sm text-slate-500">
+            <p className="mt-1.5 text-sm text-slate-500">
               Your repair warranty information.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-2 sm:flex print:hidden">
+          <div className="grid grid-cols-2 gap-2 sm:flex print:hidden">
             <button
               type="button"
               onClick={handlePrint}
-              className="flex min-h-11 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-100"
+              className="flex min-h-11 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-100"
             >
               <Printer size={17} />
               Print / PDF
@@ -215,7 +207,7 @@ export default function JobWarranty() {
               href={`https://wa.me/91${job.phone}?text=${whatsappMessage}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex min-h-11 items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700"
+              className="flex min-h-11 items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-700"
             >
               <MessageCircle size={17} />
               WhatsApp
@@ -225,7 +217,7 @@ export default function JobWarranty() {
 
         {/* Warranty Status */}
         <section
-          className={`flex flex-col justify-between gap-4 rounded-2xl border p-5 sm:flex-row sm:items-center ${
+          className={`flex flex-col justify-between gap-4 rounded-2xl border p-4 sm:flex-row sm:items-center sm:p-5 ${
             active
               ? "border-emerald-200 bg-emerald-50"
               : "border-red-200 bg-red-50"
@@ -240,9 +232,9 @@ export default function JobWarranty() {
               }`}
             >
               {active ? (
-                <ShieldCheck size={25} />
+                <ShieldCheck size={24} />
               ) : (
-                <AlertCircle size={25} />
+                <AlertCircle size={24} />
               )}
             </div>
 
@@ -299,7 +291,7 @@ export default function JobWarranty() {
               }`}
             >
               {/* FRONT */}
-              <div className="absolute inset-0 overflow-hidden rounded-[24px] border border-white/20 bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-900 p-5 text-white shadow-2xl [backface-visibility:hidden] sm:p-8 print:!hidden">
+              <div className="absolute inset-0 overflow-hidden rounded-[24px] border border-white/20 bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-900 p-4 text-white shadow-2xl [backface-visibility:hidden] sm:p-8 print:!hidden">
                 <div className="absolute -right-20 -top-24 size-64 rounded-full border border-white/10" />
                 <div className="absolute -right-10 -top-14 size-44 rounded-full border border-white/10" />
                 <div className="absolute -bottom-28 -left-16 size-64 rounded-full bg-blue-400/10 blur-2xl" />
@@ -308,18 +300,18 @@ export default function JobWarranty() {
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
-                        <ShieldCheck size={25} />
-                        <p className="break-words text-sm font-black tracking-[0.16em] sm:text-base">
+                        <ShieldCheck size={22} />
+                        <p className="break-words text-xs font-black tracking-[0.16em] sm:text-base">
                           {shopName}
                         </p>
                       </div>
 
-                      <p className="mt-2 text-[9px] font-medium tracking-[0.28em] text-blue-200 sm:text-xs">
+                      <p className="mt-1.5 text-[9px] font-medium tracking-[0.28em] text-blue-200 sm:text-xs">
                         DIGITAL REPAIR WARRANTY
                       </p>
                     </div>
 
-                    <div className="shrink-0 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[9px] font-bold tracking-wider sm:text-xs">
+                    <div className="shrink-0 rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[9px] font-bold tracking-wider sm:px-3 sm:text-xs">
                       {warrantyDays} DAYS
                     </div>
                   </div>
@@ -329,11 +321,11 @@ export default function JobWarranty() {
                       Warranty Holder
                     </p>
 
-                    <h2 className="mt-1 truncate text-xl font-bold sm:text-3xl">
+                    <h2 className="mt-1 truncate text-lg font-bold sm:text-3xl">
                       {job.customerName}
                     </h2>
 
-                    <p className="mt-2 text-xs text-blue-100 sm:text-sm">
+                    <p className="mt-1.5 text-xs text-blue-100 sm:text-sm">
                       {job.brand} {job.model}
                     </p>
                   </div>
@@ -364,7 +356,7 @@ export default function JobWarranty() {
               </div>
 
               {/* BACK */}
-              <div className="absolute inset-0 overflow-hidden rounded-[24px] border border-slate-200 bg-gradient-to-br from-white to-slate-100 p-5 text-slate-900 shadow-2xl [backface-visibility:hidden] [transform:rotateY(180deg)] sm:p-8 print:!hidden">
+              <div className="absolute inset-0 overflow-hidden rounded-[24px] border border-slate-200 bg-gradient-to-br from-white to-slate-100 p-4 text-slate-900 shadow-2xl [backface-visibility:hidden] [transform:rotateY(180deg)] sm:p-8 print:!hidden">
                 <div className="flex h-full flex-col justify-between">
                   <div className="flex items-center justify-between gap-3">
                     <div className="min-w-0">
@@ -376,10 +368,10 @@ export default function JobWarranty() {
                       </p>
                     </div>
 
-                    <ShieldCheck size={30} className="shrink-0 text-blue-700" />
+                    <ShieldCheck size={28} className="shrink-0 text-blue-700" />
                   </div>
 
-                  <div className="grid grid-cols-2 gap-x-5 gap-y-4">
+                  <div className="grid grid-cols-2 gap-x-5 gap-y-3">
                     <div className="min-w-0">
                       <p className="text-[9px] text-slate-400 sm:text-xs">
                         Customer Mobile
@@ -403,7 +395,7 @@ export default function JobWarranty() {
                         Warranty Start
                       </p>
                       <p className="mt-1 text-xs font-bold sm:text-sm">
-                        {formatDate(job.paidAt)}
+                        {formatWarrantyDate(warranty.startDate)}
                       </p>
                     </div>
 
@@ -412,7 +404,7 @@ export default function JobWarranty() {
                         Warranty Expiry
                       </p>
                       <p className="mt-1 text-xs font-bold sm:text-sm">
-                        {formatDate(expiryDate.toISOString())}
+                        {formatWarrantyDate(warranty.endDate)}
                       </p>
                     </div>
                   </div>
@@ -434,10 +426,10 @@ export default function JobWarranty() {
         </section>
 
         {/* Warranty Details */}
-        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
-          <div className="mb-6 flex items-center gap-3">
+        <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-7">
+          <div className="mb-5 flex items-center gap-3">
             <div className="rounded-xl bg-blue-50 p-3 text-blue-600">
-              <CalendarDays size={22} />
+              <CalendarDays size={20} />
             </div>
 
             <div>
@@ -450,7 +442,7 @@ export default function JobWarranty() {
             </div>
           </div>
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <Detail
               icon={<UserRound size={17} />}
               label="Customer"
@@ -472,13 +464,13 @@ export default function JobWarranty() {
             <Detail
               icon={<CalendarDays size={17} />}
               label="Warranty Start"
-              value={formatDate(job.paidAt)}
+              value={formatWarrantyDate(warranty.startDate)}
             />
 
             <Detail
               icon={<Clock size={17} />}
               label="Warranty Expiry"
-              value={formatDate(expiryDate.toISOString())}
+              value={formatWarrantyDate(warranty.endDate)}
             />
 
             <Detail
@@ -499,7 +491,7 @@ export default function JobWarranty() {
             </div>
           )}
 
-          <div className="mt-6 rounded-xl bg-slate-50 p-4">
+          <div className="mt-5 rounded-xl bg-slate-50 p-4">
             <p className="text-sm font-semibold text-slate-800">
               Reported Repair Problem
             </p>
@@ -510,7 +502,7 @@ export default function JobWarranty() {
         </section>
 
         {/* Terms */}
-        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
           <h2 className="font-bold text-slate-900">
             Warranty Terms
           </h2>
@@ -562,12 +554,12 @@ export default function JobWarranty() {
               <Detail
                 icon={<CalendarDays size={17} />}
                 label="Warranty Start"
-                value={formatDate(job.paidAt)}
+                value={formatWarrantyDate(warranty.startDate)}
               />
               <Detail
                 icon={<Clock size={17} />}
                 label="Warranty Expiry"
-                value={formatDate(expiryDate.toISOString())}
+                value={formatWarrantyDate(warranty.endDate)}
               />
               <Detail
                 icon={<CheckCircle2 size={17} />}

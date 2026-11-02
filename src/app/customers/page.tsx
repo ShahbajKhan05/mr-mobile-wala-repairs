@@ -4,7 +4,7 @@ import DashboardLayout from "@/components/DashboardLayout";
 import Customers from "@/components/Customers";
 
 export const metadata: Metadata = {
-  title: "Customers | MR MOBILE WALA",
+  title: "Customers | MR MOBILE WALA REPAIRS",
   description:
     "Manage customer details, repair history, WhatsApp contacts and payment records.",
   robots: {

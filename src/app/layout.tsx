@@ -22,13 +22,13 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default: "MR MOBILE WALA REPAIRS | Mobile Repair in Rewa",
-    template: "%s | MR MOBILE WALA",
+    template: "%s | MR MOBILE WALA REPAIRS",
   },
   description:
     "MR MOBILE WALA REPAIRS in Rewa, Madhya Pradesh. Get help with mobile phone repair, buying and selling phones, and repair service enquiries.",
   applicationName: "MR MOBILE WALA REPAIRS",
   keywords: [
-    "MR MOBILE WALA",
+    "MR MOBILE WALA REPAIRS",
     "mobile repair in Rewa",
     "mobile phone repair Rewa",
     "phone repair",

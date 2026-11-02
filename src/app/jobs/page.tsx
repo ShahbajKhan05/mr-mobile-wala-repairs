@@ -4,7 +4,7 @@ import DashboardLayout from "@/components/DashboardLayout";
 import NewJobCard from "../../components/NewJobCard";
 
 export const metadata: Metadata = {
-  title: "New Job Card | MR MOBILE WALA",
+  title: "New Job Card | MR MOBILE WALA REPAIRS",
   description:
     "Create mobile repair job cards, add customer and device details, and prepare repair estimates.",
   robots: {

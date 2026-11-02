@@ -4,7 +4,7 @@ import DashboardLayout from "@/components/DashboardLayout";
 import JobWarranty from "@/components/JobWarranty";
 
 export const metadata: Metadata = {
-  title: "Digital Warranty Card | MR MOBILE WALA",
+  title: "Digital Warranty Card | MR MOBILE WALA REPAIRS",
   description: "View and print your mobile repair digital warranty card.",
   robots: {
     index: false,

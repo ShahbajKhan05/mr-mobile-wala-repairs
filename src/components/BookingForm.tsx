@@ -180,7 +180,7 @@ export default function BookingForm() {
     }
 
     const message = [
-      "*NEW BOOKING REQUEST - MR MOBILE WALA*",
+      "*NEW BOOKING REQUEST - MR MOBILE WALA REPAIRS*",
       "",
       `*Service:* ${bookingType}`,
       `*Customer Name:* ${name.trim()}`,
@@ -228,7 +228,7 @@ export default function BookingForm() {
         <div className="mb-8 text-center sm:mb-10">
           <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/65 shadow-sm backdrop-blur-xl px-4 py-2 text-[9px] font-bold uppercase tracking-[0.2em] text-indigo-600">
             <span className="h-1.5 w-1.5 rounded-full bg-[#B69A69]" />
-            MR MOBILE WALA
+            MR MOBILE WALA REPAIRS
           </span>
 
           <h2 className="text-3xl font-semibold tracking-[-0.055em] text-slate-900 sm:text-4xl md:text-5xl">
@@ -380,7 +380,7 @@ export default function BookingForm() {
               <div>
                 <div className="mb-3 flex items-center justify-between">
                   <label className={labelClass}>
-                    What's the problem? *
+                    What&apos;s the problem? *
                   </label>
                   <span className="text-[10px] text-[#5E6668]">Select one</span>
                 </div>
