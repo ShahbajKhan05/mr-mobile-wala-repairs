@@ -1,11 +1,12 @@
 
 "use client";
 
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { useState, type FormEvent } from "react";
 import {
   ArrowRight,
   Check,
-  MessageCircle,
+
   ShoppingBag,
   Tag,
   Wrench,
@@ -538,7 +539,7 @@ export default function BookingForm() {
                 disabled={!isFormValid}
                 className="group flex min-h-[56px] w-full items-center justify-center gap-3 rounded-full bg-slate-900 px-6 text-sm font-bold text-white shadow-[0_16px_35px_rgba(49,46,129,0.20)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-indigo-700 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-40"
               >
-                <MessageCircle size={19} />
+                <WhatsAppIcon size={19} />
                 Send Booking on WhatsApp
                 <ArrowRight size={17} className="transition-transform group-hover:translate-x-1" />
               </button>
