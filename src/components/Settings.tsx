@@ -94,11 +94,9 @@ export default function Settings() {
     }
 
     if (
-      !Number.isInteger(settings.warrantyDays) ||
-      settings.warrantyDays < 0 ||
-      settings.warrantyDays > 365
+      settings.warrantyDays !== 7
     ) {
-      setError("Warranty duration 0 se 365 days ke beech honi chahiye.");
+      setError("Warranty duration fixed 7 days hai.");
       return;
     }
 
@@ -359,10 +357,11 @@ export default function Settings() {
               <FormField label="Warranty Duration (Days)">
                 <input
                   type="number"
-                  min="0"
-                  max="365"
+                  min="7"
+                  max="7"
                   step="1"
-                  value={settings.warrantyDays}
+                  value={7}
+                  readOnly
                   onChange={(event) =>
                     updateField("warrantyDays", Number(event.target.value))
                   }
@@ -370,7 +369,7 @@ export default function Settings() {
                 />
               </FormField>
               <p className="mt-2 text-xs leading-5 text-slate-400">
-                Default is 30 days. Existing warranty cards are not changed automatically.
+                Every paid repair includes a fixed 7-day warranty.
               </p>
             </div>
           </SettingsSection>
