@@ -46,17 +46,17 @@ const FAQS = [
     question: "How can I check my repair status?",
     hindi: "अपने मोबाइल रिपेयर का स्टेटस कैसे चेक करें?",
     answer:
-      "Contact our team on WhatsApp with your job card or booking details to get an update.",
+      "Open Track Repair and enter your job number and registered mobile number to view your repair progress.",
     answerHindi:
-      "अपने जॉब कार्ड या बुकिंग की जानकारी के साथ WhatsApp पर संपर्क करें और रिपेयर का अपडेट प्राप्त करें।",
+      "Track Repair पर अपना जॉब नंबर और रजिस्टर्ड मोबाइल नंबर डालकर रिपेयर का स्टेटस देखें।",
   },
   {
     question: "Do you provide a repair warranty?",
     hindi: "क्या रिपेयर पर वारंटी मिलती है?",
     answer:
-      "Warranty depends on the repair and parts used. Applicable warranty details will be mentioned on your repair bill.",
+      "Eligible paid repair jobs include a 7-day warranty. Your repair bill shows the applicable warranty details.",
     answerHindi:
-      "वारंटी रिपेयर और इस्तेमाल किए गए पार्ट्स पर निर्भर करती है। लागू वारंटी की जानकारी आपके रिपेयर बिल पर दी जाएगी।",
+      "लागू paid repair jobs पर 7 दिन की वारंटी मिलती है। इसकी जानकारी आपके रिपेयर बिल पर दी जाएगी।",
   },
 ];
 
@@ -67,12 +67,12 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="w-full bg-white/55 px-5 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24"
+      className="glass-page w-full px-5 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24"
     >
       <div className="mx-auto max-w-4xl">
 
         {/* Compact FAQ Header */}
-        <div className="relative overflow-hidden rounded-2xl border border-[#202B32]/10 bg-[#FCFCFB] px-6 py-9 sm:px-10 sm:py-11">
+        <div className="relative overflow-hidden glass-panel rounded-[28px] border border-white/80 bg-white/55 px-6 py-9 sm:px-10 sm:py-11">
 
           <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-[#B69A69]/[0.06] blur-3xl" />
 
@@ -108,7 +108,7 @@ export default function FAQ() {
               onClick={() => setFullView(!fullView)}
               aria-expanded={fullView}
               aria-controls="faq-full-content"
-              className="group flex shrink-0 items-center gap-4 rounded-full border border-[#202B32]/15 bg-white/55 py-3 pl-5 pr-3 transition-all duration-300 hover:border-[#B69A69] hover:shadow-[0_8px_25px_rgba(32,43,50,0.07)]"
+              className="group flex shrink-0 items-center gap-4 rounded-full border border-white/80 bg-white/65 backdrop-blur-xl py-3 pl-5 pr-3 transition-all duration-300 hover:border-[#B69A69] hover:shadow-[0_8px_25px_rgba(32,43,50,0.07)]"
             >
               <span className="text-left">
                 <span className="block text-[9px] font-bold uppercase tracking-[0.2em] text-indigo-600">
@@ -120,7 +120,7 @@ export default function FAQ() {
                 </span>
               </span>
 
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#202B32] text-white transition-all duration-300 group-hover:bg-[#A58A5B]">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-white transition-all duration-300 group-hover:bg-indigo-600">
                 {fullView ? (
                   <X size={17} />
                 ) : (
