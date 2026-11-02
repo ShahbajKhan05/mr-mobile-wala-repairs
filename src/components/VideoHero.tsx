@@ -36,10 +36,10 @@ export default function VideoHero() {
             id="hero-heading"
             className="text-[clamp(1.8rem,5.5vw,4.5rem)] font-bold leading-[1.12] tracking-[-0.06em] text-slate-900"
           >
-            &quot;MrMobileWala&quot;
+            MR MOBILE WALA<br className="sm:hidden" /> REPAIRS
             <br className="sm:hidden" />{" "}
             <span className="font-serif font-normal italic text-[#765A2B]">
-            Sahi Daam,Best Kaam!
+            Sahi Daam, Best Kaam!
             </span>
           </h1>
 
