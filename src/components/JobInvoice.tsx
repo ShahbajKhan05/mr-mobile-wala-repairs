@@ -79,7 +79,7 @@ export default function JobInvoice() {
 
   if (error || !job) {
     return (
-      <div className="p-6 text-center sm:p-10">
+      <div className="p-4 text-center sm:p-10">
         <h1 className="text-xl font-bold">Invoice Not Found</h1>
         <p className="mt-2 text-sm text-slate-500">{error}</p>
         <button
@@ -182,7 +182,7 @@ Invoice: ${typeof window !== "undefined" ? window.location.href : ""}`
         <article className="box-border w-full min-w-0 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-8 md:p-10 print:rounded-none print:border-0 print:p-0 print:shadow-none">
 
           {/* Invoice Header */}
-          <header className="flex flex-col justify-between gap-6 border-b border-slate-200 pb-7 sm:flex-row">
+          <header className="flex flex-col justify-between gap-4 border-b sm:gap-6 border-slate-200 pb-7 sm:flex-row">
             <div className="min-w-0">
               <h1 className="break-words text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">
                 {shopName}
@@ -241,7 +241,7 @@ Invoice: ${typeof window !== "undefined" ? window.location.href : ""}`
           </header>
 
           {/* Customer & Device */}
-          <section className="grid min-w-0 gap-6 border-b border-slate-200 py-7 sm:grid-cols-2 sm:gap-8">
+          <section className="grid min-w-0 gap-4 border-b border-slate-200 py-5 sm:grid-cols-2 sm:gap-8 sm:py-7">
             <div className="min-w-0">
               <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
                 Bill To
@@ -272,7 +272,7 @@ Invoice: ${typeof window !== "undefined" ? window.location.href : ""}`
           </section>
 
           {/* Repair Description */}
-          <section className="py-7">
+          <section className="py-5 sm:py-7">
             <h3 className="mb-4 font-bold text-slate-900">
               Repair Description
             </h3>
