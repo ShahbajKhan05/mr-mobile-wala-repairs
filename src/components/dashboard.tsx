@@ -121,7 +121,7 @@ export default function Dashboard() {
 
         {error && <div role="alert" className="flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700"><AlertCircle size={18} className="mt-0.5 shrink-0" />{error}</div>}
 
-        <section aria-label="Repair shop statistics" className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <section aria-label="Repair shop statistics" className="grid grid-cols-2 gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {cards.map((card) => {
             const Icon = card.icon;
             return <article key={card.label} className="group rounded-2xl glass-card rounded-2xl p-4 sm:p-5 transition duration-200 hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(15,23,42,.08)]">
