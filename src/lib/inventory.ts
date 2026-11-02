@@ -61,22 +61,22 @@ export async function getInventoryParts(): Promise<InventoryPart[]> {
   let parts = result.parts ?? [];
 
   // One-time migration of parts previously stored only in this browser.
-  if (parts.length === 0) {
-    const legacy = await readLegacyParts();
-    if (legacy?.parts.length) {
-      try {
-        for (const part of legacy.parts) {
-          await saveInventoryPart(part);
-        }
-        parts = legacy.parts;
-        await clearLegacyParts(legacy.database);
-      } catch (error) {
-        legacy.database.close();
-        throw error;
+  const legacy = await readLegacyParts();
+  if (legacy?.parts.length) {
+    try {
+      const existingIds = new Set(parts.map((part) => part.id));
+      const missingParts = legacy.parts.filter((part) => !existingIds.has(part.id));
+      for (const part of missingParts) {
+        await saveInventoryPart(part);
       }
-    } else {
-      legacy?.database.close();
+      parts = [...parts, ...missingParts];
+      await clearLegacyParts(legacy.database);
+    } catch (error) {
+      legacy.database.close();
+      throw error;
     }
+  } else {
+    legacy?.database.close();
   }
 
   return parts.sort((a, b) => a.name.localeCompare(b.name));
