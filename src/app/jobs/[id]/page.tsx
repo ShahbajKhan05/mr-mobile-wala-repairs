@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import { Suspense } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
 import JobDetails from "@/components/JobDetails";
@@ -12,7 +13,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function JobDetailsPage() {
+export default async function JobDetailsPage() {
+  await connection();
+
   return (
     <DashboardLayout>
       <Suspense
