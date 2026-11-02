@@ -35,6 +35,7 @@ export async function GET(
       supabase.from("repair_jobs")
         .select("id,job_number,customer_id,brand,model,problem,estimate,status,payment_status,created_at,paid_at,warranty_days,warranty_start_date,warranty_end_date,pickup_status")
         .eq("id", access.job_id)
+        .is("deleted_at", null)
         .maybeSingle(),
       supabase.from("job_events")
         .select("event_type,description,created_at")
