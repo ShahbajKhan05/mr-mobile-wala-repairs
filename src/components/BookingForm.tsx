@@ -64,6 +64,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
   const [model, setModel] = useState("");
   const [customModel, setCustomModel] = useState("");
   const [problem, setProblem] = useState("");
+  const [customProblem, setCustomProblem] = useState("");
   const [budget, setBudget] = useState("");
   const [condition, setCondition] = useState("Good");
   const [expectedPrice, setExpectedPrice] = useState("");
@@ -79,6 +80,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
 
   const finalBrand = brand === "Other" ? customBrand.trim() : brand;
   const finalModel = needsCustomModel ? customModel.trim() : model;
+  const finalProblem = problem === "Other" ? customProblem.trim() : problem;
 
   const handleServiceChange = (type: BookingType) => {
     setBookingType(type);
@@ -104,7 +106,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
       !name.trim() ||
       !finalBrand ||
       !finalModel ||
-      (bookingType === "Repair Mobile" && !problem)
+      (bookingType === "Repair Mobile" && !finalProblem)
     ) {
       return;
     }
@@ -128,7 +130,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
           ]
         : []),
       ...(bookingType === "Repair Mobile"
-        ? [`*Problem:* ${problem}`]
+        ? [`*Problem:* ${finalProblem}`]
         : []),
       "",
       "Please contact me regarding this request.",
@@ -145,7 +147,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
     /^\d{10}$/.test(phone) &&
     finalBrand.length > 0 &&
     finalModel.length > 0 &&
-    (bookingType !== "Repair Mobile" || problem.length > 0);
+    (bookingType !== "Repair Mobile" || finalProblem.length > 0);
 
   return (
     <section
@@ -343,6 +345,16 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
                     );
                   })}
                 </div>
+                {problem === "Other" && (
+                  <input
+                    value={customProblem}
+                    onChange={(e) => setCustomProblem(e.target.value)}
+                    placeholder="Describe the repair issue"
+                    maxLength={300}
+                    className={inputClass}
+                    required
+                  />
+                )}
               </div>
             )}
 
