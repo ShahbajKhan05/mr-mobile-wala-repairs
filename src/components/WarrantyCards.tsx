@@ -34,7 +34,7 @@ export default function WarrantyCards() {
 
   const activeCount = paidJobs.filter((job) => {
     const warranty = getWarrantyDetails(job.paymentStatus, job.paidAt);
-    return isWarrantyActive(warranty.endDate);
+    return isWarrantyActive(warranty.endDate, new Date(), warranty.expiresAt);
   }).length;
 
   return (
