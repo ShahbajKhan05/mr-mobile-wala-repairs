@@ -219,14 +219,12 @@ export default function Settings() {
             <div className="grid min-w-0 grid-cols-1 gap-4 md:grid-cols-2">
               <FormField label="Shop Name *">
                 <input
-                  required
-                  value={settings.shopName}
-                  onChange={(event) =>
-                    updateField("shopName", event.target.value)
-                  }
-                  placeholder="MR MOBILE WALA REPAIRS"
-                  className="settings-input"
+                  value="MR MOBILE WALA REPAIRS"
+                  readOnly
+                  aria-readonly="true"
+                  className="settings-input cursor-not-allowed bg-slate-100 font-semibold"
                 />
+                <p className="text-xs text-slate-400">Official brand name is fixed across the entire app.</p>
               </FormField>
 
               <FormField label="Owner Name">
