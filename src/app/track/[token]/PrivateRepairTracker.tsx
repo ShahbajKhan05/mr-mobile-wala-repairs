@@ -217,6 +217,9 @@ export default function PrivateRepairTracker({ token }: { token: string }) {
                     <p className="mt-2 text-xs text-emerald-800">
                       Valid from <strong>{formatWarrantyDate(job.warrantyStartDate)}</strong> to <strong>{formatWarrantyDate(job.warrantyEndDate)}</strong>.
                     </p>
+                    <Link href={`/track/${encodeURIComponent(token)}/warranty`} className="mt-3 inline-flex min-h-10 items-center justify-center rounded-xl bg-emerald-700 px-4 py-2 text-xs font-bold text-white transition hover:bg-emerald-800">
+                      View / Download Warranty Card
+                    </Link>
                   </section>
                 )}
 
