@@ -2,6 +2,7 @@
 "use client";
 
 import WhatsAppIcon from "@/components/WhatsAppIcon";
+import { DEVICE_BRANDS as BRANDS, PHONE_MODELS, REPAIR_PROBLEMS as PROBLEMS } from "@/lib/form-options";
 import { useEffect, useState, type FormEvent } from "react";
 import {
   ArrowRight,
@@ -25,86 +26,6 @@ const SERVICES = [
   { label: "Buy Mobile" as const, title: "Buy", subtitle: "Find a phone", icon: ShoppingBag },
   { label: "Sell Mobile" as const, title: "Sell", subtitle: "Get best value", icon: Tag },
   { label: "Repair Mobile" as const, title: "Repair", subtitle: "Fix your phone", icon: Wrench },
-];
-
-const PHONE_MODELS: Record<string, string[]> = {
-  Apple: [
-    "iPhone 17 Pro Max", "iPhone 17 Pro", "iPhone 17",
-    "iPhone 16 Pro Max", "iPhone 16 Pro", "iPhone 16",
-    "iPhone 15 Pro Max", "iPhone 15 Pro", "iPhone 15",
-    "iPhone 14", "iPhone 13", "iPhone 12", "Other / Not listed",
-  ],
-  Samsung: [
-    "Galaxy S25 Ultra", "Galaxy S25+", "Galaxy S25",
-    "Galaxy S24 Ultra", "Galaxy S24", "Galaxy S23",
-    "Galaxy A56", "Galaxy A36", "Galaxy A55",
-    "Galaxy M35", "Galaxy M15", "Other / Not listed",
-  ],
-  Redmi: [
-    "Redmi Note 14 Pro+", "Redmi Note 14 Pro", "Redmi Note 14",
-    "Redmi Note 13 Pro+", "Redmi Note 13 Pro", "Redmi Note 13",
-    "Redmi 14C", "Redmi 13", "Other / Not listed",
-  ],
-  OnePlus: [
-    "OnePlus 13", "OnePlus 13R", "OnePlus 12",
-    "OnePlus 12R", "OnePlus Nord 4", "OnePlus Nord CE4",
-    "Other / Not listed",
-  ],
-  Vivo: [
-    "Vivo X200 Pro", "Vivo X200", "Vivo V50",
-    "Vivo V40", "Vivo V30", "Vivo T3",
-    "Other / Not listed",
-  ],
-  OPPO: [
-    "OPPO Find X8", "OPPO Reno 13 Pro", "OPPO Reno 13",
-    "OPPO Reno 12", "OPPO F27 Pro+", "OPPO A5",
-    "Other / Not listed",
-  ],
-  realme: [
-    "realme GT 7 Pro", "realme GT 6", "realme 14 Pro+",
-    "realme 14 Pro", "realme 13 Pro+", "realme Narzo 70",
-    "Other / Not listed",
-  ],
-  Motorola: [
-    "Motorola Edge 60 Pro", "Motorola Edge 50 Pro",
-    "Moto G85", "Moto G64", "Moto G45", "Other / Not listed",
-  ],
-  Nothing: [
-    "Nothing Phone (3)", "Nothing Phone (3a) Pro",
-    "Nothing Phone (3a)", "Nothing Phone (2a)",
-    "CMF Phone 2 Pro", "Other / Not listed",
-  ],
-  "Google Pixel": [
-    "Pixel 10 Pro XL", "Pixel 10 Pro", "Pixel 10",
-    "Pixel 9 Pro XL", "Pixel 9 Pro", "Pixel 9",
-    "Pixel 8", "Other / Not listed",
-  ],
-};
-
-const BRANDS = [
-  "Apple",
-  "Samsung",
-  "Redmi",
-  "OnePlus",
-  "Vivo",
-  "OPPO",
-  "realme",
-  "Motorola",
-  "Nothing",
-  "Google Pixel",
-  "Other",
-];
-
-const PROBLEMS = [
-  "Display",
-  "Battery",
-  "Charging",
-  "Speaker",
-  "Camera",
-  "Network",
-  "Software",
-  "Water Damage",
-  "Other",
 ];
 
 const BUDGETS = [
@@ -139,6 +60,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [brand, setBrand] = useState("");
+  const [customBrand, setCustomBrand] = useState("");
   const [model, setModel] = useState("");
   const [customModel, setCustomModel] = useState("");
   const [problem, setProblem] = useState("");
@@ -155,9 +77,8 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
   const needsCustomModel =
     brand === "Other" || model === "Other / Not listed";
 
-  const finalModel = needsCustomModel
-    ? customModel.trim()
-    : model;
+  const finalBrand = brand === "Other" ? customBrand.trim() : brand;
+  const finalModel = needsCustomModel ? customModel.trim() : model;
 
   const handleServiceChange = (type: BookingType) => {
     setBookingType(type);
@@ -168,6 +89,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
 
   const handleBrandChange = (value: string) => {
     setBrand(value);
+    setCustomBrand("");
     setModel("");
     setCustomModel("");
   };
@@ -180,7 +102,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
     if (
       cleanPhone.length !== 10 ||
       !name.trim() ||
-      !brand ||
+      !finalBrand ||
       !finalModel ||
       (bookingType === "Repair Mobile" && !problem)
     ) {
@@ -193,7 +115,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
       `*Service:* ${bookingType}`,
       `*Customer Name:* ${name.trim()}`,
       `*WhatsApp Number:* ${cleanPhone}`,
-      `*Brand:* ${brand}`,
+      `*Brand:* ${finalBrand}`,
       `*Mobile Model:* ${finalModel}`,
       "",
       ...(bookingType === "Buy Mobile"
@@ -221,7 +143,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
   const isFormValid =
     name.trim().length > 0 &&
     /^\d{10}$/.test(phone) &&
-    brand.length > 0 &&
+    finalBrand.length > 0 &&
     finalModel.length > 0 &&
     (bookingType !== "Repair Mobile" || problem.length > 0);
 
@@ -341,6 +263,13 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
               </div>
             </div>
 
+            {brand === "Other" && (
+              <div>
+                <label htmlFor="booking-custom-brand" className={labelClass}>Enter mobile brand *</label>
+                <input id="booking-custom-brand" value={customBrand} onChange={(e) => setCustomBrand(e.target.value)} placeholder="e.g. Asus, Huawei" maxLength={50} className={inputClass} required />
+              </div>
+            )}
+
             {/* Model */}
             {brand && brand !== "Other" && (
               <div>
@@ -368,7 +297,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
             {needsCustomModel && (
               <div>
                 <label htmlFor="booking-custom-model" className={labelClass}>
-                  Enter phone brand / model *
+                  Enter exact phone model *
                 </label>
                 <input
                   id="booking-custom-model"
