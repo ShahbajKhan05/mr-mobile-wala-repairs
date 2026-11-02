@@ -129,7 +129,7 @@ export default function JobDetails() {
       router.replace("/jobs/list");
       router.refresh();
     } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "Job delete nahi hua.");
+      window.alert(cause instanceof Error ? cause.message : "Job delete nahi hua.");
       setDeletingJob(false);
     }
   }
