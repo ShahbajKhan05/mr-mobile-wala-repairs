@@ -1,9 +1,8 @@
 
 import { ImageResponse } from "next/og";
 
+export const alt = "MR MOBILE WALA REPAIRS - Original Brand Logo";
 
-
-export const alt = "MR MOBILE WALA - Buy, Sell & Repair Mobile Phones";
 export const size = {
   width: 1200,
   height: 630,
@@ -11,7 +10,20 @@ export const size = {
 
 export const contentType = "image/png";
 
-export default function OpenGraphImage() {
+export default async function OpenGraphImage() {
+  const logoUrl = new URL(
+    "/mr-mobile-wala-logo.png",
+    "https://mr-mobile-wala-repairs.vercel.app"
+  );
+
+  const logoResponse = await fetch(logoUrl);
+
+  if (!logoResponse.ok) {
+    throw new Error("Unable to load MR MOBILE WALA original logo.");
+  }
+
+  const logoBuffer = await logoResponse.arrayBuffer();
+
   return new ImageResponse(
     (
       <div
@@ -19,11 +31,9 @@ export default function OpenGraphImage() {
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
           alignItems: "center",
-          background: "#FAFAF8",
-          color: "#202B32",
+          justifyContent: "center",
+          backgroundColor: "#FAFAF8",
           position: "relative",
         }}
       >
@@ -37,70 +47,17 @@ export default function OpenGraphImage() {
           }}
         />
 
-        <div
+        <img
+          src={logoBuffer as unknown as string}
+          alt="MR MOBILE WALA"
+          width="900"
+          height="470"
           style={{
-            width: 86,
-            height: 86,
-            borderRadius: 26,
-            background: "#202B32",
-            color: "#D8BB85",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 44,
-            fontWeight: 800,
-            marginBottom: 32,
-          }}
-        >
-          M
-        </div>
-
-        <div
-          style={{
-            fontSize: 76,
-            fontWeight: 800,
-            letterSpacing: -3,
-            display: "flex",
-          }}
-        >
-          MR MOBILE WALA
-        </div>
-
-        <div
-          style={{
-            width: 100,
-            height: 4,
-            background: "#C6A66B",
-            marginTop: 28,
-            marginBottom: 28,
-            borderRadius: 10,
-            display: "flex",
+            width: "900px",
+            height: "470px",
+            objectFit: "contain",
           }}
         />
-
-        <div
-          style={{
-            fontSize: 27,
-            color: "#687277",
-            letterSpacing: 2,
-            display: "flex",
-          }}
-        >
-          BUY  ·  SELL  ·  REPAIR
-        </div>
-
-        <div
-          style={{
-            position: "absolute",
-            bottom: 58,
-            fontSize: 20,
-            color: "#A17D45",
-            letterSpacing: 4,
-            display: "flex",
-          }}
-        >
-          YOUR MOBILE. OUR PRIORITY.
-        </div>
       </div>
     ),
     {
