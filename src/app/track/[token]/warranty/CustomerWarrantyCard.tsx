@@ -62,12 +62,12 @@ export default function CustomerWarrantyCard({ token }: { token: string }) {
               </div>
               <span className="shrink-0 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-[10px] font-bold tracking-wider">7 DAYS</span>
             </div>
-            <div className="relative mt-8 grid gap-5 sm:grid-cols-2">
+            <div className="relative mt-6 grid gap-4 sm:grid-cols-2">
               <div><p className="text-[10px] uppercase tracking-widest text-blue-200">Warranty Holder</p><p className="mt-1 break-words text-xl font-bold">{job.customerName}</p><p className="mt-1 text-sm text-blue-100">{job.brand} {job.model}</p></div>
               <div className="sm:text-right"><p className="text-[10px] uppercase tracking-widest text-blue-200">Warranty / Job ID</p><p className="mt-1 break-all text-lg font-bold">{warrantyId}</p></div>
             </div>
           </header>
-          <section className="grid gap-5 p-6 sm:grid-cols-2 sm:p-10">
+          <section className="grid gap-4 p-4 sm:grid-cols-2 sm:gap-5 sm:p-10">
             <div className={`sm:col-span-2 flex flex-wrap items-center justify-between gap-3 rounded-2xl border p-4 ${active ? "border-emerald-200 bg-emerald-50" : "border-red-200 bg-red-50"}`}>
               <div className={`flex items-center gap-2 font-bold ${active ? "text-emerald-800" : "text-red-800"}`}><ShieldCheck size={20}/>{active ? "Warranty Active" : "Warranty Expired"}</div>
               <p className="text-sm font-bold text-slate-700">{active ? `${remaining} days remaining` : "0 days remaining"}</p>
