@@ -13,6 +13,7 @@ import {
 
   ClipboardList,
   ArrowUpRight,
+  Trash2,
 } from "lucide-react";
 import { getJobs, type RepairJob } from "@/lib/jobs";
 
@@ -60,6 +61,7 @@ export default function Customers() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [deletingCustomer, setDeletingCustomer] = useState("");
 
   const loadCustomers = useCallback(async () => {
     setLoading(true);
@@ -82,6 +84,25 @@ export default function Customers() {
   useEffect(() => {
     void loadCustomers();
   }, [loadCustomers]);
+
+  async function deleteCustomer(customer: Customer) {
+    const confirmed = window.confirm(
+      `Delete ${customer.name} and move all ${customer.jobs.length} linked repair job(s) to Recycle Bin? You can restore the jobs later.`
+    );
+    if (!confirmed || deletingCustomer) return;
+    setDeletingCustomer(customer.key);
+    setError("");
+    try {
+      const response = await fetch(`/api/admin/customers/${encodeURIComponent(customer.phone)}`, { method: "DELETE" });
+      const result = await response.json().catch(() => null);
+      if (!response.ok || !result?.success) throw new Error(result?.message || "Customer delete nahi hua.");
+      await loadCustomers();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Customer delete nahi hua.");
+    } finally {
+      setDeletingCustomer("");
+    }
+  }
 
   const customers = useMemo<Customer[]>(() => {
     const groups = new Map<string, RepairJob[]>();
@@ -366,6 +387,16 @@ export default function Customers() {
                       <WhatsAppIcon size={17} />
                       WhatsApp
                     </a>
+                    <button
+                      type="button"
+                      onClick={() => void deleteCustomer(customer)}
+                      disabled={deletingCustomer === customer.key}
+                      aria-label={`Delete customer ${customer.name} and move linked jobs to Recycle Bin`}
+                      className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-red-200 bg-white px-4 py-3 text-sm font-semibold text-red-600 transition hover:bg-red-50 disabled:opacity-50"
+                    >
+                      <Trash2 size={16} />
+                      {deletingCustomer === customer.key ? "Moving..." : "Delete"}
+                    </button>
                   </div>
                 </article>
               ))}
