@@ -37,6 +37,7 @@ export async function GET(request: NextRequest, context: { params: Promise<{ id:
       brand: job.brand, model: job.model, problem: job.problem, estimate: Number(job.estimate),
       photos: photoItems, status: job.status, paymentStatus: job.payment_status,
       createdAt: job.created_at, paidAt: job.paid_at ?? undefined,
+      pickupStatus: job.pickup_status ?? "Pending",
     }});
   } catch (error) {
     console.error("Admin job detail failed:", error);
@@ -50,7 +51,7 @@ export async function PATCH(request: NextRequest, context: { params: Promise<{ i
     const { id } = await context.params;
     const body = await request.json();
     const supabase = createSupabaseAdminClient();
-    const { data: job, error: findError } = await supabase.from("repair_jobs").select("id,status,payment_status,paid_at").eq("job_number", id).single();
+    const { data: job, error: findError } = await supabase.from("repair_jobs").select("id,status,payment_status,paid_at,pickup_status").eq("job_number", id).single();
     if (findError || !job) return fail("Repair job not found.", 404);
 
     const updates: Record<string, unknown> = {};
@@ -62,6 +63,13 @@ export async function PATCH(request: NextRequest, context: { params: Promise<{ i
       updates.status = body.status;
       eventType = "status_updated";
       description = `Repair status changed from ${job.status} to ${body.status}.`;
+    }
+
+    if (body.pickupStatus !== undefined) {
+      if (!["Pending", "Picked Up"].includes(body.pickupStatus)) return fail("Invalid pickup status.");
+      updates.pickup_status = body.pickupStatus;
+      eventType = "pickup_updated";
+      description = body.pickupStatus === "Picked Up" ? "Device marked as picked up by customer." : "Pickup status reset to pending.";
     }
 
     if (body.paymentStatus !== undefined) {
