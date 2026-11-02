@@ -7,8 +7,6 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false, noarchive: true },
 };
 
-export const dynamic = "force-dynamic";
-
 export default async function PrivateTrackPage({
   params,
 }: {
