@@ -18,6 +18,7 @@ import {
   Clock,
   RefreshCw,
   Wrench,
+  Trash2,
 } from "lucide-react";
 import { getJobs, type RepairJob } from "@/lib/jobs";
 
@@ -104,6 +105,18 @@ export default function CustomerProfile() {
   useEffect(() => {
     void loadProfile();
   }, [loadProfile]);
+
+  async function moveJobToRecycleBin(job: RepairJob) {
+    if (!window.confirm(`Repair job ${job.id} ko Recycle Bin mein move karna hai?`)) return;
+    try {
+      const response = await fetch(`/api/admin/jobs/${encodeURIComponent(job.id)}`, { method: "DELETE" });
+      const result = await response.json().catch(() => null);
+      if (!response.ok || !result?.success) throw new Error(result?.message || "Job delete nahi hua.");
+      await loadProfile();
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Job delete nahi hua.");
+    }
+  }
 
   const customer = jobs[0];
 
@@ -403,6 +416,14 @@ export default function CustomerProfile() {
                     <Wrench size={16} />
                     Details
                   </Link>
+                  <button
+                    type="button"
+                    onClick={() => void moveJobToRecycleBin(job)}
+                    className="inline-flex items-center gap-2 rounded-xl border border-red-200 bg-white px-4 py-3 text-sm font-semibold text-red-600 transition hover:bg-red-50"
+                  >
+                    <Trash2 size={15} />
+                    Delete
+                  </button>
                 </div>
               </article>
             ))}
