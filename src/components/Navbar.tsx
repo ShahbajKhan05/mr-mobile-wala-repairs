@@ -20,6 +20,7 @@ const NAV_LINKS = [
   { label: "Phones", href: "/phones", comingSoon: true },
   { label: "Accessories", href: "/accessories", comingSoon: true },
   { label: "Services", href: "/services", comingSoon: true },
+  { label: "Track Repair", href: "/track", comingSoon: false },
   { label: "About", href: "/about", comingSoon: true },
   { label: "Contact", href: "/contact", comingSoon: true },
 ];
