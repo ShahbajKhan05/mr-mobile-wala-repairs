@@ -10,10 +10,10 @@ import {
   Camera,
   Mail,
   Menu,
-  MessageCircle,
   Store,
   X,
 } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 const NAV_LINKS = [
   { label: "Home", href: "/", comingSoon: false },
@@ -27,7 +27,7 @@ const SOCIAL_LINKS = [
   {
     label: "WhatsApp",
     href: "https://wa.me/919131383323",
-    icon: MessageCircle,
+    icon: "whatsapp",
   },
   {
     label: "Instagram",
@@ -124,7 +124,7 @@ export default function Navbar() {
                   : "border-slate-200/80 bg-white/60 text-slate-600 hover:border-indigo-300 hover:text-indigo-700"
               }`}
             >
-              <MessageCircle size={17} />
+              <WhatsAppIcon size={19} />
             </button>
 
             {isSocialOpen && (
@@ -133,7 +133,7 @@ export default function Navbar() {
                   Get in touch
                 </p>
 
-                {SOCIAL_LINKS.map(({ label, href, icon: Icon }) => (
+                {SOCIAL_LINKS.map(({ label, href, icon }) => (
                   <a
                     key={label}
                     href={href}
@@ -142,7 +142,7 @@ export default function Navbar() {
                     onClick={() => setIsSocialOpen(false)}
                     className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-[#44443e] transition-colors hover:bg-[#f7f7f4]"
                   >
-                    <Icon size={17} />
+                    {icon === "whatsapp" ? <WhatsAppIcon size={18} /> : label === "Instagram" ? <Camera size={17} /> : <Mail size={17} />}
                     {label}
                     <ArrowUpRight size={14} className="ml-auto text-[#999990]" />
                   </a>
@@ -235,7 +235,7 @@ export default function Navbar() {
             <div className="mt-3 border-t border-[#eeeee9] pt-3">
               <Link
                 href="/#booking"
-                onClick={() => setIsOpen(false)
+                onClick={() => setIsOpen(false)}
                 className="flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#1e1e1e] text-sm font-bold text-white transition-colors hover:bg-indigo-700"
               >
                 <Store size={16} />
@@ -254,7 +254,7 @@ export default function Navbar() {
                   aria-label={label}
                   className="flex h-10 w-10 items-center justify-center rounded-full border border-[#e8e7e2] text-[#55554e] transition-colors hover:bg-[#f5f4f0]"
                 >
-                  <Icon size={17} />
+                  {icon === "whatsapp" ? <WhatsAppIcon size={19} /> : label === "Instagram" ? <Camera size={17} /> : <Mail size={17} />}
                 </a>
               ))}
             </div>
