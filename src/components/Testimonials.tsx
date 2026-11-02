@@ -16,10 +16,10 @@ export default function Testimonials() {
   return (
     <section
       aria-labelledby="testimonials-heading"
-      className="glass-page px-5 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24"
+      className="glass-page px-4 py-10 sm:px-8 sm:py-20 lg:px-12 lg:py-24"
     >
       <div className="mx-auto max-w-6xl">
-        <div className="mb-9 text-center sm:mb-12">
+        <div className="mb-6 text-center sm:mb-12">
           <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.3em] text-indigo-600">
             Your Experience Matters
           </p>
@@ -38,7 +38,7 @@ export default function Testimonials() {
           {REVIEWS.map((review, index) => (
             <article
               key={review.name}
-              className="glass-card group relative flex min-h-[220px] flex-col rounded-[24px] border border-white/80 bg-white/55 p-6 shadow-[0_12px_40px_rgba(32,43,50,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(32,43,50,0.10)]"
+              className="glass-card group relative flex min-h-[180px] flex-col rounded-[20px] border border-white/80 bg-white/55 p-6 shadow-[0_12px_40px_rgba(32,43,50,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(32,43,50,0.10)]"
             >
               <div className="flex items-center justify-between">
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[#E9E5DC] bg-white/80 font-serif text-lg font-semibold text-[#765A2B]">
@@ -62,7 +62,7 @@ export default function Testimonials() {
           ))}
         </div>
 
-        <div className="mt-8 text-center">
+        <div className="mt-6 text-center">
           <a
             href={WHATSAPP_URL}
             target="_blank"
