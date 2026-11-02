@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   LayoutDashboard,
   ClipboardList,
@@ -50,6 +50,15 @@ function isActiveRoute(pathname: string, href: string) {
 
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname();
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 1024px)");
+    const update = () => setIsDesktop(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -86,7 +95,8 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       <aside
         id="admin-sidebar"
         aria-label="Admin sidebar"
-        aria-hidden={!isOpen && typeof window !== "undefined" && window.innerWidth < 1024}
+        aria-hidden={!isOpen && !isDesktop}
+        inert={!isOpen && !isDesktop}
         className={`fixed inset-y-0 left-0 z-50 flex h-[100dvh] w-[min(292px,88vw)] flex-col overflow-hidden border-r border-slate-200/80 bg-white text-slate-800 shadow-2xl transition-transform duration-300 ease-out lg:w-[270px] lg:translate-x-0 lg:shadow-none ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         <div className="relative flex h-[64px] shrink-0 items-center justify-between border-b border-slate-100 px-4 sm:h-[72px] sm:px-5">
