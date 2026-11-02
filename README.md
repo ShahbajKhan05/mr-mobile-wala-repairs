@@ -68,7 +68,8 @@ Never commit `.env.local` or expose server-side secret values.
 3. Keep the private Storage bucket named `repair-photos`; repair images must not be made public.
 4. Open Supabase Dashboard → SQL Editor and run the migration file `supabase/migrations/202611030001_shared_settings_inventory.sql`. It creates only `shop_settings` and `inventory_parts`; it does not drop or reset existing tables or storage objects.
 5. The migration enables RLS and intentionally adds no public policies. The protected Next.js admin API uses the server-side Supabase key after checking the admin session.
-6. Confirm the API environment variables point to the same Supabase project before testing.
+6. Existing shop settings and inventory stored in the current browser are automatically copied to Supabase the first time an admin loads those sections after the migration. Keep that browser data intact until the migration has completed successfully.
+7. Confirm the API environment variables point to the same Supabase project before testing.
 
 Do not delete, truncate, or recreate existing repair/customer records or the `repair-photos` bucket.
 
