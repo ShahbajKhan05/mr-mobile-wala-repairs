@@ -153,9 +153,7 @@ export default function JobWarranty() {
       )
     : 0;
 
-  const warrantyPeriod = `${warrantyDays} ${
-    warrantyDays === 1 ? "Day" : "Days"
-  }`;
+  const warrantyPeriod = `${warrantyDays} Days`;
 
   const whatsappMessage = encodeURIComponent(
     `${shopName} - DIGITAL WARRANTY CARD\n\n` +
