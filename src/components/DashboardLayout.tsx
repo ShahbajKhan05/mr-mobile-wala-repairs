@@ -12,7 +12,7 @@ function SidebarFallback() {
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  return <div className="min-h-screen bg-[#f6f7fb]">
+  return <div className="min-h-screen overflow-x-clip bg-[#f6f7fb]">
     <Suspense fallback={<SidebarFallback/>}><Sidebar isOpen={sidebarOpen} onClose={()=>setSidebarOpen(false)}/></Suspense>
     <div className="min-h-screen lg:pl-[270px]">
       <Header onMenuClick={()=>setSidebarOpen(true)}/>
