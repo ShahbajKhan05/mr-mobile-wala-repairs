@@ -18,7 +18,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function HomePage() {
+type HomePageProps = {
+  searchParams: Promise<{ service?: string }>;
+};
+
+export default async function HomePage({ searchParams }: HomePageProps) {
+  const { service } = await searchParams;
+  const initialService = service === "buy" ? "Buy Mobile" : service === "sell" ? "Sell Mobile" : "Repair Mobile";
   return (
     <div className="min-h-screen overflow-x-hidden glass-page text-slate-800">
       <Navbar />
@@ -26,7 +32,7 @@ export default function HomePage() {
         <VideoHero />
         <BrandMarquee />
         <ServiceShowcase />
-        <BookingForm />
+        <BookingForm initialService={initialService} />
       </main>
       <Testimonials />
       <WhyChooseUs />
