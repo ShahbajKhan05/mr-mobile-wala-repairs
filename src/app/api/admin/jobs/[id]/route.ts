@@ -55,28 +55,33 @@ export async function PATCH(request: NextRequest, context: { params: Promise<{ i
     if (findError || !job) return fail("Repair job not found.", 404);
 
     const updates: Record<string, unknown> = {};
-    let eventType = "";
-    let description = "";
+    const eventsToInsert: { event_type: string; description: string }[] = [];
 
     if (body.status !== undefined) {
       if (!["Received", "Part Ordered", "Repairing", "Ready"].includes(body.status)) return fail("Invalid repair status.");
       updates.status = body.status;
-      eventType = "status_updated";
-      description = `Repair status changed from ${job.status} to ${body.status}.`;
+      eventsToInsert.push({
+        event_type: "status_updated",
+        description: `Repair status changed from ${job.status} to ${body.status}.`,
+      });
     }
 
     if (body.pickupStatus !== undefined) {
       if (!["Pending", "Picked Up"].includes(body.pickupStatus)) return fail("Invalid pickup status.");
       updates.pickup_status = body.pickupStatus;
-      eventType = "pickup_updated";
-      description = body.pickupStatus === "Picked Up" ? "Device marked as picked up by customer." : "Pickup status reset to pending.";
+      eventsToInsert.push({
+        event_type: "pickup_updated",
+        description: body.pickupStatus === "Picked Up" ? "Device marked as picked up by customer." : "Pickup status reset to pending.",
+      });
     }
 
     if (body.paymentStatus !== undefined) {
       if (!["Pending", "Paid"].includes(body.paymentStatus)) return fail("Invalid payment status.");
       updates.payment_status = body.paymentStatus;
-      eventType = "payment_updated";
-      description = `Payment marked as ${body.paymentStatus}.`;
+      eventsToInsert.push({
+        event_type: "payment_updated",
+        description: `Payment marked as ${body.paymentStatus}.`,
+      });
       if (body.paymentStatus === "Paid") {
         // Preserve original paid_at on repeated Paid requests; record now on first transition only.
         const existingPaidAt = parseWarrantyTimestamp(job.paid_at);
@@ -98,10 +103,12 @@ export async function PATCH(request: NextRequest, context: { params: Promise<{ i
     if (!Object.keys(updates).length) return fail("No valid changes supplied.");
     const { error: updateError } = await supabase.from("repair_jobs").update(updates).eq("id", job.id);
     if (updateError) throw updateError;
-    const { error: eventError } = await supabase.from("job_events").insert({
-      job_id: job.id, event_type: eventType, description,
-    });
-    if (eventError) throw eventError;
+    if (eventsToInsert.length) {
+      const { error: eventError } = await supabase.from("job_events").insert(
+        eventsToInsert.map((event) => ({ job_id: job.id, ...event }))
+      );
+      if (eventError) throw eventError;
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
