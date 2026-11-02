@@ -399,7 +399,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
   };
 
   return (
-    <header className="sticky top-0 z-30 flex h-[68px] items-center justify-between gap-2 border-b border-slate-200 bg-white/95 px-3 backdrop-blur-xl sm:h-[76px] sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-30 flex h-[68px] items-center justify-between gap-2 border-b border-white/75 bg-white/65 shadow-[0_8px_35px_rgba(39,55,95,0.06)] px-3 backdrop-blur-xl sm:h-[76px] sm:px-6 lg:px-8">
 
       {/* Left Section */}
       <div className="flex min-w-0 items-center gap-3">
@@ -409,7 +409,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
           onClick={onMenuClick}
           aria-label="Open navigation menu"
           aria-controls="admin-sidebar"
-          className="shrink-0 rounded-xl border border-slate-200 p-2 text-slate-600 transition hover:bg-slate-50 lg:hidden"
+          className="shrink-0 rounded-xl border border-white/80 bg-white/55 p-2 text-slate-600 transition hover:bg-white/70 lg:hidden"
         >
           <Menu size={21} />
         </button>
@@ -435,7 +435,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
       <div className="flex shrink-0 items-center gap-1.5 sm:gap-4">
 
         {/* Search */}
-        <div className="hidden items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 md:flex md:w-64">
+        <div className="hidden items-center gap-2 rounded-xl border border-slate-200 bg-white/60 px-3 py-2.5 md:flex md:w-64">
           <Search size={17} className="text-slate-400" />
 
           <input
@@ -445,7 +445,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
             className="w-full bg-transparent text-xs text-slate-700 outline-none placeholder:text-slate-400"
           />
 
-          <span className="flex items-center gap-1 rounded border border-slate-200 bg-white px-1.5 py-0.5 text-[10px] text-slate-400">
+          <span className="flex items-center gap-1 rounded border border-white/80 bg-white/70 px-1.5 py-0.5 text-[10px] text-slate-400">
             <Command size={10} /> K
           </span>
         </div>
@@ -460,7 +460,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
               setNotificationsOpen((previous) => !previous);
               setProfileOpen(false);
             }}
-            className="relative rounded-xl border border-slate-200 p-2 text-slate-600 transition hover:bg-slate-50 sm:p-2.5"
+            className="relative rounded-xl border border-white/80 bg-white/55 p-2 text-slate-600 transition hover:bg-white/70 sm:p-2.5"
           >
             <Bell size={19} />
 
@@ -472,10 +472,10 @@ export default function Header({ onMenuClick }: HeaderProps) {
           </button>
 
           {notificationsOpen && (
-            <div className="absolute right-0 top-12 z-50 w-[min(360px,calc(100vw-24px))] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl sm:top-14">
+            <div className="absolute right-0 top-12 z-50 w-[min(360px,calc(100vw-24px))] overflow-hidden rounded-2xl border border border-white/80 bg-white/85 shadow-[0_20px_60px_rgba(39,55,95,0.16)] backdrop-blur-2xl sm:top-14">
 
               {/* Header */}
-              <div className="flex items-center justify-between border-b border-slate-100 p-4">
+              <div className="flex items-center justify-between border-b border-white/70 p-4">
                 <div>
                   <h3 className="text-sm font-bold text-slate-900">
                     Notifications
@@ -546,8 +546,8 @@ export default function Header({ onMenuClick }: HeaderProps) {
                           markAsRead(item.id);
                           setNotificationsOpen(false);
                         }}
-                        className={`flex gap-3 border-b border-slate-100 p-4 transition hover:bg-slate-50 ${
-                          !isRead ? "bg-[#FCFBF8]" : "bg-white"
+                        className={`flex gap-3 border-b border-white/70 p-4 transition hover:bg-white/70 ${
+                          !isRead ? "bg-indigo-50/45" : "bg-white/45"
                         }`}
                       >
                         <div
@@ -581,11 +581,11 @@ export default function Header({ onMenuClick }: HeaderProps) {
                 )}
               </div>
 
-              <div className="border-t border-slate-100 p-3">
+              <div className="border-t border-white/70 p-3">
                 <Link
                   href="/jobs/list"
                   onClick={() => setNotificationsOpen(false)}
-                  className="block rounded-xl bg-slate-50 py-2.5 text-center text-xs font-semibold text-slate-600 transition hover:bg-slate-100"
+                  className="block rounded-xl bg-white/65 py-2.5 text-center text-xs font-semibold text-slate-600 transition hover:bg-slate-100"
                 >
                   View All Repair Jobs
                 </Link>
@@ -604,9 +604,9 @@ export default function Header({ onMenuClick }: HeaderProps) {
               setProfileOpen((previous) => !previous);
               setNotificationsOpen(false);
             }}
-            className="flex items-center gap-1.5 rounded-xl p-1 transition hover:bg-slate-50 sm:gap-2 sm:p-1.5"
+            className="flex items-center gap-1.5 rounded-xl p-1 transition hover:bg-white/70 sm:gap-2 sm:p-1.5"
           >
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#D6BD87]/40 bg-[#F8F4EA] text-xs font-bold text-[#9B7940]">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-indigo-100 bg-indigo-50 text-xs font-bold text-indigo-700">
               {profileLoading ? (
                 <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#D6BD87] border-t-transparent" />
               ) : (
@@ -633,11 +633,11 @@ export default function Header({ onMenuClick }: HeaderProps) {
           </button>
 
           {profileOpen && (
-            <div className="absolute right-0 top-12 z-50 w-64 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl sm:top-14">
+            <div className="absolute right-0 top-12 z-50 w-64 overflow-hidden rounded-2xl border border border-white/80 bg-white/85 shadow-[0_20px_60px_rgba(39,55,95,0.16)] backdrop-blur-2xl sm:top-14">
 
-              <div className="border-b border-slate-100 bg-slate-50/70 p-4">
+              <div className="border-b border-slate-100 bg-white/55 p-4">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#D6BD87]/40 bg-[#F8F4EA] text-sm font-bold text-[#9B7940]">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-indigo-100 bg-indigo-50 text-sm font-bold text-indigo-700">
                     {initials}
                   </div>
 
@@ -685,7 +685,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
                 <button
                   type="button"
                   onClick={() => setProfileOpen(false)}
-                  className="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2.5 text-xs font-semibold text-slate-600 transition hover:border-slate-300 hover:bg-slate-50"
+                  className="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2.5 text-xs font-semibold text-slate-600 transition hover:border-slate-300 hover:bg-white/70"
                 >
                   Close Menu
                 </button>
