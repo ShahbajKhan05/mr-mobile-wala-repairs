@@ -344,3 +344,43 @@ svg {
   .glass-card { transition: none; }
   .glass-card:hover { transform: none; }
 }
+
+/* Compact customer website spacing on phones */
+@media (max-width: 640px) {
+  .glass-page > main > section,
+  .glass-page > section {
+    padding-top: 2.25rem !important;
+    padding-bottom: 2.25rem !important;
+  }
+
+  .glass-page > main > section:first-child {
+    padding-top: 6.5rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .glass-page footer > div {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .glass-page footer .border-b.py-8 {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .glass-page footer .grid.py-7 {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    row-gap: 1.25rem;
+  }
+
+  .glass-page footer .border-t.py-4 {
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+  }
+
+  .glass-page footer .border-t.py-6 {
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+  }
+}
