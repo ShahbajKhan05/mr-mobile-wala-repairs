@@ -15,6 +15,7 @@ export async function GET(request: NextRequest) {
       .select("job_number,customer_id,brand,model,payment_status,paid_at")
       .eq("payment_status", "Paid")
       .not("paid_at", "is", null)
+      .is("deleted_at", null)
       .order("paid_at", { ascending: false });
     if (error) throw error;
     if (!jobs?.length) return NextResponse.json({ success: true, warranties: [] });
