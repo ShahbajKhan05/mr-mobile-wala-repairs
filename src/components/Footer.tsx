@@ -1,10 +1,11 @@
 
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowUpRight,
   Camera,
-  MessageCircle,
+
   ShieldCheck,
   FileText,
   MapPin,
@@ -94,7 +95,7 @@ export default function Footer() {
                 aria-label="Chat with us on WhatsApp"
                 className="flex h-10 w-10 items-center justify-center rounded-full border border-white/80 bg-white/60 text-slate-700 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#A17D45] hover:bg-[#202B32] hover:text-white sm:h-11 sm:w-11"
               >
-                <MessageCircle size={18} />
+                <WhatsAppIcon size={18} />
               </a>
 
               <a
