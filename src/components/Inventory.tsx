@@ -227,7 +227,7 @@ export default function Inventory() {
 
   async function handleDelete(part: InventoryPart) {
     const confirmed = window.confirm(
-      `"${part.name}" ko inventory se permanently delete karna hai?`
+      `"${part.name}" ko Recycle Bin mein move karna hai? Aap baad mein restore kar sakte hain.`
     );
 
     if (!confirmed) return;
