@@ -94,25 +94,25 @@ export default function Dashboard() {
   ];
 
   return (
-    <main className="min-h-[calc(100vh-76px)] bg-[#f6f7fb] px-4 py-6 sm:px-6 sm:py-8 xl:px-9">
+    <main className="min-h-[calc(100vh-76px)] glass-page px-4 py-6 sm:px-6 sm:py-8 xl:px-9">
       <div className="mx-auto max-w-[1500px] space-y-6">
-        <section className="relative overflow-hidden rounded-[28px] bg-[#171b2e] px-5 py-7 text-white shadow-[0_18px_50px_rgba(23,27,46,.14)] sm:px-8 sm:py-8">
+        <section className="relative overflow-hidden rounded-[28px] border border-white/80 bg-white/55 px-5 py-7 text-slate-900 shadow-[0_18px_55px_rgba(39,55,95,0.10)] backdrop-blur-2xl shadow-[0_18px_50px_rgba(23,27,46,.14)] sm:px-8 sm:py-8">
           <div className="pointer-events-none absolute -right-16 -top-28 h-72 w-72 rounded-full bg-indigo-500/25 blur-3xl" />
           <div className="pointer-events-none absolute bottom-[-110px] right-[28%] h-56 w-56 rounded-full bg-cyan-400/10 blur-3xl" />
           <div className="relative flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div>
-              <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[11px] font-semibold tracking-wide text-indigo-100">
+              <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/55 px-3 py-1.5 text-[11px] font-semibold tracking-wide text-indigo-100">
                 <Activity size={14} /> SHOP OVERVIEW
               </div>
               <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{greeting}, welcome back 👋</h1>
-              <p className="mt-2 max-w-xl text-sm leading-6 text-slate-300">Yahan se apne repair jobs, customer payments aur shop activity manage karein.</p>
-              <p className="mt-4 flex items-center gap-2 text-xs text-slate-400"><CalendarDays size={14} />{new Intl.DateTimeFormat("en-IN", { weekday: "long", day: "numeric", month: "long", year: "numeric" }).format(new Date())}</p>
+              <p className="mt-2 max-w-xl text-sm leading-6 text-slate-600">Yahan se apne repair jobs, customer payments aur shop activity manage karein.</p>
+              <p className="mt-4 flex items-center gap-2 text-xs text-slate-500"><CalendarDays size={14} />{new Intl.DateTimeFormat("en-IN", { weekday: "long", day: "numeric", month: "long", year: "numeric" }).format(new Date())}</p>
             </div>
             <div className="flex flex-wrap gap-2">
-              <button type="button" onClick={() => void loadDashboard()} disabled={loading} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 text-sm font-semibold text-white transition hover:bg-white/15 disabled:opacity-60">
+              <button type="button" onClick={() => void loadDashboard()} disabled={loading} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 text-sm font-semibold text-slate-900 transition hover:bg-white/15 disabled:opacity-60">
                 <RefreshCw size={16} className={loading ? "animate-spin" : ""} /> Refresh
               </button>
-              <Link href="/jobs" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-white px-4 text-sm font-bold text-[#171b2e] shadow-lg transition hover:-translate-y-0.5 hover:bg-indigo-50">
+              <Link href="/jobs" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 text-sm font-bold text-white shadow-lg shadow-indigo-950/15 hover:bg-indigo-700 shadow-lg transition hover:-translate-y-0.5 hover:bg-indigo-50">
                 <Plus size={17} /> Create Job Card <ArrowUpRight size={15} />
               </Link>
             </div>
@@ -124,31 +124,31 @@ export default function Dashboard() {
         <section aria-label="Repair shop statistics" className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {cards.map((card) => {
             const Icon = card.icon;
-            return <article key={card.label} className="group rounded-2xl border border-slate-200/80 bg-white p-5 shadow-[0_3px_14px_rgba(15,23,42,.035)] transition duration-200 hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(15,23,42,.08)]">
+            return <article key={card.label} className="group rounded-2xl glass-card rounded-2xl p-5 transition duration-200 hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(15,23,42,.08)]">
               <div className="flex items-start justify-between gap-3">
                 <div><p className="text-[12px] font-semibold text-slate-500">{card.label}</p><p className="mt-3 text-[27px] font-bold tracking-tight text-slate-900">{loading ? <span className="inline-block h-8 w-20 animate-pulse rounded-lg bg-slate-100" /> : card.value}</p></div>
                 <span className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl ${card.tone}`}><Icon size={20} /></span>
               </div>
-              <p className="mt-3 text-xs text-slate-400">{card.note}</p>
+              <p className="mt-3 text-xs text-slate-500">{card.note}</p>
             </article>;
           })}
         </section>
 
         <section className="grid gap-5 xl:grid-cols-[minmax(0,1.55fr)_minmax(300px,.85fr)]">
-          <article className="min-w-0 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_3px_14px_rgba(15,23,42,.035)]">
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 px-5 py-5 sm:px-6">
+          <article className="min-w-0 overflow-hidden rounded-2xl glass-card">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/70 px-5 py-5 sm:px-6">
               <div><h2 className="font-bold text-slate-900">Recent repair jobs</h2><p className="mt-1 text-xs text-slate-500">Latest jobs saved in your shop</p></div>
-              <Link href="/jobs/list" className="inline-flex items-center gap-1 text-xs font-bold text-indigo-600 transition hover:text-indigo-800">View all jobs <ArrowRight size={14} /></Link>
+              <Link href="/jobs/list" className="inline-flex items-center gap-1 text-xs font-bold text-indigo-700 transition hover:text-indigo-800">View all jobs <ArrowRight size={14} /></Link>
             </div>
-            {loading ? <div className="space-y-4 p-6">{Array.from({length:4}).map((_,i)=><div key={i} className="h-12 animate-pulse rounded-xl bg-slate-100" />)}</div> : recentJobs.length === 0 ? <div className="flex flex-col items-center px-5 py-12 text-center"><span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400"><Smartphone size={25}/></span><h3 className="mt-4 font-bold text-slate-800">No repair jobs yet</h3><p className="mt-1 max-w-xs text-sm text-slate-500">Create your first job card to see customer repairs here.</p><Link href="/jobs" className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#171b2e] px-4 py-2.5 text-xs font-bold text-white"><Plus size={15}/> Create first job</Link></div> :
-              <div className="overflow-x-auto"><table className="w-full min-w-[680px] text-left"><thead className="bg-slate-50/80 text-[10px] font-bold uppercase tracking-[.12em] text-slate-400"><tr><th className="px-5 py-3.5 sm:px-6">Job / Customer</th><th className="px-4 py-3.5">Device</th><th className="px-4 py-3.5">Estimate</th><th className="px-4 py-3.5">Status</th><th className="px-5 py-3.5">Date</th></tr></thead><tbody>{recentJobs.map((job)=><tr key={job.id} className="border-t border-slate-100 transition hover:bg-slate-50/70"><td className="px-5 py-4 sm:px-6"><Link href={`/jobs/${encodeURIComponent(job.id)}`} className="font-bold text-slate-800 hover:text-indigo-700">{job.id}</Link><p className="mt-1 text-xs text-slate-500">{job.customerName}</p></td><td className="px-4 py-4"><p className="text-sm font-semibold text-slate-700">{job.brand} {job.model}</p><p className="mt-1 max-w-[170px] truncate text-xs text-slate-400">{job.problem}</p></td><td className="px-4 py-4 text-sm font-semibold text-slate-700">{money(Number(job.estimate || 0))}<p className={`mt-1 text-[10px] font-semibold ${job.paymentStatus === "Paid" ? "text-emerald-600" : "text-amber-600"}`}>{job.paymentStatus === "Paid" ? "Paid" : "Payment pending"}</p></td><td className="px-4 py-4"><span className={`inline-flex whitespace-nowrap rounded-full px-2.5 py-1 text-[11px] font-bold ring-1 ring-inset ${statusClass[job.status]}`}>{job.status}</span></td><td className="px-5 py-4 text-xs text-slate-500">{dateLabel(job.createdAt)}</td></tr>)}</tbody></table></div>}
+            {loading ? <div className="space-y-4 p-6">{Array.from({length:4}).map((_,i)=><div key={i} className="h-12 animate-pulse rounded-xl bg-slate-100" />)}</div> : recentJobs.length === 0 ? <div className="flex flex-col items-center px-5 py-12 text-center"><span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-500"><Smartphone size={25}/></span><h3 className="mt-4 font-bold text-slate-800">No repair jobs yet</h3><p className="mt-1 max-w-xs text-sm text-slate-500">Create your first job card to see customer repairs here.</p><Link href="/jobs" className="mt-4 inline-flex items-center gap-2 rounded-xl border border-white/80 bg-white/55 text-slate-800 shadow-[0_18px_55px_rgba(39,55,95,0.10)] backdrop-blur-2xl px-4 py-2.5 text-xs font-bold text-slate-900"><Plus size={15}/> Create first job</Link></div> :
+              <div className="overflow-x-auto"><table className="w-full min-w-[680px] text-left"><thead className="bg-white/45 text-[10px] font-bold uppercase tracking-[.12em] text-slate-500"><tr><th className="px-5 py-3.5 sm:px-6">Job / Customer</th><th className="px-4 py-3.5">Device</th><th className="px-4 py-3.5">Estimate</th><th className="px-4 py-3.5">Status</th><th className="px-5 py-3.5">Date</th></tr></thead><tbody>{recentJobs.map((job)=><tr key={job.id} className="border-t border-white/70 transition hover:bg-white/50"><td className="px-5 py-4 sm:px-6"><Link href={`/jobs/${encodeURIComponent(job.id)}`} className="font-bold text-slate-800 hover:text-indigo-700">{job.id}</Link><p className="mt-1 text-xs text-slate-500">{job.customerName}</p></td><td className="px-4 py-4"><p className="text-sm font-semibold text-slate-700">{job.brand} {job.model}</p><p className="mt-1 max-w-[170px] truncate text-xs text-slate-500">{job.problem}</p></td><td className="px-4 py-4 text-sm font-semibold text-slate-700">{money(Number(job.estimate || 0))}<p className={`mt-1 text-[10px] font-semibold ${job.paymentStatus === "Paid" ? "text-emerald-600" : "text-amber-600"}`}>{job.paymentStatus === "Paid" ? "Paid" : "Payment pending"}</p></td><td className="px-4 py-4"><span className={`inline-flex whitespace-nowrap rounded-full px-2.5 py-1 text-[11px] font-bold ring-1 ring-inset ${statusClass[job.status]}`}>{job.status}</span></td><td className="px-5 py-4 text-xs text-slate-500">{dateLabel(job.createdAt)}</td></tr>)}</tbody></table></div>}
           </article>
 
           <div className="space-y-5">
-            <article className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-[0_3px_14px_rgba(15,23,42,.035)] sm:p-6">
+            <article className="rounded-2xl glass-card rounded-2xl p-5 sm:p-6">
               <div className="flex items-center justify-between"><div><h2 className="font-bold text-slate-900">Job status overview</h2><p className="mt-1 text-xs text-slate-500">Current repair pipeline</p></div><span className="rounded-xl bg-indigo-50 p-2.5 text-indigo-700"><Activity size={18}/></span></div>
               <div className="mt-6 space-y-4">{statusCounts.map((item)=>{const percent=jobs.length?Math.round(item.count/jobs.length*100):0;return <div key={item.label}><div className="mb-2 flex items-center justify-between text-xs"><span className="font-semibold text-slate-600">{item.label}</span><span className="font-bold tabular-nums text-slate-800">{loading?"—":item.count}</span></div><div className="h-2 overflow-hidden rounded-full bg-slate-100"><div className={`h-full rounded-full ${item.color} transition-all duration-500`} style={{width:`${percent}%`}}/></div></div>})}</div>
-              <p className="mt-5 border-t border-slate-100 pt-4 text-[11px] text-slate-400">{jobs.length} total jobs · Live database data</p>
+              <p className="mt-5 border-t border-white/70 pt-4 text-[11px] text-slate-500">{jobs.length} total jobs · Live database data</p>
             </article>
             <article className="rounded-2xl border border-amber-200/70 bg-gradient-to-br from-amber-50 to-white p-5 sm:p-6">
               <div className="flex items-center gap-2 text-amber-800"><Clock3 size={17}/><h2 className="text-sm font-bold">Payment follow-up</h2></div>
@@ -165,9 +165,9 @@ export default function Dashboard() {
             {label:"Customers",href:"/customers",icon:Users,desc:"Customer records"},
             {label:"Parts inventory",href:"/inventory",icon:Package,desc:"Stock and spare parts"},
             {label:"Business analytics",href:"/analytics",icon:IndianRupee,desc:"Revenue and reports"},
-          ].map((item)=>{const Icon=item.icon;return <Link key={item.href} href={item.href} className="group rounded-2xl border border-slate-200/80 bg-white p-4 transition hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-md sm:p-5"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-700 transition group-hover:bg-indigo-50 group-hover:text-indigo-700"><Icon size={19}/></span><p className="mt-3 text-sm font-bold text-slate-800">{item.label}</p><p className="mt-1 text-[11px] text-slate-400">{item.desc}</p></Link>})}
+          ].map((item)=>{const Icon=item.icon;return <Link key={item.href} href={item.href} className="group rounded-2xl border border-white/75 bg-white p-4 transition hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-md sm:p-5"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-700 transition group-hover:bg-indigo-50 group-hover:text-indigo-700"><Icon size={19}/></span><p className="mt-3 text-sm font-bold text-slate-800">{item.label}</p><p className="mt-1 text-[11px] text-slate-500">{item.desc}</p></Link>})}
         </section>
-        <p className="flex items-center justify-end gap-1.5 text-[11px] text-slate-400"><span className="h-1.5 w-1.5 rounded-full bg-emerald-500"/>{updatedAt ? `Data refreshed at ${updatedAt}` : "Connected to repair records"}</p>
+        <p className="flex items-center justify-end gap-1.5 text-[11px] text-slate-500"><span className="h-1.5 w-1.5 rounded-full bg-emerald-500"/>{updatedAt ? `Data refreshed at ${updatedAt}` : "Connected to repair records"}</p>
       </div>
     </main>
   );
