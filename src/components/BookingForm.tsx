@@ -123,10 +123,10 @@ const PRICES = [
 ];
 
 const inputClass =
-  "h-[52px] w-full appearance-none rounded-xl border border-[#E8E6E0] bg-white px-4 pr-10 text-sm text-[#202B32] outline-none transition focus:border-[#B69A69] focus:ring-4 focus:ring-[#B69A69]/10";
+  "glass-input h-[52px] w-full appearance-none rounded-xl px-4 pr-10 text-sm text-slate-800 outline-none transition focus:ring-4 focus:ring-indigo-500/10";
 
 const labelClass =
-  "mb-2 block text-[11px] font-bold uppercase tracking-[0.12em] text-[#59636A]";
+  "mb-2 block text-[11px] font-bold uppercase tracking-[0.12em] text-slate-600";
 
 export default function BookingForm() {
   const [bookingType, setBookingType] =
@@ -220,25 +220,25 @@ export default function BookingForm() {
   return (
     <section
       id="booking"
-      className="w-full bg-white px-4 pb-16 pt-12 sm:px-6 sm:pb-20 sm:pt-16 lg:px-8 lg:pb-24"
+      className="glass-page w-full px-4 pb-16 pt-12 sm:px-6 sm:pb-20 sm:pt-16 lg:px-8 lg:pb-24"
     >
       <div className="mx-auto max-w-4xl">
 
         {/* Heading */}
         <div className="mb-8 text-center sm:mb-10">
-          <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#B69A69]/25 bg-[#FBFAF7] px-4 py-2 text-[9px] font-bold uppercase tracking-[0.2em] text-[#765A2B]">
+          <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/65 shadow-sm backdrop-blur-xl px-4 py-2 text-[9px] font-bold uppercase tracking-[0.2em] text-indigo-600">
             <span className="h-1.5 w-1.5 rounded-full bg-[#B69A69]" />
             MR MOBILE WALA
           </span>
 
-          <h2 className="text-3xl font-semibold tracking-[-0.055em] text-[#202B32] sm:text-4xl md:text-5xl">
+          <h2 className="text-3xl font-semibold tracking-[-0.055em] text-slate-900 sm:text-4xl md:text-5xl">
             How can we help{" "}
             <span className="font-serif font-normal italic text-[#765A2B]">
               you?
             </span>
           </h2>
 
-          <p className="mt-3 text-sm text-[#5E6668] sm:text-base">
+          <p className="mt-3 text-sm text-slate-500 sm:text-base">
             Just a few quick selections. No complicated form.
           </p>
           <p className="mt-1 text-xs text-[#5E6668]">
@@ -249,10 +249,10 @@ export default function BookingForm() {
         {/* Booking Card */}
         <form
           onSubmit={handleSubmit}
-          className="overflow-hidden rounded-[24px] border border-[#ECEAE4] bg-white shadow-[0_20px_70px_rgba(32,43,50,0.07)] sm:rounded-[30px]"
+          className="glass-panel overflow-hidden rounded-[26px] sm:rounded-[32px]"
         >
           {/* Service Selection */}
-          <div className="border-b border-[#ECEAE4] p-4 sm:p-7">
+          <div className="border-b border-white/70 bg-white/30 p-4 sm:p-7">
             <div className="mb-4 flex items-center justify-between">
               <h3 className="text-sm font-bold text-[#202B32]">
                 Choose your service
@@ -274,8 +274,8 @@ export default function BookingForm() {
                     aria-pressed={active}
                     className={`relative flex min-h-[105px] flex-col items-center justify-center rounded-2xl border p-3 text-center transition-all duration-200 sm:min-h-[125px] ${
                       active
-                        ? "border-[#26343C] bg-[#26343C] text-white shadow-lg"
-                        : "border-[#EAE8E2] bg-[#FCFCFB] text-[#26343C] hover:border-[#B69A69]"
+                        ? "border-indigo-600 bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-lg shadow-indigo-600/20"
+                        : "border-white/80 bg-white/55 text-slate-700 hover:border-indigo-300 hover:bg-white/85"
                     }`}
                   >
                     <Icon size={22} strokeWidth={1.7} />
@@ -481,7 +481,7 @@ export default function BookingForm() {
             )}
 
             {/* Customer Details */}
-            <div className="border-t border-[#ECEAE4] pt-5">
+            <div className="border-t border-white/70 pt-5">
               <div className="mb-4 flex items-center justify-between">
                 <h3 className="text-sm font-bold text-[#202B32]">
                   Your contact details
@@ -532,11 +532,11 @@ export default function BookingForm() {
             </div>
 
             {/* Submit */}
-            <div className="border-t border-[#ECEAE4] pt-6">
+            <div className="border-t border-white/70 pt-6">
               <button
                 type="submit"
                 disabled={!isFormValid}
-                className="group flex min-h-[56px] w-full items-center justify-center gap-3 rounded-full bg-[#26343C] px-6 text-sm font-bold text-white shadow-[0_12px_30px_rgba(38,52,60,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#354852] active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-40"
+                className="group flex min-h-[56px] w-full items-center justify-center gap-3 rounded-full bg-slate-900 px-6 text-sm font-bold text-white shadow-[0_16px_35px_rgba(49,46,129,0.20)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-indigo-700 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <MessageCircle size={19} />
                 Send Booking on WhatsApp
