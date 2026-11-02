@@ -8,7 +8,7 @@ import {
 
   ShieldCheck,
   FileText,
-  MapPin,
+
 } from "lucide-react";
 
 const FOOTER_GROUPS = [
@@ -157,7 +157,7 @@ export default function Footer() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-xs font-semibold text-[#202B32] transition-colors hover:text-[#765A2B]"
           >
-            <MapPin size={14} />
+            <WhatsAppIcon size={16} />
             Get in touch
             <ArrowUpRight size={13} />
           </a>
