@@ -14,17 +14,16 @@ const FOOTER_GROUPS = [
   {
     title: "Explore",
     links: [
-      { label: "Explore Phones", href: "/phones" },
-      { label: "Accessories", href: "/accessories" },
-      { label: "Repair Services", href: "/services" },
-      { label: "About Us", href: "/about" },
+      { label: "Home", href: "/" },
+      { label: "Repair Services", href: "/#services" },
+      { label: "Track Repair", href: "/track" },
+      { label: "Book a Service", href: "/#booking" },
     ],
   },
   {
     title: "Visit & Connect",
     links: [
-      { label: "Visit Store", href: "/store" },
-      { label: "Contact Us", href: "/contact" },
+      { label: "WhatsApp Support", href: "https://wa.me/919131383323" },
       { label: "Admin Login", href: "/admin-login" },
     ],
   },
