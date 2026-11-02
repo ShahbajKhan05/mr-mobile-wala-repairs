@@ -322,7 +322,7 @@ Thank you for choosing ${shopName}.`
 
   return (
     <main className="box-border min-h-screen w-full overflow-x-clip bg-slate-50 px-3 py-4 sm:px-5 sm:py-6 lg:px-8 lg:py-8">
-      <div className="mx-auto w-full min-w-0 max-w-6xl space-y-6">
+      <div className="mx-auto w-full min-w-0 max-w-6xl space-y-4 sm:space-y-6">
 
         {/* Back Button */}
         <button
@@ -366,12 +366,12 @@ Thank you for choosing ${shopName}.`
           </a>
         </section>
 
-        <div className="grid min-w-0 gap-6 lg:grid-cols-3">
+        <div className="grid min-w-0 gap-4 sm:gap-6 lg:grid-cols-3">
 
-          <div className="min-w-0 space-y-6 lg:col-span-2">
+          <div className="min-w-0 space-y-4 sm:space-y-6 lg:col-span-2">
 
             {/* Customer Information */}
-            <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+            <section className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-sm sm:p-6">
               <div className="mb-5 flex items-center gap-3">
                 <div className="rounded-xl bg-blue-50 p-3 text-blue-600">
                   <UserRound size={21} />
@@ -404,7 +404,7 @@ Thank you for choosing ${shopName}.`
             </section>
 
             {/* Device Information */}
-            <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+            <section className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-sm sm:p-6">
               <div className="mb-5 flex items-center gap-3">
                 <div className="rounded-xl bg-violet-50 p-3 text-violet-600">
                   <Smartphone size={21} />
@@ -444,7 +444,7 @@ Thank you for choosing ${shopName}.`
             </section>
 
             {/* Device Photos */}
-            <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+            <section className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-sm sm:p-6">
               <div className="mb-5 flex items-center gap-3">
                 <div className="rounded-xl bg-amber-50 p-3 text-amber-600">
                   <Smartphone size={21} />
@@ -474,7 +474,7 @@ Thank you for choosing ${shopName}.`
           </div>
 
           {/* Right Sidebar */}
-          <div className="min-w-0 space-y-6">
+          <div className="min-w-0 space-y-4 sm:space-y-6">
 
             {/* Private Customer Tracking Link */}
             <section className="rounded-2xl border border-indigo-100 bg-white p-5 shadow-sm">
@@ -523,7 +523,7 @@ Thank you for choosing ${shopName}.`
             </section>
 
             {/* Repair Progress */}
-            <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <section className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-sm">
               <h2 className="font-bold text-slate-900">
                 Repair Progress
               </h2>
@@ -617,7 +617,7 @@ Thank you for choosing ${shopName}.`
             </section>
 
             {/* Customer Pickup */}
-            <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <section className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-sm">
               <div className="flex items-center gap-2">
                 <Truck size={18} className="text-indigo-600" />
                 <h2 className="font-bold text-slate-900">Customer Pickup</h2>
@@ -636,7 +636,7 @@ Thank you for choosing ${shopName}.`
             </section>
 
             {/* Payment Information */}
-            <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <section className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-sm">
               <h2 className="font-bold text-slate-900">
                 Payment Information
               </h2>
