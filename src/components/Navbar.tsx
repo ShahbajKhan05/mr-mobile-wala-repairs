@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import Image from "next/image";\nimport WhatsAppIcon from "@/components/WhatsAppIcon";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -24,21 +24,21 @@ const SOCIAL_LINKS = [
   {
     label: "WhatsApp",
     href: "https://wa.me/919131383323",
-    icon: "Whatsapp-3d.svg",
+    icon: "whatsapp",
   },
   {
     label: "Instagram",
     href: "https://instagram.com/mrmobilewala.2.0",
-    icon: "Instagram-3d.svg",
+    icon: "instagram",
   },
   {
     label: "Email",
     href: "mailto:mrmobilewala610@gmail.com",
-    icon: "Gmail-3d.svg",
+    icon: "email",
   },
 ];
 
-export default function Navbar() {
+function SocialIcon({ icon, size = 22 }: { icon: string; size?: number }) {\n  if (icon === "whatsapp") return <WhatsAppIcon size={size} />;\n  if (icon === "instagram") return <Instagram size={size} strokeWidth={1.8} aria-hidden="true" />;\n  return <Mail size={size} strokeWidth={1.8} aria-hidden="true" />;\n}\n\nexport default function Navbar() {
   const pathname = usePathname();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -121,7 +121,7 @@ export default function Navbar() {
                   : "border-slate-200/80 bg-white/60 text-slate-600 hover:border-indigo-300 hover:text-indigo-700"
               }`}
             >
-              <Image src="/Whatsapp-3d.svg" alt="" aria-hidden="true" width={24} height={24} className="object-contain" />
+              <WhatsAppIcon size={24} />
             </button>
 
             {isSocialOpen && (
@@ -139,7 +139,7 @@ export default function Navbar() {
                     onClick={() => setIsSocialOpen(false)}
                     className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-[#44443e] transition-colors hover:bg-[#f7f7f4]"
                   >
-                    <Image src={`/${icon}`} alt="" aria-hidden="true" width={22} height={22} className="shrink-0 object-contain" />
+                    <SocialIcon icon={icon} size={22} />
                     {label}
                     <ArrowUpRight size={14} className="ml-auto text-[#999990]" />
                   </a>
@@ -251,7 +251,7 @@ export default function Navbar() {
                   aria-label={label}
                   className="flex h-10 w-10 items-center justify-center rounded-full border border-[#e8e7e2] text-[#55554e] transition-colors hover:bg-[#f5f4f0]"
                 >
-                  <Image src={`/${icon}`} alt="" aria-hidden="true" width={24} height={24} className="shrink-0 object-contain" />
+                  <SocialIcon icon={icon} size={24} />
                 </a>
               ))}
             </div>
