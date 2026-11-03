@@ -166,7 +166,7 @@ export default function Navbar() {
             href="/admin-login"
             className="inline-flex min-h-10 items-center justify-center rounded-full px-4 text-xs font-semibold text-[#55554e] transition-colors hover:bg-[#f5f4f0] hover:text-[#1e1e1e]"
           >
-            Admin Login
+            {language === "hi" ? "एडमिन लॉगिन" : "Admin Login"}
           </Link>
 
           <Link
