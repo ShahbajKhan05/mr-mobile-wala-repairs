@@ -7,7 +7,6 @@ import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import BrandMarquee from "@/components/BrandMarquee";
 import ServiceShowcase from "@/components/ServiceShowcase";
-import Testimonials from "@/components/Testimonials";
 
 export const metadata: Metadata = {
   title: "MR MOBILE WALA REPAIRS | Buy, Sell & Repair Mobile Phones in Rewa",
@@ -34,7 +33,6 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         <ServiceShowcase />
         <BookingForm initialService={initialService} />
       </main>
-      <Testimonials />
       <WhyChooseUs />
       <FAQ />
       <Footer />
