@@ -53,7 +53,7 @@ export default function Testimonials() {
           <div className="flex flex-col justify-between p-5 sm:p-8 lg:p-12 xl:p-14">
             <div>
               <p className="text-[9px] font-bold uppercase tracking-[.22em] text-[#63748b] sm:text-[10px]">{t("testimonialsTitle")}</p>
-              <h2 id="testimonials-heading" aria-live="polite" className="mt-5 min-h-[130px] font-serif text-[clamp(2rem,4.4vw,4.25rem)] leading-[1.04] tracking-[-.045em] text-[#111827] sm:mt-7 sm:min-h-[220px]">
+              <h2 key={activeIndex} id="testimonials-heading" aria-live="polite" className="customer-review-quote mt-5 min-h-[130px] font-serif text-[clamp(2rem,4.4vw,4.25rem)] leading-[1.04] tracking-[-.045em] text-[#111827] sm:mt-7 sm:min-h-[220px]">
                 “{activeReview.review}”
               </h2>
               <p className="mt-4 max-w-md text-xs leading-6 text-[#77808b] sm:text-sm">{t("testimonialsCopy")}</p>
