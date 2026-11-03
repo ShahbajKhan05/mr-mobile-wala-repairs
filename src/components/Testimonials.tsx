@@ -51,7 +51,7 @@ export default function Testimonials() {
         </header>
 
         <div className="mt-3 grid gap-2.5 sm:mt-4 sm:grid-cols-2 sm:gap-3">
-          {REVIEWS.map((review, index) => (
+          {REVIEWS.map((review) => (
             <article
               key={review.name}
               className="group flex min-w-0 items-start gap-3 rounded-[20px] border border-white/80 bg-white/85 p-3.5 shadow-[0_10px_30px_rgba(13,31,55,.07)] backdrop-blur-xl transition duration-300 hover:-translate-y-0.5 hover:border-blue-100 hover:shadow-[0_16px_36px_rgba(13,31,55,.11)] sm:rounded-[22px] sm:p-4"
