@@ -14,6 +14,7 @@ export default function CustomerMotion({ children }: CustomerMotionProps) {
     if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     gsap.registerPlugin(ScrollTrigger);
+    const removeCardListeners: Array<() => void> = [];
     const context = gsap.context(() => {
       if (window.matchMedia("(pointer: fine)").matches) {
         const tiltCards = root.querySelectorAll<HTMLElement>(
@@ -34,7 +35,7 @@ export default function CustomerMotion({ children }: CustomerMotionProps) {
           card.style.willChange = "transform";
           card.addEventListener("pointermove", onMove);
           card.addEventListener("pointerleave", reset);
-          context.add(() => {
+          removeCardListeners.push(() => {
             card.removeEventListener("pointermove", onMove);
             card.removeEventListener("pointerleave", reset);
             card.style.willChange = "";
@@ -96,6 +97,7 @@ export default function CustomerMotion({ children }: CustomerMotionProps) {
     return () => {
       window.removeEventListener("load", refresh);
       window.cancelAnimationFrame(frame);
+      removeCardListeners.forEach((removeListeners) => removeListeners());
       context.revert();
     };
   }, []);
