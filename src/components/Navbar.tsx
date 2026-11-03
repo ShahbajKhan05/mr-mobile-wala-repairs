@@ -167,7 +167,7 @@ export default function Navbar() {
 
           <Link
             href="/#booking"
-            className="group inline-flex min-h-11 items-center gap-2 rounded-full bg-slate-900 px-5 text-xs font-bold text-white shadow-lg shadow-indigo-950/15 transition-all duration-200 hover:-translate-y-0.5 hover:bg-indigo-700 hover:shadow-[0_6px_18px_rgba(0,0,0,0.15)] active:scale-[0.98]"
+            className="group inline-flex min-h-11 items-center gap-2 rounded-full border border-[#c6a66b] bg-[#e8d5ad] px-5 text-xs font-bold text-[#29251e] shadow-[0_5px_16px_rgba(139,105,54,0.14)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#d9bd89] hover:shadow-[0_8px_22px_rgba(139,105,54,0.20)] active:scale-[0.98]"
           >
             <Store size={15} />
             Book a Service
@@ -243,7 +243,7 @@ export default function Navbar() {
               <Link
                 href="/#booking"
                 onClick={() => setIsOpen(false)}
-                className="flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#1e1e1e] text-sm font-bold text-white transition-colors hover:bg-indigo-700"
+                className="flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#c6a66b] bg-[#e8d5ad] text-sm font-bold text-[#29251e] transition-colors hover:bg-[#d9bd89]"
               >
                 <Store size={16} />
                 Book a Service
