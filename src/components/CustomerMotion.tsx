@@ -15,7 +15,7 @@ export default function CustomerMotion({ children }: CustomerMotionProps) {
 
     gsap.registerPlugin(ScrollTrigger);
     const context = gsap.context(() => {
-      const sections = gsap.utils.toArray<HTMLElement>("main section, footer");
+      const sections = gsap.utils.toArray<HTMLElement>("main section, .customer-secondary-section > section, .customer-testimonials, footer");
       sections.forEach((section, index) => {
         if (index === 0) return;
 
@@ -38,7 +38,7 @@ export default function CustomerMotion({ children }: CustomerMotionProps) {
         );
 
         const cards = section.querySelectorAll<HTMLElement>(
-          "#services a, #why article, #reviews article, [data-motion-card]"
+          "#services a, #why article, #reviews article, .customer-testimonials [data-motion-card]"
         );
         if (cards.length > 1) {
           gsap.fromTo(
