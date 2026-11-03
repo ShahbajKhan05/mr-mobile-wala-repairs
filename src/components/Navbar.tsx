@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -24,19 +25,44 @@ const SOCIAL_LINKS = [
   {
     label: "WhatsApp",
     href: "https://wa.me/919131383323",
-    icon: "Whatsapp-3d.svg",
+    icon: "whatsapp",
   },
   {
     label: "Instagram",
     href: "https://instagram.com/mrmobilewala.2.0",
-    icon: "Instagram-3d.svg",
+    icon: "instagram",
   },
   {
     label: "Email",
     href: "mailto:mrmobilewala610@gmail.com",
-    icon: "Gmail-3d.svg",
+    icon: "email",
   },
 ];
+
+function SocialIcon({ icon, size = 22 }: { icon: string; size?: number }) {
+  if (icon === "whatsapp") return <WhatsAppIcon size={size} />;
+
+  if (icon === "instagram") {
+    return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"
+        strokeLinejoin="round" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="5" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"
+      strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m3 7 9 6 9-6" />
+    </svg>
+  );
+}
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -121,7 +147,7 @@ export default function Navbar() {
                   : "border-slate-200/80 bg-white/60 text-slate-600 hover:border-indigo-300 hover:text-indigo-700"
               }`}
             >
-              <Image src="/Whatsapp-3d.svg" alt="" aria-hidden="true" width={24} height={24} className="object-contain" />
+              <WhatsAppIcon size={24} />
             </button>
 
             {isSocialOpen && (
@@ -139,7 +165,7 @@ export default function Navbar() {
                     onClick={() => setIsSocialOpen(false)}
                     className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-[#44443e] transition-colors hover:bg-[#f7f7f4]"
                   >
-                    <Image src={`/${icon}`} alt="" aria-hidden="true" width={22} height={22} className="shrink-0 object-contain" />
+                    <SocialIcon icon={icon} size={22} />
                     {label}
                     <ArrowUpRight size={14} className="ml-auto text-[#999990]" />
                   </a>
@@ -157,7 +183,7 @@ export default function Navbar() {
 
           <Link
             href="/#booking"
-            className="group inline-flex min-h-11 items-center gap-2 rounded-full bg-slate-900 px-5 text-xs font-bold text-white shadow-lg shadow-indigo-950/15 transition-all duration-200 hover:-translate-y-0.5 hover:bg-indigo-700 hover:shadow-[0_6px_18px_rgba(0,0,0,0.15)] active:scale-[0.98]"
+            className="group inline-flex min-h-11 items-center gap-2 rounded-full border border-[#c6a66b] bg-[#e8d5ad] px-5 text-xs font-bold text-[#29251e] shadow-[0_5px_16px_rgba(139,105,54,0.14)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#d9bd89] hover:shadow-[0_8px_22px_rgba(139,105,54,0.20)] active:scale-[0.98]"
           >
             <Store size={15} />
             Book a Service
@@ -233,7 +259,7 @@ export default function Navbar() {
               <Link
                 href="/#booking"
                 onClick={() => setIsOpen(false)}
-                className="flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#1e1e1e] text-sm font-bold text-white transition-colors hover:bg-indigo-700"
+                className="flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#c6a66b] bg-[#e8d5ad] text-sm font-bold text-[#29251e] transition-colors hover:bg-[#d9bd89]"
               >
                 <Store size={16} />
                 Book a Service
@@ -251,7 +277,7 @@ export default function Navbar() {
                   aria-label={label}
                   className="flex h-10 w-10 items-center justify-center rounded-full border border-[#e8e7e2] text-[#55554e] transition-colors hover:bg-[#f5f4f0]"
                 >
-                  <Image src={`/${icon}`} alt="" aria-hidden="true" width={24} height={24} className="shrink-0 object-contain" />
+                  <SocialIcon icon={icon} size={24} />
                 </a>
               ))}
             </div>

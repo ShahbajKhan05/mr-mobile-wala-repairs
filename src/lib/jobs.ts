@@ -75,6 +75,7 @@ export async function getJobById(id: string): Promise<RepairJob | undefined> {
   const result = await readResponse<ApiResponse<{ job: Omit<RepairJob, "photos"> & { photos: Array<{key: PhotoKey;name:string;type:string;url:string}> } }>>(response);
   return {
     ...result.job,
+
     photos: result.job.photos.map((photo) => ({ ...photo, blob: new Blob() })),
   };
 }

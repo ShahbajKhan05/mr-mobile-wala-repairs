@@ -1,6 +1,8 @@
 import Image from "next/image";
 
-export default function WhatsAppIcon({ size = 18, className = "" }: { size?: number; className?: string }) {
+type WhatsAppIconProps = { size?: number; className?: string };
+
+export default function WhatsAppIcon({ size = 18, className = "" }: WhatsAppIconProps) {
   return (
     <Image
       src="/Whatsapp-3d.svg"

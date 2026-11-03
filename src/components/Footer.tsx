@@ -4,10 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowUpRight,
-
   ShieldCheck,
   FileText,
-
 } from "lucide-react";
 
 const FOOTER_GROUPS = [
@@ -104,7 +102,7 @@ export default function Footer() {
                 aria-label="Instagram"
                 className="flex h-10 w-10 items-center justify-center rounded-full border border-[#DDD8CE] bg-white text-slate-800 transition-all duration-300 hover:-translate-y-1 hover:border-[#A17D45] hover:bg-[#202B32] hover:text-white sm:h-11 sm:w-11"
               >
-                <Image src="/Instagram-3d.svg" alt="" aria-hidden="true" width={25} height={25} className="object-contain" />
+                <Image src="/Instagram-3d.svg" alt="" aria-hidden="true" width={22} height={22} className="h-[22px] w-[22px] object-contain" />
               </a>
 
               <a
@@ -112,7 +110,7 @@ export default function Footer() {
                 aria-label="Email MR MOBILE WALA REPAIRS"
                 className="flex h-10 w-10 items-center justify-center rounded-full border border-[#DDD8CE] bg-white text-slate-800 transition-all duration-300 hover:-translate-y-1 hover:border-[#A17D45] hover:bg-[#202B32] hover:text-white sm:h-11 sm:w-11"
               >
-                <Image src="/Gmail-3d.svg" alt="" aria-hidden="true" width={25} height={25} className="object-contain" />
+                <Image src="/Gmail-3d.svg" alt="" aria-hidden="true" width={22} height={22} className="h-[22px] w-[22px] object-contain" />
               </a>
             </div>
           </div>
