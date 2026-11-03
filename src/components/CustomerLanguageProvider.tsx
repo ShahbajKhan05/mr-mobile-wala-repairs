@@ -118,8 +118,12 @@ export function CustomerLanguageProvider({ children }: { children: ReactNode }) 
   const [language, setLanguageState] = useState<CustomerLanguage>("hi");
 
   useEffect(() => {
-    const saved = window.localStorage.getItem("mr-customer-language");
-    if (saved === "hi" || saved === "en") setLanguageState(saved);
+    try {
+      const saved = window.localStorage.getItem("mr-customer-language");
+      if (saved === "hi" || saved === "en") setLanguageState(saved);
+    } catch {
+      // Keep Hindi as the default when browser storage is unavailable.
+    }
   }, []);
 
   useEffect(() => {
