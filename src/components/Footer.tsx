@@ -7,7 +7,8 @@ import {
 
   ShieldCheck,
   FileText,
-
+  Instagram,
+  Mail,
 } from "lucide-react";
 
 const FOOTER_GROUPS = [
