@@ -7,7 +7,6 @@ const SECTIONS = [
   { id: "top", key: "home" },
   { id: "services", key: "services" },
   { id: "booking", key: "book" },
-  { id: "reviews", key: "testimonialsTitle" },
   { id: "faq", key: "faqTitle" },
 ] as const;
 
