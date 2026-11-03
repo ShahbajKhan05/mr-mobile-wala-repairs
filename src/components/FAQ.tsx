@@ -90,13 +90,13 @@ export default function FAQ() {
               </h2>
 
               <p className="mt-3 text-sm font-medium text-indigo-600">
-                अक्सर पूछे जाने वाले सवाल
+                {language === "hi" ? "अक्सर पूछे जाने वाले सवाल" : "Helpful answers, all in one place."}
               </p>
 
               <p className="mt-4 max-w-md text-sm leading-7 text-slate-500">
                 {t("faqCopy")}
                 <br />
-                हमारी मोबाइल सर्विस से जुड़ी जरूरी जानकारी यहाँ पाएँ।
+                
               </p>
 
               <p className="mt-5 text-[10px] font-medium uppercase tracking-[0.18em] text-[#A0A09A]">
@@ -176,11 +176,11 @@ export default function FAQ() {
                         </span>
 
                         <span className="block text-sm font-semibold leading-6 text-slate-900 sm:text-base">
-                          {faq.question}
+                          {language === "hi" ? faq.hindi : faq.question}
                         </span>
 
                         <span className="mt-1 block text-xs leading-6 text-slate-500 sm:text-sm">
-                          {language === "en" ? "" : faq.hindi}
+                          
                         </span>
                       </span>
 
@@ -209,7 +209,7 @@ export default function FAQ() {
                           </p>
 
                           <p className="mt-2 text-sm leading-7 text-slate-500">
-                            {language === "en" ? "" : faq.answerHindi}
+                            
                           </p>
                         </div>
                       </div>
