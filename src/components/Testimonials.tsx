@@ -25,7 +25,48 @@ export default function Testimonials() {
 
   return (
     <section aria-labelledby="testimonials-heading" className="customer-testimonials px-3 py-8 sm:px-8 sm:py-12 lg:px-12">
-      <div className="mx-auto max-w-[1320px] rounded-[24px] bg-[#071722] p-2.5 shadow-[0_30px_90px_rgba(8,25,42,.18)] sm:rounded-[34px] sm:p-5">
+      <div className="mx-auto max-w-[1320px] sm:hidden">
+        <div className="mb-3 flex items-end justify-between gap-3 px-1">
+          <div className="min-w-0">
+            <p className="text-[9px] font-bold uppercase tracking-[.2em] text-[#63748b]">{t("testimonialsEyebrow")}</p>
+            <h2 id="testimonials-heading" className="mt-1 text-xl font-bold tracking-tight text-[#111827]">{t("testimonialsTitle")}</h2>
+          </div>
+          <span className="shrink-0 rounded-full border border-white/80 bg-white/65 px-2.5 py-1 text-[9px] font-semibold text-[#667085] shadow-sm backdrop-blur-xl">{String(activeIndex + 1).padStart(2, "0")} / 0{REVIEWS.length}</span>
+        </div>
+
+        <article className="rounded-[20px] border border-white/85 bg-white/65 p-4 shadow-[0_14px_38px_rgba(32,48,82,.075),inset_0_1px_0_rgba(255,255,255,.95)] backdrop-blur-2xl">
+          <div className="flex items-center gap-3">
+            <div className="flex size-10 shrink-0 items-center justify-center rounded-full border border-white bg-gradient-to-br from-[#dceaff] to-[#f1eaff] text-base font-bold text-[#315b91] shadow-sm">{activeReview.name.charAt(0)}</div>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-bold text-[#172033]">{activeReview.name}</p>
+              <p className="mt-0.5 text-[9px] font-semibold uppercase tracking-[.13em] text-[#89919c]">{t("customerFeedback")}</p>
+            </div>
+            <Quote size={22} strokeWidth={1.5} className="shrink-0 text-[#8aa4c7]" />
+          </div>
+
+          <h2 key={activeIndex} id="testimonials-heading-mobile" aria-live="polite" className="customer-review-quote mt-4 min-h-[58px] text-[clamp(1.15rem,5vw,1.45rem)] font-semibold leading-[1.35] tracking-[-.035em] text-[#172033]">
+            “{activeReview.review}”
+          </h2>
+
+          <div className="mt-4 flex items-center justify-between gap-3 border-t border-[#e7ebf2] pt-3">
+            <p className="min-w-0 text-[10px] leading-4 text-[#77808b]">{t("testimonialsCopy")}</p>
+            <div className="flex shrink-0 items-center gap-1.5">
+              <button type="button" onClick={() => move(-1)} aria-label="Previous customer review" className="flex size-8 items-center justify-center rounded-full border border-[#e5eaf1] bg-white/85 text-[#46536a] shadow-sm transition active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">
+                <ChevronLeft size={16} />
+              </button>
+              <button type="button" onClick={() => move(1)} aria-label="Next customer review" className="flex size-8 items-center justify-center rounded-full border border-[#e5eaf1] bg-white/85 text-[#46536a] shadow-sm transition active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">
+                <ChevronRight size={16} />
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="mt-2.5 inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-full border border-white/85 bg-white/60 px-4 text-[11px] font-bold text-[#24364d] shadow-sm backdrop-blur-xl transition active:scale-[.99]">
+          <WhatsAppIcon size={15} /> {t("sendFeedback")} <ArrowUpRight size={13} />
+        </a>
+      </div>
+
+      <div className="mx-auto hidden max-w-[1320px] sm:block rounded-[24px] bg-[#071722] p-2.5 shadow-[0_30px_90px_rgba(8,25,42,.18)] sm:rounded-[34px] sm:p-5">
         <div className="grid min-h-[390px] overflow-hidden rounded-[18px] bg-[#f8f8f6] sm:min-h-[480px] sm:grid-cols-[.78fr_1.22fr] sm:rounded-[26px]">
           <div className="relative flex min-h-[170px] flex-col justify-between overflow-hidden bg-[radial-gradient(ellipse_at_25%_20%,rgba(112,145,191,.36),transparent_48%),linear-gradient(145deg,#172d43,#091725)] p-5 text-white sm:min-h-[440px] sm:p-8 lg:p-10">
             <div aria-hidden="true" className="pointer-events-none absolute -right-20 top-10 size-64 rounded-full border border-white/10" />
