@@ -348,7 +348,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
                   <input
                     value={customProblem}
                     onChange={(e) => setCustomProblem(e.target.value)}
-                    placeholder="{t("describeProblem")}"
+                    placeholder={t("describeProblem")}
                     maxLength={300}
                     className={inputClass}
                     required
@@ -448,7 +448,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
                     id="booking-name"
                     type="text"
                     autoComplete="name"
-                    placeholder="{t("enterName")}"
+                    placeholder={t("enterName")}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className={inputClass}
@@ -466,7 +466,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
                     type="tel"
                     inputMode="numeric"
                     autoComplete="tel"
-                    placeholder="{t("tenDigit")}"
+                    placeholder={t("tenDigit")}
                     value={phone}
                     onChange={(e) =>
                       setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))
