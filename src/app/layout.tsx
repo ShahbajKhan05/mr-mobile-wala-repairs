@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import IntroLoader from "@/components/IntroLoader";
 import LenisProvider from "@/components/LenisProvider";
+import { CustomerLanguageProvider } from "@/components/CustomerLanguageProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -83,11 +84,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="hi" data-scroll-behavior="smooth">
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-[#f6f8ff] font-sans text-slate-800 antialiased`}
       >
-        <LenisProvider>{children}</LenisProvider>
+        <CustomerLanguageProvider><LenisProvider>{children}</LenisProvider></CustomerLanguageProvider>
         <IntroLoader />
       </body>
     </html>
