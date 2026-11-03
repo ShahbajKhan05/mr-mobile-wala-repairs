@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import IntroLoader from "@/components/IntroLoader";
+import LenisProvider from "@/components/LenisProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -82,11 +83,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth">
+    <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-[#f6f8ff] font-sans text-slate-800 antialiased`}
       >
-        {children}
+        <LenisProvider>{children}</LenisProvider>
         <IntroLoader />
       </body>
     </html>
