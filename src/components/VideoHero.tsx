@@ -98,8 +98,8 @@ export default function VideoHero() {
 
             <p data-story-copy className="mx-auto mt-5 max-w-[540px] text-sm font-medium leading-7 text-[#667085] sm:text-base sm:leading-8 lg:mx-0">
               {hi
-                ? "Roz ke har zaroori pal mein aapka phone saath hota hai. Jab use madad chahiye, MR MOBILE WALA REPAIRS aapke saath hai."
-                : "Your phone is part of every important moment. And when it needs a little help, MR MOBILE WALA REPAIRS is here for you."}
+                ? "Mobile repair karwana hai, naya phone kharidna hai ya apna purana phone bechna hai? Neeche apna kaam chunein — hum aapki madad karenge."
+                : "Need a phone repair, want to buy a phone, or planning to sell your old one? Choose what you need below and we’ll help you get started."}
             </p>
 
             <div data-story-actions className="mt-7 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start">
@@ -146,15 +146,15 @@ export default function VideoHero() {
                       <Sparkles size={24} strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-[#24344c]">{hi ? "Aapki nazar, ek naya perspective." : "A closer look, a new perspective."}</p>
-                      <p className="mt-1 text-[10px] font-medium text-[#75839a]">{hi ? "Interactive 3D experience load ho raha hai…" : "Loading interactive 3D experience…"}</p>
+                      <p className="text-sm font-bold text-[#24344c]">{hi ? "3D model ko apni ungli se ghumakar dekhein." : "Explore the 3D model by dragging it."}</p>
+                      <p className="mt-1 text-[10px] font-medium text-[#75839a]">{hi ? "Model load ho raha hai. Thoda intezaar karein…" : "The model is loading. Just a moment…"}</p>
                     </div>
                   </div>
                 )}
                 <div className="pointer-events-none absolute inset-x-3 bottom-3 z-30 flex items-center justify-between gap-2 sm:inset-x-5 sm:bottom-5">
                   <span className="inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/70 px-3 py-2 text-[9px] font-bold tracking-wide text-[#31445f] shadow-lg backdrop-blur-xl sm:text-[10px]">
                     <span className="size-1.5 rounded-full bg-emerald-500" />
-                    {hi ? "INTERACTIVE 3D MODEL" : "INTERACTIVE 3D MODEL"}
+                    {hi ? "3D MODEL · GHUMAKAR DEKHEIN" : "3D MODEL · EXPLORE IT"}
                   </span>
                   <a
                     href="https://sketchfab.com/models/83d09a9b30ad4a6e921305c3b6e396ed"
@@ -162,14 +162,14 @@ export default function VideoHero() {
                     rel="noopener noreferrer"
                     className="pointer-events-auto inline-flex items-center gap-1.5 rounded-full border border-white/70 bg-white/75 px-3 py-2 text-[9px] font-bold text-[#31445f] shadow-lg backdrop-blur-xl transition hover:bg-white sm:text-[10px]"
                   >
-                    {hi ? "3D model dekhein" : "View 3D model"} <ArrowUpRight size={12} />
+                    {hi ? "Sketchfab par kholein" : "Open on Sketchfab"} <ArrowUpRight size={12} />
                   </a>
                 </div>
               </div>
             </div>
             <div className="mx-auto mt-4 flex max-w-[560px] items-center justify-center gap-3 text-center text-[10px] font-semibold leading-5 text-[#8290a3] sm:text-[11px]">
               <ArrowDown size={14} className="shrink-0" />
-              <span>{hi ? "Neeche dekhein — aapke phone ke liye teen simple raaste." : "Scroll down — three simple ways we can help with your phone."}</span>
+              <span>{hi ? "Ghumayein: model par drag karein · Zoom: pinch ya scroll karein." : "Rotate: drag the model · Zoom: pinch or scroll."}</span>
             </div>
           </div>
         </div>
@@ -177,14 +177,14 @@ export default function VideoHero() {
         <div className="mt-10 grid gap-2.5 border-t border-[#dce4f0]/80 pt-5 sm:mt-14 sm:grid-cols-3 sm:gap-4 sm:pt-7">
           {(hi
             ? [
-                { n: "01", title: "Pehle samajhte hain", copy: "Aapki zaroorat aur phone ki problem." },
-                { n: "02", title: "Phir sahi raasta", copy: "Repair, naya phone ya sell karne mein madad." },
-                { n: "03", title: "Aapke saath", copy: "Seedhi baat aur aasaan booking." },
+                { n: "01", title: "Phone repair", copy: "Phone mein problem hai? Repair option chunein." },
+                { n: "02", title: "Buy a phone", copy: "Naya ya doosra phone chahiye? Buy chunein." },
+                { n: "03", title: "Sell your phone", copy: "Purana phone bechna hai? Sell chunein." },
               ]
             : [
-                { n: "01", title: "We listen first", copy: "Your needs and your phone’s problem." },
-                { n: "02", title: "Find the right way", copy: "Help with repair, buying or selling." },
-                { n: "03", title: "Here when you need us", copy: "Clear communication and easy booking." },
+                { n: "01", title: "Repair a phone", copy: "Something wrong? Choose the repair option." },
+                { n: "02", title: "Buy a phone", copy: "Looking for another phone? Choose buy." },
+                { n: "03", title: "Sell your phone", copy: "Want to sell your old phone? Choose sell." },
               ]
           ).map((step) => (
             <div key={step.n} className="flex items-start gap-3 rounded-2xl border border-white/75 bg-white/45 px-4 py-3 backdrop-blur-xl sm:border-transparent sm:bg-transparent sm:px-2">
