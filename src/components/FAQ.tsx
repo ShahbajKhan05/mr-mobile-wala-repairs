@@ -100,7 +100,7 @@ export default function FAQ() {
               </p>
 
               <p className="mt-5 text-[10px] font-medium uppercase tracking-[0.18em] text-[#A0A09A]">
-                {FAQS.length} QUESTIONS · ENGLISH & HINDI
+                {language === "hi" ? `${FAQS.length} सवाल` : `${FAQS.length} QUESTIONS`}
               </p>
             </div>
 
@@ -172,7 +172,7 @@ export default function FAQ() {
                     >
                       <span className="min-w-0">
                         <span className="mb-2 block text-[9px] font-semibold tracking-[0.2em] text-[#B69A69]">
-                          QUESTION 0{index + 1}
+                          {language === "hi" ? "सवाल" : "QUESTION"} 0{index + 1}
                         </span>
 
                         <span className="block text-sm font-semibold leading-6 text-slate-900 sm:text-base">
