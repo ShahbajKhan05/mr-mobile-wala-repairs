@@ -7,7 +7,6 @@ import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import BrandMarquee from "@/components/BrandMarquee";
 import ServiceShowcase from "@/components/ServiceShowcase";
-import Testimonials from "@/components/Testimonials";
 import CustomerMotion from "@/components/CustomerMotion";
 import MobileQuickActions from "@/components/MobileQuickActions";
 import SectionRail from "@/components/SectionRail";
@@ -64,7 +63,6 @@ export default async function HomePage({ searchParams }: HomePageProps) {
           <ServiceShowcase />
           <BookingForm initialService={initialService} />
         </main>
-        <div id="reviews" className="scroll-mt-20 customer-secondary-section"><Testimonials /></div>
         <div id="why" className="customer-secondary-section"><WhyChooseUs /></div>
         <div id="faq" className="scroll-mt-20 customer-secondary-section"><FAQ /></div>
         <Footer />
