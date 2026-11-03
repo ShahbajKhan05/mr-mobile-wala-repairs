@@ -10,11 +10,12 @@ import ServiceShowcase from "@/components/ServiceShowcase";
 import Testimonials from "@/components/Testimonials";
 import CustomerMotion from "@/components/CustomerMotion";
 import MobileQuickActions from "@/components/MobileQuickActions";
+import SectionRail from "@/components/SectionRail";
 
 export const metadata: Metadata = {
   title: "MR MOBILE WALA REPAIRS | Buy, Sell & Repair Mobile Phones in Rewa",
   description:
-    "Looking for mobile phone repair in Rewa? Contact MR MOBILE WALA REPAIRS for mobile repair enquiries, and help with buying or selling phones.",
+    "Mobile repair, buying and selling in Rewa. Simple booking and personal help from MR MOBILE WALA REPAIRS.",
   alternates: {
     canonical: "/",
   },
@@ -38,16 +39,17 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       <Navbar />
       <CustomerMotion>
         <main>
-          <VideoHero />
-          <BrandMarquee />
+          <div id="top" className="scroll-mt-20"><VideoHero /></div>
+          <div className="customer-secondary-section"><BrandMarquee /></div>
           <ServiceShowcase />
           <BookingForm initialService={initialService} />
         </main>
-        <Testimonials />
-        <WhyChooseUs />
-        <FAQ />
+        <div id="reviews" className="scroll-mt-20 customer-secondary-section"><Testimonials /></div>
+        <div id="why" className="customer-secondary-section"><WhyChooseUs /></div>
+        <div id="faq" className="scroll-mt-20 customer-secondary-section"><FAQ /></div>
         <Footer />
       </CustomerMotion>
+      <SectionRail />
       <MobileQuickActions />
     </div>
   );
