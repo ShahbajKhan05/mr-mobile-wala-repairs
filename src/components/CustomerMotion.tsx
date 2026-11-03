@@ -21,21 +21,44 @@ export default function CustomerMotion({ children }: CustomerMotionProps) {
 
         gsap.fromTo(
           section,
-          { autoAlpha: 0, y: 30 },
+          { autoAlpha: 0, y: 22 },
           {
             autoAlpha: 1,
             y: 0,
-            duration: 0.9,
-            ease: "power3.out",
+            duration: 1.05,
+            ease: "power4.out",
             clearProps: "transform",
             scrollTrigger: {
               trigger: section,
-              start: "top 90%",
+              start: "top 88%",
               once: true,
               invalidateOnRefresh: true,
             },
           }
         );
+
+        const cards = section.querySelectorAll<HTMLElement>(
+          "#services a, #why article, #reviews article, [data-motion-card]"
+        );
+        if (cards.length > 1) {
+          gsap.fromTo(
+            cards,
+            { y: 16, autoAlpha: 0 },
+            {
+              y: 0,
+              autoAlpha: 1,
+              duration: 0.8,
+              stagger: 0.075,
+              ease: "power3.out",
+              clearProps: "transform,opacity,visibility",
+              scrollTrigger: {
+                trigger: section,
+                start: "top 82%",
+                once: true,
+              },
+            }
+          );
+        }
       });
     }, root);
 
