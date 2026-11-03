@@ -3,9 +3,11 @@
 import { useEffect, useRef } from "react";
 import { ArrowRight, MessageCircle, ShieldCheck, Smartphone } from "lucide-react";
 import gsap from "gsap";
+import { useCustomerLanguage } from "@/components/CustomerLanguageProvider";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function VideoHero() {
+  const { t } = useCustomerLanguage();
   const heroRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -55,7 +57,7 @@ export default function VideoHero() {
         <div className="text-center lg:text-left">
           <p data-hero-kicker className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#e5e5ea] bg-white px-3 py-1.5 text-[10px] font-bold text-[#555] shadow-sm sm:text-xs">
             <span className="size-2 rounded-full bg-[#16a36a]" />
-            Rewa mein mobile ki dukaan
+            {t("heroKicker")}
           </p>
 
           <h1
@@ -63,13 +65,11 @@ export default function VideoHero() {
             data-hero-title
             className="mx-auto max-w-[700px] text-[clamp(2.35rem,7vw,5.5rem)] font-bold leading-[0.98] tracking-[-0.065em] text-[#171719] lg:mx-0"
           >
-            Mobile ki har
-            <br />
-            problem ka <span className="text-[#1769d2]">solution.</span>
+            {t("heroTitle")}
           </h1>
 
           <p data-hero-copy className="mx-auto mt-3 max-w-xl text-sm font-medium leading-6 text-[#626269] sm:mt-4 sm:text-base lg:mx-0">
-            Phone theek karwana ho, naya lena ho ya bechna ho — hum madad karenge.
+            {t("heroCopy")}
           </p>
 
           <div data-hero-actions className="mt-5 flex flex-col justify-center gap-2.5 sm:flex-row lg:justify-start">
@@ -78,7 +78,7 @@ export default function VideoHero() {
               onClick={scrollToServices}
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#1769d2] px-6 text-sm font-bold text-white shadow-[0_8px_22px_rgba(23,105,210,0.22)] transition hover:-translate-y-0.5 hover:bg-[#0d58b8] active:translate-y-0"
             >
-              Kaam chunein <ArrowRight size={17} />
+              {t("chooseWork")} <ArrowRight size={17} />
             </button>
             <a
               href="https://wa.me/919131383323"
@@ -86,13 +86,13 @@ export default function VideoHero() {
               rel="noopener noreferrer"
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-[#dedee4] bg-white px-6 text-sm font-bold text-[#222] transition hover:border-[#b9c9e2] hover:bg-[#f8faff]"
             >
-              <MessageCircle size={17} /> WhatsApp karein
+              <MessageCircle size={17} /> {t("whatsapp")}
             </a>
           </div>
 
           <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] font-semibold text-[#686870] lg:justify-start">
-            <span className="inline-flex items-center gap-1.5"><ShieldCheck size={14} className="text-[#16865a]" /> Aasaan booking</span>
-            <span className="inline-flex items-center gap-1.5"><Smartphone size={14} className="text-[#1769d2]" /> Buy · Sell · Repair</span>
+            <span className="inline-flex items-center gap-1.5"><ShieldCheck size={14} className="text-[#16865a]" /> {t("easyBooking")}</span>
+            <span className="inline-flex items-center gap-1.5"><Smartphone size={14} className="text-[#1769d2]" /> {t("buySellRepair")}</span>
           </div>
         </div>
 
@@ -115,7 +115,7 @@ export default function VideoHero() {
               <div className="absolute inset-x-4 bottom-3 flex items-end justify-between gap-2 text-left text-white sm:inset-x-6 sm:bottom-5">
                 <div>
                   <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-white/80">MR MOBILE WALA REPAIRS</p>
-                  <p className="mt-0.5 text-lg font-bold tracking-tight sm:text-2xl">Sahi Daam. Best Kaam.</p>
+                  <p className="mt-0.5 text-lg font-bold tracking-tight sm:text-2xl">{t("brandTagline")}</p>
                 </div>
                 <span className="rounded-full border border-white/35 bg-black/20 px-2.5 py-1.5 text-[9px] font-bold backdrop-blur">REWA, MP</span>
               </div>
