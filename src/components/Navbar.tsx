@@ -5,6 +5,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useCustomerLanguage } from "@/components/CustomerLanguageProvider";
 import {
   ArrowUpRight,
   Menu,
@@ -40,6 +41,7 @@ const SOCIAL_LINKS = [
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { language, setLanguage, t } = useCustomerLanguage();
 
   const [isOpen, setIsOpen] = useState(false);
   const [isSocialOpen, setIsSocialOpen] = useState(false);
@@ -107,6 +109,9 @@ export default function Navbar() {
 
         {/* Desktop Actions */}
         <div className="hidden items-center gap-2 xl:flex">
+          <button type="button" onClick={() => setLanguage(language === "hi" ? "en" : "hi")} aria-label={language === "hi" ? "Switch website to English" : "वेबसाइट हिंदी में करें"} className="inline-flex h-10 items-center gap-1 rounded-full border border-slate-200 bg-white/80 px-3 text-[11px] font-extrabold text-slate-700 transition hover:border-indigo-300 hover:text-indigo-700">
+            <span className={language === "hi" ? "text-indigo-700" : "text-slate-400"}>हि</span><span className="text-slate-300">/</span><span className={language === "en" ? "text-indigo-700" : "text-slate-400"}>EN</span>
+          </button>
 
           {/* Social Dropdown */}
           <div className="relative">
@@ -160,7 +165,7 @@ export default function Navbar() {
             className="group inline-flex min-h-11 items-center gap-2 rounded-full bg-slate-900 px-5 text-xs font-bold text-white shadow-lg shadow-indigo-950/15 transition-all duration-200 hover:-translate-y-0.5 hover:bg-indigo-700 hover:shadow-[0_6px_18px_rgba(0,0,0,0.15)] active:scale-[0.98]"
           >
             <Store size={15} />
-            Book a Service
+            {t("book")}
             <ArrowUpRight
               size={14}
               className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
@@ -170,11 +175,14 @@ export default function Navbar() {
 
         {/* Mobile Actions */}
         <div className="flex items-center gap-2 xl:hidden">
+          <button type="button" onClick={() => setLanguage(language === "hi" ? "en" : "hi")} aria-label={language === "hi" ? "Switch website to English" : "वेबसाइट हिंदी में करें"} className="flex h-9 items-center rounded-full border border-slate-200 bg-white/90 px-2.5 text-[10px] font-extrabold text-slate-700">
+            {language === "hi" ? "EN" : "हि"}
+          </button>
           <Link
             href="/admin-login"
             className="rounded-full border border-[#e8e7e2] px-3 py-2 text-[10px] font-bold text-[#33332e] transition-colors hover:bg-[#f5f4f0] sm:text-xs"
           >
-            Admin
+            {t("admin")}
           </Link>
 
           <button
@@ -198,10 +206,10 @@ export default function Navbar() {
 
             <div className="mb-3 flex items-center justify-between px-2">
               <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#999990]">
-                Explore MR Mobile Wala
+                {t("explore")}
               </span>
               <span className="rounded-full bg-[#f3f2ee] px-2 py-1 text-[9px] font-bold text-[#77776f]">
-                MENU
+                {t("menu")}
               </span>
             </div>
 
@@ -236,7 +244,7 @@ export default function Navbar() {
                 className="flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#1e1e1e] text-sm font-bold text-white transition-colors hover:bg-indigo-700"
               >
                 <Store size={16} />
-                Book a Service
+                {t("book")}
                 <ArrowUpRight size={15} />
               </Link>
             </div>
