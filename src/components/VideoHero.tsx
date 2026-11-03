@@ -15,6 +15,7 @@ export default function VideoHero() {
     if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     gsap.registerPlugin(ScrollTrigger);
+    let removePointerListeners = () => {};
     const context = gsap.context(() => {
       gsap.timeline({ defaults: { ease: "power3.out" } })
         .from("[data-hero-kicker]", { y: 12, autoAlpha: 0, duration: 0.45 })
@@ -53,10 +54,10 @@ export default function VideoHero() {
         visual.addEventListener("pointermove", onPointerMove);
         visual.addEventListener("pointerleave", resetTilt);
         gsap.set(visual, { transformPerspective: 1100, transformOrigin: "50% 50%" });
-        context.add(() => {
+        removePointerListeners = () => {
           visual.removeEventListener("pointermove", onPointerMove);
           visual.removeEventListener("pointerleave", resetTilt);
-        });
+        };
       }
 
       gsap.to("[data-hero-orbit]", {
@@ -68,7 +69,10 @@ export default function VideoHero() {
       });
     }, root);
 
-    return () => context.revert();
+    return () => {
+      removePointerListeners();
+      context.revert();
+    };
   }, []);
 
   const scrollToServices = () => {
