@@ -583,3 +583,84 @@ svg {
 }
 .customer-site .customer-review-quote { animation: customerQuoteIn .65s cubic-bezier(.2,.8,.2,1) both; }
 @media (prefers-reduced-motion: reduce) { .customer-site .customer-review-quote { animation: none; } }
+
+
+/* Award-level customer experience refinements */
+.customer-site .customer-hero {
+  isolation: isolate;
+}
+.customer-site .customer-hero h1 {
+  text-wrap: balance;
+}
+.customer-site .customer-hero p {
+  text-wrap: pretty;
+}
+.customer-site .customer-hero iframe {
+  color-scheme: light;
+}
+.customer-site .customer-service-card.repair {
+  background: linear-gradient(135deg, rgba(255,255,255,.82), rgba(232,241,255,.74));
+}
+.customer-site .customer-service-card.buy {
+  background: linear-gradient(135deg, rgba(255,255,255,.82), rgba(239,235,255,.76));
+}
+.customer-site .customer-service-card.sell {
+  background: linear-gradient(135deg, rgba(255,255,255,.82), rgba(230,246,239,.78));
+}
+.customer-site #reviews article:first-child {
+  background: rgba(255,255,255,.85);
+  border-color: rgba(255,255,255,.82);
+  color: #172033;
+}
+.customer-site #reviews article:first-child h3 {
+  color: #172033;
+}
+.customer-site #reviews article:first-child p {
+  color: #475569;
+}
+.customer-site #reviews article:first-child > span:last-child {
+  color: #9aabc0;
+}
+.customer-site #reviews article:first-child > div > span {
+  color: #63748b;
+}
+.customer-site #reviews article:first-child > div > p {
+  color: #475569;
+}
+.customer-site .customer-testimonials {
+  position: relative;
+}
+.customer-site .customer-testimonials::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 0%, rgba(211,225,250,.42), transparent 62%);
+}
+.customer-site .brand-showcase {
+  border-radius: 28px;
+  background: rgba(255,255,255,.42);
+}
+@media (max-width: 640px) {
+  .customer-site .customer-hero {
+    padding-top: 5.8rem;
+  }
+  .customer-site .customer-hero iframe {
+    pointer-events: auto;
+  }
+  .customer-site .customer-service-card {
+    min-height: 104px;
+    border-radius: 20px;
+  }
+  .customer-site .customer-testimonials {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .customer-site .customer-service-card,
+  .customer-site .customer-service-card:hover {
+    transform: none !important;
+  }
+}
