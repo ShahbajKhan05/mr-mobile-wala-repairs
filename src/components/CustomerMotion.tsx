@@ -15,33 +15,38 @@ export default function CustomerMotion({ children }: CustomerMotionProps) {
 
     gsap.registerPlugin(ScrollTrigger);
     const context = gsap.context(() => {
-      const sections = gsap.utils.toArray<HTMLElement>("section, footer");
+      const sections = gsap.utils.toArray<HTMLElement>("main section, footer");
       sections.forEach((section, index) => {
         if (index === 0) return;
+
         gsap.fromTo(
           section,
-          { autoAlpha: 0, y: 34 },
+          { autoAlpha: 0, y: 30 },
           {
             autoAlpha: 1,
             y: 0,
-            duration: 0.85,
+            duration: 0.9,
             ease: "power3.out",
             clearProps: "transform",
             scrollTrigger: {
               trigger: section,
-              start: "top 88%",
+              start: "top 90%",
               once: true,
+              invalidateOnRefresh: true,
             },
           }
         );
       });
     }, root);
 
+    const refresh = () => ScrollTrigger.refresh();
+    window.addEventListener("load", refresh, { once: true });
+    const frame = window.requestAnimationFrame(refresh);
+
     return () => {
+      window.removeEventListener("load", refresh);
+      window.cancelAnimationFrame(frame);
       context.revert();
-      ScrollTrigger.getAll().forEach((trigger) => {
-        if (root.contains(trigger.trigger as Node)) trigger.kill();
-      });
     };
   }, []);
 
