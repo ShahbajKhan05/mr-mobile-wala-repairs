@@ -1,16 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useCustomerLanguage } from "@/components/CustomerLanguageProvider";
 
 const SECTIONS = [
-  { id: "top", label: "Home" },
-  { id: "services", label: "Services" },
-  { id: "booking", label: "Book" },
-  { id: "reviews", label: "Reviews" },
-  { id: "faq", label: "Help" },
+  { id: "top", label: "home" },
+  { id: "services", label: "services" },
+  { id: "booking", label: "book" },
+  { id: "reviews", label: "testimonialsTitle" },
+  { id: "faq", label: "faqTitle" },
 ];
 
 export default function SectionRail() {
+  const { t } = useCustomerLanguage();
   const [active, setActive] = useState("top");
 
   useEffect(() => {
@@ -37,19 +39,19 @@ export default function SectionRail() {
 
   return (
     <nav
-      aria-label="Page sections"
+      aria-label={t("services")}
       className="fixed right-1 top-1/2 z-[80] flex -translate-y-1/2 flex-col gap-1 rounded-full border border-black/5 bg-white/90 p-1 shadow-lg shadow-black/10 backdrop-blur-xl sm:right-3 sm:gap-2 sm:p-1.5"
     >
-      {SECTIONS.map(({ id, label }) => {
+      {SECTIONS.map(({ id, label }) => {\n        const translatedLabel = t(label as "home" | "services" | "book" | "testimonialsTitle" | "faqTitle");
         const selected = active === id;
 
         return (
           <a
             key={id}
             href={`#${id}`}
-            aria-label={`Go to ${label}`}
+            aria-label={`Go to ${translatedLabel}`}
             aria-current={selected ? "location" : undefined}
-            title={label}
+            title={translatedLabel}
             className={
               "group flex h-6 w-6 items-center justify-center rounded-full transition-all duration-200 sm:h-8 sm:w-8 " +
               (selected
@@ -57,7 +59,7 @@ export default function SectionRail() {
                 : "text-[#777] hover:bg-[#f0f0f2] hover:text-[#1d1d1f]")
             }
           >
-            <span className="sr-only">{label}</span>
+            <span className="sr-only">{translatedLabel}</span>
             <span
               aria-hidden="true"
               className={
