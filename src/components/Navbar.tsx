@@ -2,7 +2,9 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";\nimport WhatsAppIcon from "@/components/WhatsAppIcon";
+import Image from "next/image";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -10,6 +12,8 @@ import {
   Menu,
   Store,
   X,
+  Instagram,
+  Mail,
 } from "lucide-react";
 
 const NAV_LINKS = [
@@ -38,7 +42,13 @@ const SOCIAL_LINKS = [
   },
 ];
 
-function SocialIcon({ icon, size = 22 }: { icon: string; size?: number }) {\n  if (icon === "whatsapp") return <WhatsAppIcon size={size} />;\n  if (icon === "instagram") return <Instagram size={size} strokeWidth={1.8} aria-hidden="true" />;\n  return <Mail size={size} strokeWidth={1.8} aria-hidden="true" />;\n}\n\nexport default function Navbar() {
+function SocialIcon({ icon, size = 22 }: { icon: string; size?: number }) {
+  if (icon === "whatsapp") return <WhatsAppIcon size={size} />;
+  if (icon === "instagram") return <Instagram size={size} strokeWidth={1.8} aria-hidden="true" />;
+  return <Mail size={size} strokeWidth={1.8} aria-hidden="true" />;
+}
+
+export default function Navbar() {
   const pathname = usePathname();
 
   const [isOpen, setIsOpen] = useState(false);
