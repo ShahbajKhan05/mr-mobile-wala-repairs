@@ -15,7 +15,7 @@ export default function CustomerMotion({ children }: CustomerMotionProps) {
 
     gsap.registerPlugin(ScrollTrigger);
     const context = gsap.context(() => {
-      const sections = gsap.utils.toArray<HTMLElement>("main > section, footer");
+      const sections = gsap.utils.toArray<HTMLElement>("section, footer");
       sections.forEach((section, index) => {
         if (index === 0) return;
         gsap.fromTo(
