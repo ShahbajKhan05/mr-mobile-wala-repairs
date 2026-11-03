@@ -24,14 +24,47 @@ export default function VideoHero() {
         .from("[data-hero-visual]", { y: 24, scale: 0.985, autoAlpha: 0, duration: 0.7 }, "-=0.2");
 
       gsap.to("[data-hero-visual]", {
-        yPercent: 5,
+        yPercent: 3,
         ease: "none",
         scrollTrigger: {
           trigger: root,
           start: "top top",
           end: "bottom top",
-          scrub: 0.6,
+          scrub: 0.8,
         },
+      });
+
+      const visual = root.querySelector<HTMLElement>(".customer-hero-visual");
+      if (visual && window.matchMedia("(pointer: fine)").matches) {
+        const rotateX = gsap.quickTo(visual, "rotationX", { duration: 0.8, ease: "power3.out" });
+        const rotateY = gsap.quickTo(visual, "rotationY", { duration: 0.8, ease: "power3.out" });
+        const moveX = gsap.quickTo(visual, "x", { duration: 0.9, ease: "power3.out" });
+        const moveY = gsap.quickTo(visual, "y", { duration: 0.9, ease: "power3.out" });
+        const onPointerMove = (event: PointerEvent) => {
+          const bounds = visual.getBoundingClientRect();
+          const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+          const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+          rotateX(y * -3.2);
+          rotateY(x * 4);
+          moveX(x * 3);
+          moveY(y * 2);
+        };
+        const resetTilt = () => { rotateX(0); rotateY(0); moveX(0); moveY(0); };
+        visual.addEventListener("pointermove", onPointerMove);
+        visual.addEventListener("pointerleave", resetTilt);
+        gsap.set(visual, { transformPerspective: 1100, transformOrigin: "50% 50%" });
+        context.add(() => {
+          visual.removeEventListener("pointermove", onPointerMove);
+          visual.removeEventListener("pointerleave", resetTilt);
+        });
+      }
+
+      gsap.to("[data-hero-orbit]", {
+        rotate: 360,
+        duration: 34,
+        repeat: -1,
+        ease: "none",
+        transformOrigin: "50% 50%",
       });
     }, root);
 
@@ -54,6 +87,8 @@ export default function VideoHero() {
       <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[620px] bg-[radial-gradient(ellipse_at_50%_0%,rgba(204,220,255,.72)_0%,rgba(255,255,255,0)_72%)]" />
       <div aria-hidden="true" className="pointer-events-none absolute -left-28 top-52 -z-10 size-72 rounded-full bg-violet-200/30 blur-[100px]" />
       <div aria-hidden="true" className="pointer-events-none absolute -right-24 top-64 -z-10 size-72 rounded-full bg-sky-200/35 blur-[100px]" />
+      <div aria-hidden="true" data-hero-orbit className="pointer-events-none absolute left-[calc(50%-390px)] top-[470px] -z-10 hidden size-[780px] rounded-full border border-white/50 lg:block" />
+      <div aria-hidden="true" className="pointer-events-none absolute right-[12%] top-[360px] -z-10 hidden size-24 rounded-full border border-white/65 bg-white/15 shadow-[inset_0_1px_0_rgba(255,255,255,.9),0_12px_40px_rgba(55,85,140,.08)] backdrop-blur-xl lg:block" />
 
       <div className="mx-auto flex w-full max-w-[1180px] flex-col items-center text-center">
         <div className="w-full">
@@ -99,7 +134,7 @@ export default function VideoHero() {
         </div>
 
         <div data-hero-visual className="relative mx-auto mt-8 w-full max-w-[1050px] sm:mt-10">
-          <div className="customer-hero-visual relative overflow-hidden rounded-[22px] bg-[#e9edf3] sm:rounded-[30px]">
+          <div className="customer-hero-visual relative overflow-hidden rounded-[22px] bg-[#e9edf3] sm:rounded-[30px]" style={{ transformStyle: "preserve-3d", willChange: "transform" }}>
             <div className="relative aspect-[16/8.6] w-full sm:aspect-[16/7.4]">
               <video
                 autoPlay
