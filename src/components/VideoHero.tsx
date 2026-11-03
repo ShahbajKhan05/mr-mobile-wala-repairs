@@ -3,17 +3,98 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowDown, ArrowRight, ArrowUpRight, MessageCircle, ShieldCheck, Smartphone, Sparkles } from "lucide-react";
 import gsap from "gsap";
+import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useCustomerLanguage } from "@/components/CustomerLanguageProvider";
 
-const SKETCHFAB_MODEL_ID = "83d09a9b30ad4a6e921305c3b6e396ed";
-const SKETCHFAB_EMBED_URL =
-  `https://sketchfab.com/models/${SKETCHFAB_MODEL_ID}/embed?autostart=1&preload=1&ui_controls=1&ui_infos=0&ui_hint=2`;
 
 export default function VideoHero() {
   const { t, language } = useCustomerLanguage();
   const heroRef = useRef<HTMLElement>(null);
+  const modelCanvasRef = useRef<HTMLCanvasElement>(null);
   const [modelLoaded, setModelLoaded] = useState(false);
+  const [modelError, setModelError] = useState(false);
+
+  useEffect(() => {
+    const canvas = modelCanvasRef.current;
+    const host = canvas?.parentElement;
+    if (!canvas || !host) return;
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
+    camera.position.set(0, 0.2, 4.8);
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: "high-performance" });
+    } catch {
+      setModelError(true);
+      return;
+    }
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.15;
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x9aabc4, 2.1));
+    const keyLight = new THREE.DirectionalLight(0xffffff, 3.2);
+    keyLight.position.set(3, 5, 5);
+    scene.add(keyLight);
+    const rimLight = new THREE.DirectionalLight(0x9bbfff, 2.1);
+    rimLight.position.set(-4, 1, -3);
+    scene.add(rimLight);
+    const modelRoot = new THREE.Group();
+    scene.add(modelRoot);
+    const controls = new OrbitControls(camera, canvas);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.055;
+    controls.enablePan = false;
+    controls.enableZoom = true;
+    controls.minDistance = 2.7;
+    controls.maxDistance = 7;
+    controls.autoRotate = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    controls.autoRotateSpeed = 0.7;
+    new GLTFLoader().load("/models/phone-repair.glb", (gltf) => {
+      const model = gltf.scene;
+      const bounds = new THREE.Box3().setFromObject(model);
+      const size = bounds.getSize(new THREE.Vector3());
+      const center = bounds.getCenter(new THREE.Vector3());
+      const scale = 2.35 / (Math.max(size.x, size.y, size.z) || 1);
+      model.scale.setScalar(scale);
+      model.position.sub(center.multiplyScalar(scale));
+      modelRoot.add(model);
+      setModelLoaded(true);
+    }, undefined, () => setModelError(true));
+    const resize = () => {
+      const width = Math.max(host.clientWidth, 1);
+      const height = Math.max(host.clientHeight, 1);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height, false);
+    };
+    const observer = new ResizeObserver(resize);
+    observer.observe(host);
+    resize();
+    let animationId = 0;
+    const render = () => {
+      animationId = window.requestAnimationFrame(render);
+      controls.update();
+      renderer.render(scene, camera);
+    };
+    render();
+    return () => {
+      window.cancelAnimationFrame(animationId);
+      observer.disconnect();
+      controls.dispose();
+      modelRoot.traverse((object) => {
+        if (object instanceof THREE.Mesh) {
+          object.geometry.dispose();
+          const materials = Array.isArray(object.material) ? object.material : [object.material];
+          materials.forEach((material) => material.dispose());
+        }
+      });
+      renderer.dispose();
+    };
+  }, []);
 
   useEffect(() => {
     const root = heroRef.current;
@@ -131,39 +212,29 @@ export default function VideoHero() {
             <div className="relative overflow-hidden rounded-[26px] border border-white/90 bg-[#e8edf5] p-1.5 shadow-[0_32px_90px_rgba(27,47,83,.16),inset_0_1px_0_rgba(255,255,255,.95)] sm:rounded-[34px] sm:p-2">
               <div className="relative aspect-[5/4] overflow-hidden rounded-[20px] bg-[radial-gradient(ellipse_at_50%_40%,#fff_0%,#e9eff9_52%,#dce5f2_100%)] sm:rounded-[27px]">
                 <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(ellipse_at_50%_50%,transparent_45%,rgba(30,48,78,.08)_100%)]" />
-                <iframe
-                  title="Interactive 3D model featured by MR MOBILE WALA REPAIRS"
-                  src={SKETCHFAB_EMBED_URL}
-                  allow="autoplay; fullscreen; xr-spatial-tracking"
-                  allowFullScreen
-                  loading="eager"
-                  onLoad={() => setModelLoaded(true)}
-                  className="absolute inset-0 h-full w-full border-0"
-                />
-                {!modelLoaded && (
+                <canvas ref={modelCanvasRef} aria-label={hi ? "Phone repair ka interactive 3D model. Ghumane ke liye drag karein aur zoom ke liye scroll ya pinch karein." : "Interactive local phone repair 3D model. Drag to rotate and scroll or pinch to zoom."} className="absolute inset-0 h-full w-full touch-pan-y" />
+                {!modelLoaded && !modelError && (
                   <div className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center gap-3 bg-[radial-gradient(ellipse_at_50%_35%,#fff_0%,#e9eff9_58%,#dce5f2_100%)] px-6 text-center">
-                    <div className="flex size-14 items-center justify-center rounded-2xl border border-white bg-white/70 text-[#4774b5] shadow-lg shadow-blue-950/5 backdrop-blur-xl">
-                      <Sparkles size={24} strokeWidth={1.5} />
-                    </div>
+                    <div className="flex size-14 items-center justify-center rounded-2xl border border-white bg-white/70 text-[#4774b5] shadow-lg shadow-blue-950/5 backdrop-blur-xl"><Sparkles size={24} strokeWidth={1.5} /></div>
                     <div>
-                      <p className="text-sm font-bold text-[#24344c]">{hi ? "3D model ko apni ungli se ghumakar dekhein." : "Explore the 3D model by dragging it."}</p>
-                      <p className="mt-1 text-[10px] font-medium text-[#75839a]">{hi ? "Model load ho raha hai. Thoda intezaar karein…" : "The model is loading. Just a moment…"}</p>
+                      <p className="text-sm font-bold text-[#24344c]">{hi ? "Aapka 3D phone model load ho raha hai…" : "Loading your 3D phone model…"}</p>
+                      <p className="mt-1 text-[10px] font-medium text-[#75839a]">{hi ? "Model aapki website se load hota hai." : "Loaded directly from this website."}</p>
                     </div>
+                  </div>
+                )}
+                {modelError && (
+                  <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-2 bg-[#edf2fa] px-6 text-center">
+                    <Smartphone size={30} className="text-[#4774b5]" />
+                    <p className="text-sm font-bold text-[#24344c]">{hi ? "3D model load nahi hua" : "3D model could not be loaded"}</p>
+                    <p className="max-w-xs text-[10px] leading-5 text-[#75839a]">{hi ? "public/models/phone-repair.glb file check karein." : "Check that public/models/phone-repair.glb exists."}</p>
                   </div>
                 )}
                 <div className="pointer-events-none absolute inset-x-3 bottom-3 z-30 flex items-center justify-between gap-2 sm:inset-x-5 sm:bottom-5">
                   <span className="inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/70 px-3 py-2 text-[9px] font-bold tracking-wide text-[#31445f] shadow-lg backdrop-blur-xl sm:text-[10px]">
                     <span className="size-1.5 rounded-full bg-emerald-500" />
-                    {hi ? "3D MODEL · GHUMAKAR DEKHEIN" : "3D MODEL · EXPLORE IT"}
+                    {hi ? "LOCAL 3D MODEL · GHUMAKAR DEKHEIN" : "LOCAL 3D MODEL · EXPLORE IT"}
                   </span>
-                  <a
-                    href="https://sketchfab.com/models/83d09a9b30ad4a6e921305c3b6e396ed"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="pointer-events-auto inline-flex items-center gap-1.5 rounded-full border border-white/70 bg-white/75 px-3 py-2 text-[9px] font-bold text-[#31445f] shadow-lg backdrop-blur-xl transition hover:bg-white sm:text-[10px]"
-                  >
-                    {hi ? "Sketchfab par kholein" : "Open on Sketchfab"} <ArrowUpRight size={12} />
-                  </a>
+
                 </div>
               </div>
             </div>
