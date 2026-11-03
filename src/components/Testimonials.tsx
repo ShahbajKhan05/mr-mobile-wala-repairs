@@ -1,5 +1,8 @@
+"use client";
+
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { Quote, MessageCircle } from "lucide-react";
+import { useCustomerLanguage } from "@/components/CustomerLanguageProvider";
 
 const REVIEWS = [
   { name: "Sajid", review: "Badhiya service hai." },
@@ -13,6 +16,7 @@ const WHATSAPP_URL =
   encodeURIComponent("Hello MR MOBILE WALA REPAIRS, I would like to share my feedback.");
 
 export default function Testimonials() {
+  const { t, language } = useCustomerLanguage();
   return (
     <section
       aria-labelledby="testimonials-heading"
@@ -22,17 +26,17 @@ export default function Testimonials() {
         <div className="mb-5 flex flex-col justify-between gap-2 sm:mb-6 sm:flex-row sm:items-end">
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#1769c2] sm:text-xs">
-              Asli log, unki apni baat
+              {t("testimonialsEyebrow")}
             </p>
             <h2 id="testimonials-heading" className="mt-1 text-2xl font-bold tracking-tight text-[#1d1d1f] sm:text-3xl">
-              Customers kya kehte hain?
+              {t("testimonialsTitle")}
             </h2>
             <p className="mt-1 text-xs leading-5 text-[#666] sm:text-sm">
-              Hamare customers ke chhote se feedback.
+              {t("testimonialsCopy")}
             </p>
           </div>
           <span className="hidden items-center gap-2 text-[11px] font-semibold text-[#686b73] sm:inline-flex">
-            <MessageCircle size={15} className="text-[#1769c2]" /> Aapka feedback bhi welcome hai
+            <MessageCircle size={15} className="text-[#1769c2]" /> {t("feedbackWelcome")}
           </span>
         </div>
 
@@ -54,11 +58,11 @@ export default function Testimonials() {
                 <Quote size={19} className={index === 0 ? "text-white/40" : "text-[#1769c2]/35"} />
               </div>
               <p className={"mt-4 flex-1 text-sm font-semibold leading-6 sm:text-base " + (index === 0 ? "text-white" : "text-[#25262a]")}>
-                “{review.review}”
+                “{language === "hi" ? (review.name === "Sajid" ? "बढ़िया सर्विस है।" : review.name === "Arbaj" ? "बहुत अच्छी सेवा!" : review.name === "Arish" ? "नाम ही नहीं, काम भी शानदार है।" : "बहुत बढ़िया सेवा।") : review.review}”
               </p>
               <div className={"mt-3 border-t pt-2.5 " + (index === 0 ? "border-white/15" : "border-[#eceef1]")}>
                 <p className="text-xs font-extrabold">{review.name}</p>
-                <p className={"mt-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] " + (index === 0 ? "text-white/55" : "text-[#858993]")}>Customer feedback</p>
+                <p className={"mt-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] " + (index === 0 ? "text-white/55" : "text-[#858993]")}>{t("customerFeedback")}</p>
               </div>
             </article>
           ))}
@@ -68,8 +72,8 @@ export default function Testimonials() {
           <div className="flex items-center gap-2.5">
             <span className="flex size-9 items-center justify-center rounded-full bg-[#e8f6ef] text-[#218653]"><MessageCircle size={17} /></span>
             <div>
-              <p className="text-xs font-bold text-[#222] sm:text-sm">Aapka experience kaisa raha?</p>
-              <p className="text-[10px] text-[#666] sm:text-xs">Apni rai humein WhatsApp par batayein.</p>
+              <p className="text-xs font-bold text-[#222] sm:text-sm">{t("experience")}</p>
+              <p className="text-[10px] text-[#666] sm:text-xs">{t("tellFeedback")}</p>
             </div>
           </div>
           <a
@@ -79,7 +83,7 @@ export default function Testimonials() {
             className="inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-xl bg-[#1769d2] px-5 text-xs font-bold text-white transition hover:bg-[#0d58b8] sm:w-auto"
           >
             <WhatsAppIcon size={16} />
-            Feedback bhejein
+            {t("sendFeedback")}
           </a>
         </div>
       </div>
