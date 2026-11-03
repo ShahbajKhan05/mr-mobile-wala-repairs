@@ -166,10 +166,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
           </span>
 
           <h2 className="text-3xl font-semibold tracking-[-0.055em] text-slate-900 sm:text-4xl md:text-5xl">
-            {t("bookingTitle")}{" "}
-            <span className="font-serif font-normal italic text-[#765A2B]">
-              you?
-            </span>
+            {t("bookingTitle")}
           </h2>
 
           <p className="mt-3 text-sm text-slate-500 sm:text-base">
@@ -192,7 +189,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
                 {t("chooseYourService")}
               </h3>
               <span className="text-[10px] font-semibold text-[#5E6668]">
-                STEP 01
+                {t("step")} 01
               </span>
             </div>
 
@@ -214,12 +211,12 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
                   >
                     <Icon size={22} strokeWidth={1.7} />
                     <span className="mt-2 text-xs font-bold sm:text-sm">
-                      {title}
+                      {language === "hi" ? (label === "Buy Mobile" ? "खरीदें" : label === "Sell Mobile" ? "बेचें" : "रिपेयर") : title}
                     </span>
                     <span className={`mt-1 text-[9px] sm:text-[10px] ${
                       active ? "text-white/65" : "text-[#5E6668]"
                     }`}>
-                      {subtitle}
+                      {language === "hi" ? (label === "Buy Mobile" ? "फोन खरीदें" : label === "Sell Mobile" ? "फोन बेचें" : "फोन ठीक करवाएँ") : subtitle}
                     </span>
 
                     {active && (
@@ -240,7 +237,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
                 {t("choosePhone")}
               </h3>
               <span className="text-[10px] font-semibold text-[#5E6668]">
-                STEP 02
+                {t("step")} 02
               </span>
             </div>
 
@@ -438,7 +435,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
                   {t("contactDetails")}
                 </h3>
                 <span className="text-[10px] font-semibold text-[#5E6668]">
-                  STEP 03
+                  {t("step")} 03
                 </span>
               </div>
 
