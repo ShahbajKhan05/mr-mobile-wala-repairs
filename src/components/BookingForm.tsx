@@ -2,6 +2,7 @@
 "use client";
 
 import WhatsAppIcon from "@/components/WhatsAppIcon";
+import { useCustomerLanguage } from "@/components/CustomerLanguageProvider";
 import { DEVICE_BRANDS as BRANDS, PHONE_MODELS, REPAIR_PROBLEMS as PROBLEMS } from "@/lib/form-options";
 import { useEffect, useState, type FormEvent } from "react";
 import {
@@ -55,6 +56,7 @@ const labelClass =
   "mb-2 block text-[11px] font-bold uppercase tracking-[0.12em] text-slate-600";
 
 export default function BookingForm({ initialService = "Repair Mobile" }: BookingFormProps) {
+  const { t, language } = useCustomerLanguage();
   const [bookingType, setBookingType] = useState<BookingType>(initialService);
 
   const [name, setName] = useState("");
@@ -164,14 +166,14 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
           </span>
 
           <h2 className="text-3xl font-semibold tracking-[-0.055em] text-slate-900 sm:text-4xl md:text-5xl">
-            How can we help{" "}
+            {t("bookingTitle")}{" "}
             <span className="font-serif font-normal italic text-[#765A2B]">
               you?
             </span>
           </h2>
 
           <p className="mt-3 text-sm text-slate-500 sm:text-base">
-            Just a few quick selections. No complicated form.
+            {t("bookingCopy")}
           </p>
           <p className="mt-1 text-xs text-[#5E6668]">
             बस कुछ आसान विकल्प चुनें और बुकिंग करें।
@@ -187,7 +189,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
           <div className="border-b border-white/70 bg-white/30 p-4 sm:p-7">
             <div className="mb-4 flex items-center justify-between">
               <h3 className="text-sm font-bold text-[#202B32]">
-                Choose your service
+                {t("chooseYourService")}
               </h3>
               <span className="text-[10px] font-semibold text-[#5E6668]">
                 STEP 01
@@ -235,7 +237,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
           <div className="space-y-4 p-3 sm:space-y-5 sm:p-7">
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-bold text-[#202B32]">
-                Choose your phone
+                {t("choosePhone")}
               </h3>
               <span className="text-[10px] font-semibold text-[#5E6668]">
                 STEP 02
@@ -245,7 +247,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
             {/* Brand */}
             <div>
               <label htmlFor="booking-brand" className={labelClass}>
-                Mobile brand *
+                {t("mobileBrand")} *
               </label>
               <div className="relative">
                 <Smartphone className="absolute left-4 top-1/2 -translate-y-1/2 text-[#765A2B]" size={18} />
@@ -256,7 +258,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
                   className={`${inputClass} pl-11`}
                   required
                 >
-                  <option value="">Select mobile brand</option>
+                  <option value="">{t("selectBrand")}</option>
                   {BRANDS.map((item) => (
                     <option key={item} value={item}>{item}</option>
                   ))}
@@ -267,7 +269,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
 
             {brand === "Other" && (
               <div>
-                <label htmlFor="booking-custom-brand" className={labelClass}>Enter mobile brand *</label>
+                <label htmlFor="booking-custom-brand" className={labelClass}>{t("enterBrand")} *</label>
                 <input id="booking-custom-brand" value={customBrand} onChange={(e) => setCustomBrand(e.target.value)} placeholder="e.g. Asus, Huawei" maxLength={50} className={inputClass} required />
               </div>
             )}
@@ -276,7 +278,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
             {brand && brand !== "Other" && (
               <div>
                 <label htmlFor="booking-model" className={labelClass}>
-                  Select model *
+                  {t("selectModel")} *
                 </label>
                 <div className="relative">
                   <select
@@ -319,9 +321,9 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
               <div>
                 <div className="mb-3 flex items-center justify-between">
                   <label className={labelClass}>
-                    What&apos;s the problem? *
+                    {t("problem")} *
                   </label>
-                  <span className="text-[10px] text-[#5E6668]">Select one</span>
+                  <span className="text-[10px] text-[#5E6668]">{t("selectOne")}</span>
                 </div>
 
                 <div className="flex flex-wrap gap-2">
@@ -349,7 +351,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
                   <input
                     value={customProblem}
                     onChange={(e) => setCustomProblem(e.target.value)}
-                    placeholder="Describe the repair issue"
+                    placeholder="{t("describeProblem")}"
                     maxLength={300}
                     className={inputClass}
                     required
@@ -361,7 +363,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
             {/* Buy Budget */}
             {bookingType === "Buy Mobile" && (
               <div>
-                <label className={labelClass}>Your budget</label>
+                <label className={labelClass}>{t("budget")}</label>
                 <div className="flex flex-wrap gap-2">
                   {BUDGETS.map((item) => (
                     <button
@@ -386,7 +388,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
             {bookingType === "Sell Mobile" && (
               <div className="space-y-5">
                 <div>
-                  <label className={labelClass}>Phone condition</label>
+                  <label className={labelClass}>{t("condition")}</label>
                   <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                     {CONDITIONS.map((item) => (
                       <button
@@ -407,7 +409,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
                 </div>
 
                 <div>
-                  <label className={labelClass}>Expected selling price</label>
+                  <label className={labelClass}>{t("expectedPrice")}</label>
                   <div className="flex flex-wrap gap-2">
                     {PRICES.map((item) => (
                       <button
@@ -433,7 +435,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
             <div className="border-t border-white/70 pt-5">
               <div className="mb-4 flex items-center justify-between">
                 <h3 className="text-sm font-bold text-[#202B32]">
-                  Your contact details
+                  {t("contactDetails")}
                 </h3>
                 <span className="text-[10px] font-semibold text-[#5E6668]">
                   STEP 03
@@ -443,13 +445,13 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label htmlFor="booking-name" className={labelClass}>
-                    Your name *
+                    {t("yourName")} *
                   </label>
                   <input
                     id="booking-name"
                     type="text"
                     autoComplete="name"
-                    placeholder="Enter your name"
+                    placeholder="{t("enterName")}"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className={inputClass}
@@ -460,14 +462,14 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
 
                 <div>
                   <label htmlFor="booking-phone" className={labelClass}>
-                    WhatsApp number *
+                    {t("whatsappNumber")} *
                   </label>
                   <input
                     id="booking-phone"
                     type="tel"
                     inputMode="numeric"
                     autoComplete="tel"
-                    placeholder="10-digit mobile number"
+                    placeholder="{t("tenDigit")}"
                     value={phone}
                     onChange={(e) =>
                       setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))
@@ -488,20 +490,20 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
                 className="group flex min-h-[52px] w-full items-center justify-center gap-3 rounded-full bg-slate-900 px-6 text-sm font-bold text-white shadow-[0_16px_35px_rgba(49,46,129,0.20)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-indigo-700 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <WhatsAppIcon size={19} />
-                Send Booking on WhatsApp
+                {t("sendBooking")}
                 <ArrowRight size={17} className="transition-transform group-hover:translate-x-1" />
               </button>
 
               <div className="mt-4 flex items-center justify-center gap-2 text-center text-[10px] leading-5 text-[#899194] sm:text-xs">
                 <ShieldCheck size={15} className="shrink-0 text-[#765A2B]" />
-                No payment required. We&apos;ll contact you to confirm.
+                {t("noPayment")}
               </div>
             </div>
           </div>
         </form>
 
         <p className="mt-5 text-center text-[10px] text-[#5E6668]">
-          Simple booking · Quick response · Personal assistance
+          {t("simpleBooking")}
         </p>
       </div>
     </section>
