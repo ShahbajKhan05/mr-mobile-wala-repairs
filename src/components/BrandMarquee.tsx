@@ -29,6 +29,7 @@ function BrandSequence({ duplicate = false }: { duplicate?: boolean }) {
             height={brand.height}
             sizes="(max-width: 639px) 88px, (max-width: 1023px) 112px, 120px"
             className="brand-showcase__logo"
+            style={{ width: "auto", height: "auto" }}
             draggable={false}
           />
         </li>
