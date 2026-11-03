@@ -53,7 +53,7 @@ export default function ServiceShowcase() {
             <article key={eyebrow} className="group relative flex min-h-[390px] flex-col overflow-hidden rounded-[1.75rem] border border-[#e5e5ea] bg-white p-5 transition duration-500 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(0,0,0,0.08)] sm:min-h-[450px] sm:rounded-[2rem] sm:p-8">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-semibold tracking-[0.16em] text-[#86868b]">{eyebrow}</span>
-                <span className={\`flex size-12 items-center justify-center rounded-2xl \${visual} transition-transform duration-500 group-hover:scale-110 sm:size-14\`}>
+                <span className={"flex size-12 items-center justify-center rounded-2xl " + visual + " transition-transform duration-500 group-hover:scale-110 sm:size-14"}>
                   <Icon size={23} strokeWidth={1.65} />
                 </span>
               </div>
