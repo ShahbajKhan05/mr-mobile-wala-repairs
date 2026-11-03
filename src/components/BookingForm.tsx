@@ -50,7 +50,7 @@ const PRICES = [
 ];
 
 const OPTION_LABELS_HI: Record<string, string> = {
-  "Under ₹5,000": "₹5,000 से कम", "₹5k – ₹10k": "₹5,000 – ₹10,000", "₹10k – ₹20k": "₹10,000 – ₹20,000", "₹20k – ₹35k": "₹20,000 – ₹35,000", "₹35k – ₹50k": "₹35,000 – ₹50,000", "Above ₹50k": "₹50,000 से ज़्यादा", "₹20k – ₹30k": "₹20,000 – ₹30,000", "Above ₹30k": "₹30,000 से ज़्यादा", "Like New": "बिल्कुल नया जैसा", Good: "अच्छी हालत", Average: "सामान्य हालत", Damaged: "टूटा / खराब", "Not Sure": "पता नहीं", Other: "अन्य", Display: "डिस्प्ले", Battery: "बैटरी", Charging: "चार्जिंग", Speaker: "स्पीकर", Microphone: "माइक", Camera: "कैमरा", Network: "नेटवर्क", Software: "सॉफ्टवेयर", "Water Damage": "पानी से खराब", "Power / Dead": "फोन चालू नहीं होता", Touch: "टच"
+  "Under ₹5,000": "₹5,000 से कम", "₹5k – ₹10k": "₹5,000 – ₹10,000", "₹10k – ₹20k": "₹10,000 – ₹20,000", "₹20k – ₹35k": "₹20,000 – ₹35,000", "₹35k – ₹50k": "₹35,000 – ₹50,000", "Above ₹50k": "₹50,000 से ज़्यादा", "₹20k – ₹30k": "₹20,000 – ₹30,000", "Above ₹30k": "₹30,000 से ज़्यादा", "Like New": "बिल्कुल नया जैसा", Good: "अच्छी हालत", Average: "सामान्य हालत", Damaged: "टूटा / खराब", "Not Sure": "पता नहीं", Other: "अन्य", "Other / Not listed": "अन्य / सूची में नहीं", Display: "डिस्प्ले", Battery: "बैटरी", Charging: "चार्जिंग", Speaker: "स्पीकर", Microphone: "माइक", Camera: "कैमरा", Network: "नेटवर्क", Software: "सॉफ्टवेयर", "Water Damage": "पानी से खराब", "Power / Dead": "फोन चालू नहीं होता", Touch: "टच"
 };
 
 const inputClass =
@@ -176,9 +176,6 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
 
           <p className="mt-3 text-sm text-slate-500 sm:text-base">
             {t("bookingCopy")}
-          </p>
-          <p className="mt-1 text-xs text-[#5E6668]">
-            बस कुछ आसान विकल्प चुनें और बुकिंग करें।
           </p>
         </div>
 
