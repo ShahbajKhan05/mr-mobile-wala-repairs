@@ -23,7 +23,12 @@ export default function MobileQuickActions() {
   return (
     <div
       aria-label="Quick contact actions"
-      className={\`fixed inset-x-3 bottom-3 z-[90] flex items-center gap-2 rounded-full border border-[#e5e5ea] bg-white/95 p-2 shadow-[0_8px_32px_rgba(0,0,0,0.12)] backdrop-blur-xl transition-all duration-300 sm:hidden \${isBookingVisible ? "pointer-events-none translate-y-5 opacity-0" : "translate-y-0 opacity-100"}\`}
+      className={
+        "fixed inset-x-3 bottom-3 z-[90] flex items-center gap-2 rounded-full border border-[#e5e5ea] bg-white/95 p-2 shadow-[0_8px_32px_rgba(0,0,0,0.12)] backdrop-blur-xl transition-all duration-300 sm:hidden " +
+        (isBookingVisible
+          ? "pointer-events-none translate-y-5 opacity-0"
+          : "translate-y-0 opacity-100")
+      }
       aria-hidden={isBookingVisible}
     >
       <a
