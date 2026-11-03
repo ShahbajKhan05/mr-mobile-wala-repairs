@@ -38,7 +38,7 @@ export default function SectionRail() {
   return (
     <nav
       aria-label="Page sections"
-      className="fixed right-1.5 top-1/2 z-[80] hidden -translate-y-1/2 flex-col gap-2 rounded-full border border-black/5 bg-white/85 p-1.5 shadow-lg shadow-black/10 backdrop-blur-xl sm:flex sm:right-3"
+      className="fixed right-1 top-1/2 z-[80] flex -translate-y-1/2 flex-col gap-1 rounded-full border border-black/5 bg-white/90 p-1 shadow-lg shadow-black/10 backdrop-blur-xl sm:right-3 sm:gap-2 sm:p-1.5"
     >
       {SECTIONS.map(({ id, label }) => {
         const selected = active === id;
@@ -51,7 +51,7 @@ export default function SectionRail() {
             aria-current={selected ? "location" : undefined}
             title={label}
             className={
-              "group flex h-8 w-8 items-center justify-center rounded-full transition-all duration-200 " +
+              "group flex h-6 w-6 items-center justify-center rounded-full transition-all duration-200 sm:h-8 sm:w-8 " +
               (selected
                 ? "bg-[#1d1d1f] text-white"
                 : "text-[#777] hover:bg-[#f0f0f2] hover:text-[#1d1d1f]")
