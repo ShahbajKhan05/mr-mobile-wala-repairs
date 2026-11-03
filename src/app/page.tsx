@@ -8,6 +8,8 @@ import Footer from "@/components/Footer";
 import BrandMarquee from "@/components/BrandMarquee";
 import ServiceShowcase from "@/components/ServiceShowcase";
 import Testimonials from "@/components/Testimonials";
+import CustomerMotion from "@/components/CustomerMotion";
+import MobileQuickActions from "@/components/MobileQuickActions";
 
 export const metadata: Metadata = {
   title: "MR MOBILE WALA REPAIRS | Buy, Sell & Repair Mobile Phones in Rewa",
@@ -24,20 +26,29 @@ type HomePageProps = {
 
 export default async function HomePage({ searchParams }: HomePageProps) {
   const { service } = await searchParams;
-  const initialService = service === "buy" ? "Buy Mobile" : service === "sell" ? "Sell Mobile" : "Repair Mobile";
+  const initialService =
+    service === "buy"
+      ? "Buy Mobile"
+      : service === "sell"
+        ? "Sell Mobile"
+        : "Repair Mobile";
+
   return (
-    <div className="min-h-screen overflow-x-hidden glass-page text-slate-800">
+    <div className="min-h-screen overflow-x-clip glass-page text-slate-800">
       <Navbar />
-      <main>
-        <VideoHero />
-        <BrandMarquee />
-        <ServiceShowcase />
-        <BookingForm initialService={initialService} />
-      </main>
-      <Testimonials />
-      <WhyChooseUs />
-      <FAQ />
-      <Footer />
+      <CustomerMotion>
+        <main>
+          <VideoHero />
+          <BrandMarquee />
+          <ServiceShowcase />
+          <BookingForm initialService={initialService} />
+        </main>
+        <Testimonials />
+        <WhyChooseUs />
+        <FAQ />
+        <Footer />
+      </CustomerMotion>
+      <MobileQuickActions />
     </div>
   );
 }
