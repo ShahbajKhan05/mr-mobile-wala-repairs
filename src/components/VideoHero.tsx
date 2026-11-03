@@ -3,32 +3,44 @@
 import { useEffect, useRef } from "react";
 import { ArrowDown, ArrowUpRight, ShieldCheck, Sparkles } from "lucide-react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function VideoHero() {
   const heroRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const root = heroRef.current;
-    if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      return;
-    }
+    if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+    gsap.registerPlugin(ScrollTrigger);
     const context = gsap.context(() => {
       const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
       intro
-        .from("[data-hero-kicker]", { y: 18, autoAlpha: 0, duration: 0.65 })
-        .from("[data-hero-title]", { y: 34, autoAlpha: 0, duration: 0.85 }, "-=0.35")
-        .from("[data-hero-copy]", { y: 20, autoAlpha: 0, duration: 0.65 }, "-=0.45")
-        .from("[data-hero-visual]", { y: 38, scale: 0.97, autoAlpha: 0, duration: 1 }, "-=0.4")
-        .from("[data-hero-actions]", { y: 16, autoAlpha: 0, duration: 0.55 }, "-=0.5");
+        .from("[data-hero-kicker]", { y: 16, autoAlpha: 0, duration: 0.65 })
+        .from("[data-hero-title]", { y: 42, autoAlpha: 0, duration: 0.9 }, "-=0.32")
+        .from("[data-hero-copy]", { y: 22, autoAlpha: 0, duration: 0.7 }, "-=0.48")
+        .from("[data-hero-actions]", { y: 18, autoAlpha: 0, duration: 0.6 }, "-=0.42")
+        .from("[data-hero-visual]", { y: 52, scale: 0.965, autoAlpha: 0, duration: 1.1 }, "-=0.45");
+
+      gsap.to("[data-hero-visual]", {
+        yPercent: 9,
+        scale: 0.975,
+        ease: "none",
+        scrollTrigger: {
+          trigger: root,
+          start: "top top",
+          end: "bottom top",
+          scrub: 0.7,
+        },
+      });
     }, root);
 
     return () => context.revert();
   }, []);
 
-  const scrollToBooking = () => {
+  const scrollToServices = () => {
     document.querySelector("#services")?.scrollIntoView({
-      behavior: "smooth",
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
       block: "start",
     });
   };
@@ -37,104 +49,94 @@ export default function VideoHero() {
     <section
       ref={heroRef}
       aria-labelledby="hero-heading"
-      className="relative isolate flex min-h-[min(900px,100svh)] w-full items-center overflow-hidden px-4 pb-10 pt-28 sm:px-8 sm:pb-16 sm:pt-36 lg:px-12"
+      className="relative isolate overflow-hidden bg-white px-4 pb-12 pt-28 sm:px-8 sm:pb-20 sm:pt-36 lg:px-12"
     >
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute -left-32 top-20 h-72 w-72 rounded-full bg-sky-300/25 blur-[100px] sm:h-[30rem] sm:w-[30rem]" />
-        <div className="absolute -right-24 top-1/4 h-72 w-72 rounded-full bg-violet-300/30 blur-[110px] sm:h-[34rem] sm:w-[34rem]" />
-        <div className="absolute bottom-0 left-1/3 h-48 w-48 rounded-full bg-amber-200/25 blur-[90px]" />
-      </div>
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(ellipse_at_50%_0%,#f1f1f4_0%,rgba(255,255,255,0)_72%)]" />
 
-      <div className="mx-auto grid w-full max-w-[1320px] items-center gap-9 lg:grid-cols-[0.92fr_1.08fr] lg:gap-12">
-        <div className="relative z-10 mx-auto w-full max-w-2xl text-center lg:mx-0 lg:text-left">
-          <p data-hero-kicker className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/65 px-4 py-2 text-[9px] font-bold uppercase tracking-[0.2em] text-indigo-700 shadow-sm backdrop-blur-xl sm:mb-7 sm:text-[10px]">
-            <Sparkles size={13} />
-            Rewa&apos;s mobile care destination
-          </p>
+      <div className="mx-auto flex w-full max-w-[1240px] flex-col items-center text-center">
+        <p data-hero-kicker className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#d2d2d7] bg-white px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#6e6e73] shadow-sm sm:mb-8 sm:text-[11px]">
+          <Sparkles size={13} className="text-[#0071e3]" />
+          Rewa&apos;s mobile care destination
+        </p>
 
-          <h1
-            id="hero-heading"
-            data-hero-title
-            className="text-[clamp(2.5rem,8vw,6.5rem)] font-black leading-[0.94] tracking-[-0.075em] text-slate-950"
+        <h1
+          id="hero-heading"
+          data-hero-title
+          className="max-w-5xl text-[clamp(3rem,9.2vw,8.4rem)] font-semibold leading-[0.91] tracking-[-0.085em] text-[#1d1d1f]"
+        >
+          Your phone.
+          <br />
+          <span className="text-[#86868b]">In better hands.</span>
+        </h1>
+
+        <p data-hero-copy className="mt-6 max-w-2xl text-base leading-7 text-[#6e6e73] sm:mt-8 sm:text-xl sm:leading-8">
+          Thoughtful repairs, phones worth discovering, and honest help when it matters.
+          Everything your phone needs, all in one place.
+        </p>
+
+        <div data-hero-actions className="mt-8 flex w-full flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row sm:gap-4">
+          <button
+            type="button"
+            onClick={scrollToServices}
+            className="group inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#1d1d1f] px-7 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0071e3] sm:w-auto"
           >
-            MR MOBILE WALA
-            <br />
-            <span className="bg-gradient-to-r from-indigo-700 via-violet-600 to-fuchsia-600 bg-clip-text text-transparent">
-              REPAIRS.
-            </span>
-          </h1>
-
-          <p data-hero-copy className="mx-auto mt-5 max-w-xl text-sm leading-7 text-slate-600 sm:mt-7 sm:text-base sm:leading-8 lg:mx-0">
-            Your phone, our passion. Buy, sell or repair with honest guidance,
-            careful service and personal support — all in one place.
-          </p>
-
-          <div data-hero-actions className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start">
-            <button
-              type="button"
-              onClick={scrollToBooking}
-              className="group inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-full bg-slate-950 px-7 text-sm font-bold text-white shadow-[0_16px_40px_rgba(49,46,129,.22)] transition duration-300 hover:-translate-y-1 hover:bg-indigo-700 hover:shadow-[0_22px_50px_rgba(79,70,229,.28)] sm:w-auto"
-            >
-              Explore our services
-              <ArrowUpRight size={17} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </button>
-            <a
-              href="https://wa.me/919131383323"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-slate-200/80 bg-white/65 px-7 text-sm font-bold text-slate-800 shadow-sm backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-emerald-300 hover:bg-white sm:w-auto"
-            >
-              Chat on WhatsApp
-            </a>
-          </div>
-
-          <div className="mt-7 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[10px] font-semibold text-slate-500 sm:mt-9 sm:text-xs lg:justify-start">
-            <span className="inline-flex items-center gap-2"><ShieldCheck size={15} className="text-emerald-600" /> Personal assistance</span>
-            <span className="hidden h-1 w-1 rounded-full bg-slate-300 sm:block" />
-            <span>BUY <span className="px-1 text-indigo-400">/</span> SELL <span className="px-1 text-indigo-400">/</span> REPAIR</span>
-          </div>
+            Explore services
+            <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </button>
+          <a
+            href="https://wa.me/919131383323"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-[#d2d2d7] bg-white px-7 text-sm font-semibold text-[#1d1d1f] transition duration-300 hover:border-[#86868b] hover:bg-[#f5f5f7] sm:w-auto"
+          >
+            Talk to our team <ArrowUpRight size={16} />
+          </a>
         </div>
 
-        <div data-hero-visual className="relative mx-auto w-full max-w-[760px] lg:ml-auto">
-          <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-indigo-300/35 via-white/20 to-fuchsia-300/35 blur-2xl sm:-inset-6" />
-          <div className="glass-panel relative overflow-hidden rounded-[1.6rem] p-2 shadow-[0_35px_100px_rgba(49,46,129,.18)] sm:rounded-[2.25rem] sm:p-3">
-            <div className="relative aspect-[5/4] overflow-hidden rounded-[1.2rem] bg-slate-900 sm:rounded-[1.75rem]">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[10px] font-medium uppercase tracking-[0.14em] text-[#86868b] sm:mt-10 sm:text-[11px]">
+          <span className="inline-flex items-center gap-2"><ShieldCheck size={14} className="text-[#0071e3]" /> Personal assistance</span>
+          <span aria-hidden="true" className="hidden size-1 rounded-full bg-[#d2d2d7] sm:block" />
+          <span>Buy <span className="px-1 text-[#d2d2d7]">/</span> Sell <span className="px-1 text-[#d2d2d7]">/</span> Repair</span>
+        </div>
+
+        <div data-hero-visual className="relative mt-12 w-full sm:mt-16 lg:mt-20">
+          <div className="relative overflow-hidden rounded-[1.5rem] bg-[#f5f5f7] shadow-[0_28px_90px_rgba(0,0,0,0.12)] sm:rounded-[2rem]">
+            <div className="relative aspect-[5/4] w-full sm:aspect-[16/8.2]">
               <video
                 autoPlay
                 muted
                 loop
                 playsInline
                 preload="metadata"
-                aria-label="MR MOBILE WALA REPAIRS brand video"
+                aria-label="MR MOBILE WALA REPAIRS brand film"
                 poster="/mr-mobile-wala-logo.png"
                 className="absolute inset-0 h-full w-full object-cover"
               >
                 <source src="/hero.mp4" type="video/mp4" />
               </video>
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/5 to-slate-950/10" />
-              <div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-3 text-white sm:inset-x-7 sm:bottom-7">
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/5" />
+              <div className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-3 text-left text-white sm:inset-x-9 sm:bottom-9">
                 <div>
-                  <p className="text-[9px] font-bold uppercase tracking-[0.24em] text-white/65 sm:text-[10px]">MR MOBILE WALA REPAIRS</p>
-                  <p className="mt-1 text-xl font-bold tracking-tight sm:text-3xl">Sahi Daam. Best Kaam.</p>
+                  <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-white/75 sm:text-[10px]">MR MOBILE WALA REPAIRS</p>
+                  <p className="mt-1 text-2xl font-semibold tracking-[-0.04em] sm:text-4xl">Sahi Daam. Best Kaam.</p>
                 </div>
-                <span className="rounded-full border border-white/25 bg-white/15 px-3 py-2 text-[9px] font-semibold backdrop-blur-xl sm:text-[10px]">REWA, MP</span>
+                <span className="rounded-full border border-white/35 bg-black/20 px-3 py-2 text-[9px] font-semibold tracking-[0.12em] backdrop-blur-md sm:text-[10px]">REWA, MP</span>
               </div>
             </div>
           </div>
-          <div className="absolute -bottom-4 left-2 flex items-center gap-2 rounded-2xl border border-white/80 bg-white/85 px-3 py-2.5 shadow-[0_14px_35px_rgba(30,41,59,.12)] backdrop-blur-xl sm:-bottom-5 sm:left-8 sm:px-4 sm:py-3">
-            <span className="flex size-8 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600"><ShieldCheck size={17} /></span>
-            <span><span className="block text-[10px] font-bold text-slate-900 sm:text-xs">Care you can trust</span><span className="block text-[9px] text-slate-500 sm:text-[10px]">Support at every step</span></span>
-          </div>
+          <p className="mt-4 text-center text-[10px] font-medium uppercase tracking-[0.2em] text-[#86868b] sm:mt-5 sm:text-[11px]">
+            A little more care in every connection.
+          </p>
         </div>
       </div>
 
       <button
         type="button"
-        onClick={scrollToBooking}
+        onClick={scrollToServices}
         aria-label="Discover our services"
-        className="absolute bottom-5 left-1/2 hidden -translate-x-1/2 items-center gap-2 text-[9px] font-bold uppercase tracking-[0.24em] text-slate-500 transition hover:text-indigo-700 lg:flex"
+        className="mx-auto mt-10 hidden items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#86868b] transition hover:text-[#1d1d1f] lg:flex"
       >
-        Scroll to explore <ArrowDown size={14} />
+        Discover more <ArrowDown size={14} />
       </button>
     </section>
   );
