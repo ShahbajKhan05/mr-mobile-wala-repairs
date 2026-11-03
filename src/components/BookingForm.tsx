@@ -262,7 +262,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
                 >
                   <option value="">{t("selectBrand")}</option>
                   {BRANDS.map((item) => (
-                    <option key={item} value={item}>{optionLabel(item)}</option>
+                    <option key={optionLabel(item)} value={optionLabel(item)}>{optionLabel(item)}</option>
                   ))}
                 </select>
                 <ChevronDown className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#5E6668]" size={16} />
@@ -292,7 +292,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
                   >
                     <option value="">{t("chooseModel")}</option>
                     {modelOptions.map((item) => (
-                      <option key={item} value={item}>{item}</option>
+                      <option key={optionLabel(item)} value={optionLabel(item)}>{optionLabel(item)}</option>
                     ))}
                   </select>
                   <ChevronDown className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#5E6668]" size={16} />
@@ -334,7 +334,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
 
                     return (
                       <button
-                        key={item}
+                        key={optionLabel(item)}
                         type="button"
                         onClick={() => setProblem(item)}
                         aria-pressed={active}
@@ -369,7 +369,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
                 <div className="flex flex-wrap gap-2">
                   {BUDGETS.map((item) => (
                     <button
-                      key={item}
+                      key={optionLabel(item)}
                       type="button"
                       onClick={() => setBudget(budget === item ? "" : item)}
                       aria-pressed={budget === item}
@@ -379,7 +379,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
                           : "border-[#EAE8E2] bg-white text-[#59636A] hover:border-[#B69A69]"
                       }`}
                     >
-                      {item}
+                      {optionLabel(item)}
                     </button>
                   ))}
                 </div>
@@ -394,7 +394,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
                   <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                     {CONDITIONS.map((item) => (
                       <button
-                        key={item}
+                        key={optionLabel(item)}
                         type="button"
                         onClick={() => setCondition(item)}
                         aria-pressed={condition === item}
@@ -404,7 +404,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
                             : "border-[#EAE8E2] text-[#59636A] hover:border-[#B69A69]"
                         }`}
                       >
-                        {item}
+                        {optionLabel(item)}
                       </button>
                     ))}
                   </div>
@@ -415,7 +415,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
                   <div className="flex flex-wrap gap-2">
                     {PRICES.map((item) => (
                       <button
-                        key={item}
+                        key={optionLabel(item)}
                         type="button"
                         onClick={() => setExpectedPrice(expectedPrice === item ? "" : item)}
                         aria-pressed={expectedPrice === item}
@@ -425,7 +425,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
                             : "border-[#EAE8E2] text-[#59636A] hover:border-[#B69A69]"
                         }`}
                       >
-                        {item}
+                        {optionLabel(item)}
                       </button>
                     ))}
                   </div>
