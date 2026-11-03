@@ -1,4 +1,3 @@
-
 import {
   ShieldCheck,
   Wrench,
@@ -10,123 +9,99 @@ import {
 
 const FEATURES = [
   {
-    number: "01",
     icon: ShieldCheck,
-    title: "Trusted Service",
-    hindi: "भरोसेमंद सर्विस",
-    description: "आपके मोबाइल की पूरी जिम्मेदारी के साथ सेवा।",
+    title: "Bharose ke saath",
+    english: "Service you can trust",
+    description: "Aapke phone ko dhyan se handle karte hain.",
+    tone: "bg-[#eaf2ff] text-[#1769c2]",
   },
   {
-    number: "02",
     icon: Wrench,
-    title: "Expert Repairs",
-    hindi: "एक्सपर्ट रिपेयरिंग",
-    description: "मोबाइल की हर समस्या का सही समाधान।",
+    title: "Phone ki sahi repair",
+    english: "Repair made simple",
+    description: "Problem samjhein, phir repair ka raasta chunein.",
+    tone: "bg-[#f0edff] text-[#7253c6]",
   },
   {
-    number: "03",
-    icon: BadgeCheck,
-    title: "Quality Products",
-    hindi: "बेहतरीन क्वालिटी",
-    description: "अच्छे और भरोसेमंद मोबाइल व एक्सेसरीज।",
-  },
-  {
-    number: "04",
     icon: Wallet,
-    title: "Fair Pricing",
-    hindi: "सही और वाजिब दाम",
-    description: "आपके बजट के अनुसार सही कीमत।",
+    title: "Saaf aur sahi daam",
+    english: "Clear pricing",
+    description: "Kaam shuru karne se pehle estimate samjhein.",
+    tone: "bg-[#e8f6ef] text-[#27845b]",
   },
   {
-    number: "05",
+    icon: BadgeCheck,
+    title: "Achhe phone ke options",
+    english: "Buy with confidence",
+    description: "Phone kharidne ya bechne mein madad paayein.",
+    tone: "bg-[#fff3e5] text-[#b56b1c]",
+  },
+  {
     icon: Headset,
-    title: "Customer Support",
-    hindi: "हमेशा आपकी मदद",
-    description: "आपकी जरूरत पर हमारी पूरी सहायता।",
+    title: "Madad paas hi hai",
+    english: "We're easy to reach",
+    description: "Sawaal ho to seedha WhatsApp par baat karein.",
+    tone: "bg-[#e9f5f8] text-[#26778a]",
   },
 ];
 
 export default function WhyChooseUs() {
   return (
     <section
+      id="why"
       aria-labelledby="why-choose-heading"
-      className="glass-page px-4 py-10 sm:px-8 sm:py-20 lg:px-12 lg:py-24"
+      className="glass-page px-3 py-7 sm:px-8 sm:py-10 lg:px-12"
     >
-      <div className="mx-auto max-w-[1200px]">
-
-        {/* Section Heading */}
-        <div className="mb-6 text-center sm:mb-14">
-          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.3em] text-indigo-600">
-            The MR MOBILE WALA REPAIRS Difference
-          </p>
-
-          <h2
-            id="why-choose-heading"
-            className="text-3xl font-semibold tracking-[-0.05em] text-slate-900 sm:text-5xl"
-          >
-            Why Choose{" "}
-            <span className="font-serif font-normal italic text-[#765A2B]">
-              MR MOBILE WALA REPAIRS?
-            </span>
-          </h2>
-
-          <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-slate-500">
-            आपके मोबाइल की हर जरूरत के लिए एक भरोसेमंद जगह।
-            Quality, care और service — सब एक साथ।
-          </p>
+      <div className="mx-auto max-w-[1180px]">
+        <div className="mb-5 grid gap-2 sm:mb-6 sm:grid-cols-[1fr_auto] sm:items-end">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#1769c2] sm:text-xs">
+              Aapka phone, hamari zimmedari
+            </p>
+            <h2 id="why-choose-heading" className="mt-1 text-2xl font-bold tracking-tight text-[#1d1d1f] sm:text-3xl">
+              Humein kyun chunein?
+            </h2>
+            <p className="mt-1 max-w-xl text-xs leading-5 text-[#666] sm:text-sm">
+              Seedhi baat, saaf jaankari aur zaroorat par madad.
+            </p>
+          </div>
+          <span className="hidden rounded-full border border-[#e5e7eb] bg-white px-3 py-2 text-[11px] font-semibold text-[#555] sm:inline-flex">
+            MR MOBILE WALA REPAIRS
+          </span>
         </div>
 
-        {/* Feature Cards */}
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
-          {FEATURES.map((feature) => {
-            const Icon = feature.icon;
-
-            return (
-              <article
-                key={feature.number}
-                className="glass-card group relative rounded-[20px] p-4 sm:rounded-[28px] sm:p-7"
-              >
-                <div className="flex items-start justify-between">
-                  <div className="flex h-11 w-11 items-center justify-center border border-[#E9E5DC] text-[#765A2B] transition-all duration-300 group-hover:border-[#A58A5B] group-hover:bg-[#A58A5B] group-hover:text-white">
-                    <Icon size={21} strokeWidth={1.6} />
-                  </div>
-
-                  <span className="text-[11px] font-medium tracking-widest text-[#625D52]">
-                    {feature.number}
-                  </span>
-                </div>
-
-                <h3 className="mt-4 text-lg font-semibold tracking-tight text-[#202B32]">
-                  {feature.title}
-                </h3>
-
-                <p className="mt-1 text-sm font-medium text-[#765A2B]">
-                  {feature.hindi}
-                </p>
-
-                <p className="mt-3 text-[13px] leading-6 text-[#626B70]">
-                  {feature.description}
-                </p>
-
-                <ArrowUpRight
-                  size={17}
-                  className="absolute bottom-5 right-5 text-[#625D52] transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#765A2B] sm:bottom-7 sm:right-7"
-                />
-              </article>
-            );
-          })}
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-5">
+          {FEATURES.map(({ icon: Icon, title, english, description, tone }, index) => (
+            <article
+              key={title}
+              className="group relative min-h-[145px] overflow-hidden rounded-2xl border border-[#e7e9ed] bg-white p-3 shadow-[0_3px_16px_rgba(20,35,60,0.035)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(20,35,60,0.09)] sm:min-h-[178px] sm:rounded-3xl sm:p-4"
+            >
+              <div className="flex items-center justify-between">
+                <span className={"flex size-9 items-center justify-center rounded-xl " + tone + " sm:size-10"}>
+                  <Icon size={19} strokeWidth={2} />
+                </span>
+                <span className="text-[10px] font-bold tabular-nums text-[#b0b2b8]">0{index + 1}</span>
+              </div>
+              <h3 className="mt-3 text-[13px] font-extrabold leading-tight text-[#202124] sm:text-sm">{title}</h3>
+              <p className="mt-1 text-[10px] font-semibold text-[#1769c2] sm:text-[11px]">{english}</p>
+              <p className="mt-2 text-[10px] leading-[1.55] text-[#666a73] sm:text-xs">{description}</p>
+              <ArrowUpRight size={14} className="absolute bottom-3 right-3 text-[#a0a3aa] transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#1769c2]" />
+            </article>
+          ))}
         </div>
 
-        {/* Bottom Promise */}
-        <div className="mt-8 border-t border-white/70 pt-6 text-center sm:mt-12 sm:pt-8">
-          <p className="text-sm font-semibold text-[#202B32]">
-            आपकी संतुष्टि, हमारी प्राथमिकता।
-          </p>
-          <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.2em] text-[#765A2B]">
-            Quality You Trust. Service You Deserve.
-          </p>
-        </div>
-
+        <a
+          href="https://wa.me/919131383323"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-3 flex min-h-12 items-center justify-between gap-3 rounded-2xl bg-[#1d1d1f] px-4 py-3 text-white transition hover:bg-[#303036] sm:mt-4 sm:px-5"
+        >
+          <span className="min-w-0">
+            <span className="block text-xs font-bold sm:text-sm">Koi sawaal hai? Humse baat karein.</span>
+            <span className="mt-0.5 block text-[10px] text-white/65 sm:text-xs">WhatsApp par seedha message bhejein</span>
+          </span>
+          <span className="shrink-0 rounded-full bg-white px-3 py-2 text-[10px] font-bold text-[#1d1d1f]">WhatsApp ↗</span>
+        </a>
       </div>
     </section>
   );
