@@ -535,9 +535,7 @@ svg {
 .customer-site .glass-card:hover { transform: translate3d(0,-5px,0); background: rgba(255,255,255,.78); border-color: rgba(255,255,255,.96); box-shadow: 0 26px 70px rgba(32,48,82,.12), inset 0 1px 0 #fff; }
 .customer-site header nav { border-color: rgba(255,255,255,.78); background: rgba(255,255,255,.62); box-shadow: 0 12px 44px rgba(36,50,82,.09), inset 0 1px 0 rgba(255,255,255,.95); -webkit-backdrop-filter: blur(28px) saturate(170%); backdrop-filter: blur(28px) saturate(170%); }
 .customer-site #services a,
-.customer-site #why article,
-.customer-site #reviews article,
-.customer-site #reviews > div > div:last-child {
+.customer-site #why article{
   border-color: rgba(255,255,255,.82);
   background: rgba(255,255,255,.57);
   box-shadow: 0 14px 38px rgba(32,48,82,.065), inset 0 1px 0 rgba(255,255,255,.9);
@@ -546,10 +544,7 @@ svg {
   transition: transform .65s cubic-bezier(.2,.8,.2,1), box-shadow .65s cubic-bezier(.2,.8,.2,1), background .45s ease;
 }
 .customer-site #services a:hover,
-.customer-site #why article:hover,
-.customer-site #reviews article:hover { transform: translate3d(0,-5px,0); box-shadow: 0 25px 60px rgba(32,48,82,.12), inset 0 1px 0 #fff; }
-.customer-site #reviews article:first-child { background: linear-gradient(145deg, rgba(16,29,52,.96), rgba(35,49,78,.92)); border-color: rgba(255,255,255,.22); color: white; }
-.customer-site #reviews article:first-child p { color: white; }
+.customer-site #why article:hover{ transform: translate3d(0,-5px,0); box-shadow: 0 25px 60px rgba(32,48,82,.12), inset 0 1px 0 #fff; }
 .customer-site #booking .glass-panel,
 .customer-site #faq .glass-panel { background: rgba(255,255,255,.62); border-color: rgba(255,255,255,.88); box-shadow: 0 24px 75px rgba(36,50,82,.09), inset 0 1px 0 #fff; -webkit-backdrop-filter: blur(26px) saturate(160%); backdrop-filter: blur(26px) saturate(160%); }
 .customer-site #booking input,
@@ -569,20 +564,15 @@ svg {
 .customer-site a:focus-visible, .customer-site button:focus-visible { outline: 3px solid rgba(23,105,210,.55); outline-offset: 4px; }
 @media (max-width: 640px) {
   .customer-site { background-image: radial-gradient(ellipse at 5% 0%, rgba(194,216,255,.36), transparent 38%), linear-gradient(180deg,#f9fbff,#f3f6fb 60%,#fafbff); }
-  .customer-site #services a, .customer-site #why article, .customer-site #reviews article { box-shadow: 0 10px 28px rgba(32,48,82,.06), inset 0 1px 0 rgba(255,255,255,.9); }
-  .customer-site #services a:hover, .customer-site #why article:hover, .customer-site #reviews article:hover { transform: none; }
+  .customer-site #services a, .customer-site #why article{ box-shadow: 0 10px 28px rgba(32,48,82,.06), inset 0 1px 0 rgba(255,255,255,.9); }
+  .customer-site #services a:hover, .customer-site #why article:hover{ transform: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .customer-site *, .customer-site *::before, .customer-site *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
-  .customer-site .glass-card:hover, .customer-site #services a:hover, .customer-site #why article:hover, .customer-site #reviews article:hover { transform: none; }
+  .customer-site .glass-card:hover, .customer-site #services a:hover, .customer-site #why article:hover{ transform: none; }
 }
 
-@keyframes customerQuoteIn {
-  from { opacity: 0; transform: translate3d(0, 12px, 0); filter: blur(4px); }
-  to { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
-}
-.customer-site .customer-review-quote { animation: customerQuoteIn .65s cubic-bezier(.2,.8,.2,1) both; }
-@media (prefers-reduced-motion: reduce) { .customer-site .customer-review-quote { animation: none; } }
+@media (prefers-reduced-motion: reduce) { }
 
 
 /* Award-level customer experience refinements */
@@ -607,37 +597,6 @@ svg {
 .customer-site .customer-service-card.sell {
   background: linear-gradient(135deg, rgba(255,255,255,.82), rgba(230,246,239,.78));
 }
-.customer-site #reviews article:first-child {
-  background: rgba(255,255,255,.85);
-  border-color: rgba(255,255,255,.82);
-  color: #172033;
-}
-.customer-site #reviews article:first-child h3 {
-  color: #172033;
-}
-.customer-site #reviews article:first-child p {
-  color: #475569;
-}
-.customer-site #reviews article:first-child > span:last-child {
-  color: #9aabc0;
-}
-.customer-site #reviews article:first-child > div > span {
-  color: #63748b;
-}
-.customer-site #reviews article:first-child > div > p {
-  color: #475569;
-}
-.customer-site .customer-testimonials {
-  position: relative;
-}
-.customer-site .customer-testimonials::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: radial-gradient(ellipse at 50% 0%, rgba(211,225,250,.42), transparent 62%);
-}
 .customer-site .brand-showcase {
   border-radius: 28px;
   background: rgba(255,255,255,.42);
@@ -653,11 +612,7 @@ svg {
     min-height: 104px;
     border-radius: 20px;
   }
-  .customer-site .customer-testimonials {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
   }
-}
 @media (prefers-reduced-motion: reduce) {
   .customer-site .customer-service-card,
   .customer-site .customer-service-card:hover {
