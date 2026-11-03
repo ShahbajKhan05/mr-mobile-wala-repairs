@@ -19,7 +19,7 @@ const FEATURES = [
 ] as const;
 
 export default function WhyChooseUs() {
-  const { t } = useCustomerLanguage();
+  const { t, language } = useCustomerLanguage();
 
   return (
     <section id="why" aria-labelledby="why-choose-heading" className="glass-page px-3 py-7 sm:px-8 sm:py-10 lg:px-12">
@@ -41,7 +41,7 @@ export default function WhyChooseUs() {
                 <span className="text-[10px] font-bold tabular-nums text-[#b0b2b8]">0{index + 1}</span>
               </div>
               <h3 className="mt-3 text-[13px] font-extrabold leading-tight text-[#202124] sm:text-sm">{t(title)}</h3>
-              <p className="mt-1 text-[10px] font-semibold text-[#1769c2] sm:text-[11px]">{english}</p>
+              <p className="mt-1 text-[10px] font-semibold text-[#1769c2] sm:text-[11px]">{language === "en" ? english : null}</p>
               <p className="mt-2 text-[10px] leading-[1.55] text-[#666a73] sm:text-xs">{t(description)}</p>
               <ArrowUpRight size={14} className="absolute bottom-3 right-3 text-[#a0a3aa] transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#1769c2]" />
             </article>
