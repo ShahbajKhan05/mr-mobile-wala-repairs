@@ -55,9 +55,9 @@ export default function Footer() {
           </p>
 
           <h2 className="text-4xl font-black uppercase leading-[0.95] tracking-[-0.07em] sm:text-6xl md:text-7xl">
-            BUY <span className="font-light text-indigo-400">/</span> SELL
+            {language === "hi" ? "खरीदें" : "BUY"} <span className="font-light text-indigo-400">/</span> {language === "hi" ? "बेचें" : "SELL"}
             <br className="sm:hidden" />{" "}
-            <span className="text-[#765A2B]">/</span> REPAIR
+            <span className="text-[#765A2B]">/</span> {language === "hi" ? "रिपेयर" : "REPAIR"}
           </h2>
 
           <p className="mx-auto mt-4 max-w-xl text-xs leading-6 text-slate-500 sm:mt-7 sm:text-base sm:leading-7">
@@ -175,7 +175,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="flex flex-col items-center justify-between gap-2 border-t border-[#DDD8CE] py-4 text-center sm:flex-row sm:gap-3 sm:py-6">
           <p className="text-[10px] text-[#5E6668] sm:text-xs">
-            © 2026 MR MOBILE WALA REPAIRS. All rights reserved.
+            © 2026 MR MOBILE WALA REPAIRS. {language === "hi" ? "सर्वाधिकार सुरक्षित।" : "All rights reserved."}
           </p>
 
           <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#765A2B]">
