@@ -8,7 +8,7 @@ import { useCustomerLanguage } from "@/components/CustomerLanguageProvider";
 
 const SKETCHFAB_MODEL_ID = "83d09a9b30ad4a6e921305c3b6e396ed";
 const SKETCHFAB_EMBED_URL =
-  `https://sketchfab.com/models/${SKETCHFAB_MODEL_ID}/embed?autostart=1&preload=1&transparent=1&ui_infos=0&ui_controls=1&ui_stop=0&ui_watermark=0`;
+  `https://sketchfab.com/models/${SKETCHFAB_MODEL_ID}/embed?autostart=1&preload=1&ui_controls=1&ui_infos=0&ui_hint=2`;
 
 export default function VideoHero() {
   const { t, language } = useCustomerLanguage();
@@ -136,7 +136,7 @@ export default function VideoHero() {
                   src={SKETCHFAB_EMBED_URL}
                   allow="autoplay; fullscreen; xr-spatial-tracking"
                   allowFullScreen
-                  loading="lazy"
+                  loading="eager"
                   onLoad={() => setModelLoaded(true)}
                   className="absolute inset-0 h-full w-full border-0"
                 />
