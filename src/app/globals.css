@@ -476,3 +476,31 @@ svg {
   .customer-site footer .border-t.py-4,
   .customer-site footer .border-t.py-6 { padding-top: 0.85rem; padding-bottom: 0.85rem; }
 }
+
+
+/* Compact, high-clarity customer homepage sections. */
+.customer-site .customer-secondary-section > section {
+  padding-top: clamp(1.25rem, 3vw, 2.75rem) !important;
+  padding-bottom: clamp(1.25rem, 3vw, 2.75rem) !important;
+}
+
+.customer-site #booking {
+  padding-top: clamp(1.75rem, 4vw, 3.25rem) !important;
+  padding-bottom: clamp(1.75rem, 4vw, 3.25rem) !important;
+}
+
+.customer-site #services {
+  scroll-margin-top: 1rem;
+}
+
+@media (max-width: 640px) {
+  .customer-site .customer-secondary-section > section {
+    padding-left: 0.875rem !important;
+    padding-right: 0.875rem !important;
+  }
+
+  .customer-site #booking {
+    padding-left: 0.875rem !important;
+    padding-right: 0.875rem !important;
+  }
+}
