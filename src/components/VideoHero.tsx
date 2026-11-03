@@ -1,78 +1,56 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { ArrowRight, MessageCircle, ShieldCheck, Smartphone } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowDown, ArrowRight, ArrowUpRight, MessageCircle, ShieldCheck, Smartphone, Sparkles } from "lucide-react";
 import gsap from "gsap";
-import { useCustomerLanguage } from "@/components/CustomerLanguageProvider";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useCustomerLanguage } from "@/components/CustomerLanguageProvider";
+
+const SKETCHFAB_MODEL_ID = "83d09a9b30ad4a6e921305c3b6e396ed";
+const SKETCHFAB_EMBED_URL =
+  `https://sketchfab.com/models/${SKETCHFAB_MODEL_ID}/embed?autostart=1&preload=1&transparent=1&ui_infos=0&ui_controls=1&ui_stop=0&ui_watermark=0`;
 
 export default function VideoHero() {
-  const { t } = useCustomerLanguage();
+  const { t, language } = useCustomerLanguage();
   const heroRef = useRef<HTMLElement>(null);
+  const [modelLoaded, setModelLoaded] = useState(false);
 
   useEffect(() => {
     const root = heroRef.current;
     if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     gsap.registerPlugin(ScrollTrigger);
-    let removePointerListeners = () => {};
     const context = gsap.context(() => {
-      gsap.timeline({ defaults: { ease: "power3.out" } })
-        .from("[data-hero-kicker]", { y: 12, autoAlpha: 0, duration: 0.45 })
-        .from("[data-hero-title]", { y: 24, autoAlpha: 0, duration: 0.65 }, "-=0.2")
-        .from("[data-hero-copy]", { y: 14, autoAlpha: 0, duration: 0.5 }, "-=0.3")
-        .from("[data-hero-actions]", { y: 12, autoAlpha: 0, duration: 0.45 }, "-=0.25")
-        .from("[data-hero-visual]", { y: 24, scale: 0.985, autoAlpha: 0, duration: 0.7 }, "-=0.2");
+      const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
+      intro
+        .from("[data-story-kicker]", { y: 14, autoAlpha: 0, duration: 0.5 })
+        .from("[data-story-title]", { y: 30, autoAlpha: 0, duration: 0.8 }, "-=0.22")
+        .from("[data-story-copy]", { y: 18, autoAlpha: 0, duration: 0.55 }, "-=0.34")
+        .from("[data-story-actions]", { y: 14, autoAlpha: 0, duration: 0.5 }, "-=0.24")
+        .from("[data-story-model]", { y: 32, scale: 0.975, autoAlpha: 0, duration: 0.9 }, "-=0.28");
 
-      gsap.to("[data-hero-visual]", {
-        yPercent: 3,
+      gsap.to("[data-story-glow]", {
+        y: 28,
+        x: -12,
+        duration: 5.5,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+
+      gsap.to("[data-story-model]", {
+        yPercent: 2,
         ease: "none",
         scrollTrigger: {
           trigger: root,
           start: "top top",
           end: "bottom top",
-          scrub: 0.8,
+          scrub: 0.7,
         },
-      });
-
-      const visual = root.querySelector<HTMLElement>(".customer-hero-visual");
-      if (visual && window.matchMedia("(pointer: fine)").matches) {
-        const rotateX = gsap.quickTo(visual, "rotationX", { duration: 0.8, ease: "power3.out" });
-        const rotateY = gsap.quickTo(visual, "rotationY", { duration: 0.8, ease: "power3.out" });
-        const moveX = gsap.quickTo(visual, "x", { duration: 0.9, ease: "power3.out" });
-        const moveY = gsap.quickTo(visual, "y", { duration: 0.9, ease: "power3.out" });
-        const onPointerMove = (event: PointerEvent) => {
-          const bounds = visual.getBoundingClientRect();
-          const x = (event.clientX - bounds.left) / bounds.width - 0.5;
-          const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-          rotateX(y * -3.2);
-          rotateY(x * 4);
-          moveX(x * 3);
-          moveY(y * 2);
-        };
-        const resetTilt = () => { rotateX(0); rotateY(0); moveX(0); moveY(0); };
-        visual.addEventListener("pointermove", onPointerMove);
-        visual.addEventListener("pointerleave", resetTilt);
-        gsap.set(visual, { transformPerspective: 1100, transformOrigin: "50% 50%" });
-        removePointerListeners = () => {
-          visual.removeEventListener("pointermove", onPointerMove);
-          visual.removeEventListener("pointerleave", resetTilt);
-        };
-      }
-
-      gsap.to("[data-hero-orbit]", {
-        rotate: 360,
-        duration: 34,
-        repeat: -1,
-        ease: "none",
-        transformOrigin: "50% 50%",
       });
     }, root);
 
-    return () => {
-      removePointerListeners();
-      context.revert();
-    };
+    return () => context.revert();
   }, []);
 
   const scrollToServices = () => {
@@ -82,86 +60,141 @@ export default function VideoHero() {
     });
   };
 
+  const hi = language === "hi";
+
   return (
     <section
       ref={heroRef}
       aria-labelledby="hero-heading"
-      className="customer-hero relative isolate overflow-hidden px-4 pb-8 pt-[6.2rem] sm:px-8 sm:pb-12 sm:pt-32 lg:px-12"
+      className="customer-hero relative isolate overflow-hidden px-4 pb-10 pt-[6.4rem] sm:px-8 sm:pb-16 sm:pt-36 lg:px-12 lg:pb-20"
     >
-      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[620px] bg-[radial-gradient(ellipse_at_50%_0%,rgba(204,220,255,.72)_0%,rgba(255,255,255,0)_72%)]" />
-      <div aria-hidden="true" className="pointer-events-none absolute -left-28 top-52 -z-10 size-72 rounded-full bg-violet-200/30 blur-[100px]" />
-      <div aria-hidden="true" className="pointer-events-none absolute -right-24 top-64 -z-10 size-72 rounded-full bg-sky-200/35 blur-[100px]" />
-      <div aria-hidden="true" data-hero-orbit className="pointer-events-none absolute left-[calc(50%-390px)] top-[470px] -z-10 hidden size-[780px] rounded-full border border-white/50 lg:block" />
-      <div aria-hidden="true" className="pointer-events-none absolute right-[12%] top-[360px] -z-10 hidden size-24 rounded-full border border-white/65 bg-white/15 shadow-[inset_0_1px_0_rgba(255,255,255,.9),0_12px_40px_rgba(55,85,140,.08)] backdrop-blur-xl lg:block" />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-20 bg-[linear-gradient(180deg,#f8faff_0%,#f3f6fc_55%,#fbfcff_100%)]" />
+      <div aria-hidden="true" className="pointer-events-none absolute -left-32 top-24 -z-10 size-[26rem] rounded-full bg-[#c9dcff]/45 blur-[110px]" />
+      <div aria-hidden="true" data-story-glow className="pointer-events-none absolute -right-28 top-44 -z-10 size-[30rem] rounded-full bg-[#d9d0ff]/45 blur-[120px]" />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-white to-transparent" />
 
-      <div className="mx-auto flex w-full max-w-[1180px] flex-col items-center text-center">
-        <div className="w-full">
-          <p data-hero-kicker className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/55 px-4 py-2 text-[10px] font-bold text-[#555] shadow-[0_8px_30px_rgba(30,50,90,.07)] backdrop-blur-xl sm:text-xs">
-            <span className="size-2 rounded-full bg-[#16a36a]" />
-            {t("heroKicker")}
-          </p>
+      <div className="mx-auto max-w-[1240px]">
+        <div className="grid items-center gap-8 lg:grid-cols-[.88fr_1.12fr] lg:gap-12">
+          <div className="relative z-10 text-center lg:text-left">
+            <p data-story-kicker className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/90 bg-white/65 px-4 py-2 text-[9px] font-extrabold uppercase tracking-[.2em] text-[#31547c] shadow-[0_8px_28px_rgba(32,56,96,.07)] backdrop-blur-2xl sm:text-[10px]">
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-50" />
+                <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
+              </span>
+              {t("heroKicker")}
+            </p>
 
-          <h1
-            id="hero-heading"
-            data-hero-title
-            className="mx-auto max-w-[900px] text-[clamp(2.65rem,7.4vw,6.4rem)] font-semibold leading-[0.94] tracking-[-0.075em] text-[#151923]"
-          >
-            {t("heroTitle")}
-          </h1>
-
-          <p data-hero-copy className="mx-auto mt-4 max-w-2xl text-sm font-medium leading-6 text-[#626b7a] sm:mt-5 sm:text-lg sm:leading-8">
-            {t("heroCopy")}
-          </p>
-
-          <div data-hero-actions className="mt-6 flex flex-col justify-center gap-3 sm:mt-7 sm:flex-row">
-            <button
-              type="button"
-              onClick={scrollToServices}
-              className="customer-hero-primary inline-flex min-h-12 items-center justify-center gap-2 bg-[#1769d2] px-7 text-sm font-bold text-white"
+            <h1
+              id="hero-heading"
+              data-story-title
+              className="mx-auto max-w-[720px] text-[clamp(2.75rem,6.2vw,5.8rem)] font-semibold leading-[.98] tracking-[-.075em] text-[#101827] lg:mx-0"
             >
-              {t("chooseWork")} <ArrowRight size={17} />
-            </button>
-            <a
-              href="https://wa.me/919131383323"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="customer-hero-secondary inline-flex min-h-12 items-center justify-center gap-2 border px-7 text-sm font-bold text-[#222]"
-            >
-              <MessageCircle size={17} /> {t("whatsapp")}
-            </a>
+              {hi ? (
+                <>Phone sirf phone nahi.<br /><span className="bg-gradient-to-r from-[#1769d2] via-[#4779d5] to-[#7b65ca] bg-clip-text text-transparent">Aapki duniya hai.</span></>
+              ) : (
+                <>It’s more than a phone.<br /><span className="bg-gradient-to-r from-[#1769d2] via-[#4779d5] to-[#7b65ca] bg-clip-text text-transparent">It’s your world.</span></>
+              )}
+            </h1>
+
+            <p data-story-copy className="mx-auto mt-5 max-w-[540px] text-sm font-medium leading-7 text-[#667085] sm:text-base sm:leading-8 lg:mx-0">
+              {hi
+                ? "Roz ke har zaroori pal mein aapka phone saath hota hai. Jab use madad chahiye, MR MOBILE WALA REPAIRS aapke saath hai."
+                : "Your phone is part of every important moment. And when it needs a little help, MR MOBILE WALA REPAIRS is here for you."}
+            </p>
+
+            <div data-story-actions className="mt-7 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start">
+              <button
+                type="button"
+                onClick={scrollToServices}
+                className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#1769d2] px-7 text-sm font-bold text-white shadow-[0_14px_34px_rgba(23,105,210,.24)] transition duration-500 hover:-translate-y-1 hover:bg-[#1059b7] hover:shadow-[0_20px_42px_rgba(23,105,210,.3)] active:scale-[.98]"
+              >
+                {t("chooseWork")} <ArrowRight size={17} className="transition-transform duration-300 group-hover:translate-x-1" />
+              </button>
+              <a
+                href="https://wa.me/919131383323"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/90 bg-white/65 px-7 text-sm font-bold text-[#26364b] shadow-[0_8px_28px_rgba(32,56,96,.06)] backdrop-blur-xl transition duration-500 hover:-translate-y-1 hover:bg-white"
+              >
+                <MessageCircle size={17} /> {t("whatsapp")}
+              </a>
+            </div>
+
+            <div className="mt-7 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[10px] font-bold text-[#68778b] sm:text-[11px] lg:justify-start">
+              <span className="inline-flex items-center gap-1.5"><ShieldCheck size={14} className="text-emerald-600" /> {t("easyBooking")}</span>
+              <span className="inline-flex items-center gap-1.5"><Smartphone size={14} className="text-[#1769d2]" /> {t("buySellRepair")}</span>
+            </div>
           </div>
 
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11px] font-semibold text-[#686870]">
-            <span className="inline-flex items-center gap-1.5"><ShieldCheck size={14} className="text-[#16865a]" /> {t("easyBooking")}</span>
-            <span className="inline-flex items-center gap-1.5"><Smartphone size={14} className="text-[#1769d2]" /> {t("buySellRepair")}</span>
+          <div data-story-model className="relative mx-auto w-full max-w-[720px] lg:max-w-none">
+            <div aria-hidden="true" className="pointer-events-none absolute -inset-5 rounded-[36px] bg-gradient-to-br from-white/80 via-[#dce8ff]/50 to-[#e9e2ff]/60 blur-2xl" />
+            <div className="relative overflow-hidden rounded-[26px] border border-white/90 bg-[#e8edf5] p-1.5 shadow-[0_32px_90px_rgba(27,47,83,.16),inset_0_1px_0_rgba(255,255,255,.95)] sm:rounded-[34px] sm:p-2">
+              <div className="relative aspect-[5/4] overflow-hidden rounded-[20px] bg-[radial-gradient(ellipse_at_50%_40%,#fff_0%,#e9eff9_52%,#dce5f2_100%)] sm:rounded-[27px]">
+                <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(ellipse_at_50%_50%,transparent_45%,rgba(30,48,78,.08)_100%)]" />
+                <iframe
+                  title="Interactive 3D model featured by MR MOBILE WALA REPAIRS"
+                  src={SKETCHFAB_EMBED_URL}
+                  allow="autoplay; fullscreen; xr-spatial-tracking"
+                  allowFullScreen
+                  loading="lazy"
+                  onLoad={() => setModelLoaded(true)}
+                  className="absolute inset-0 h-full w-full border-0"
+                />
+                {!modelLoaded && (
+                  <div className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center gap-3 bg-[radial-gradient(ellipse_at_50%_35%,#fff_0%,#e9eff9_58%,#dce5f2_100%)] px-6 text-center">
+                    <div className="flex size-14 items-center justify-center rounded-2xl border border-white bg-white/70 text-[#4774b5] shadow-lg shadow-blue-950/5 backdrop-blur-xl">
+                      <Sparkles size={24} strokeWidth={1.5} />
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-[#24344c]">{hi ? "Aapki nazar, ek naya perspective." : "A closer look, a new perspective."}</p>
+                      <p className="mt-1 text-[10px] font-medium text-[#75839a]">{hi ? "Interactive 3D experience load ho raha hai…" : "Loading interactive 3D experience…"}</p>
+                    </div>
+                  </div>
+                )}
+                <div className="pointer-events-none absolute inset-x-3 bottom-3 z-30 flex items-center justify-between gap-2 sm:inset-x-5 sm:bottom-5">
+                  <span className="inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/70 px-3 py-2 text-[9px] font-bold tracking-wide text-[#31445f] shadow-lg backdrop-blur-xl sm:text-[10px]">
+                    <span className="size-1.5 rounded-full bg-emerald-500" />
+                    {hi ? "INTERACTIVE 3D MODEL" : "INTERACTIVE 3D MODEL"}
+                  </span>
+                  <a
+                    href="https://sketchfab.com/models/83d09a9b30ad4a6e921305c3b6e396ed"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="pointer-events-auto inline-flex items-center gap-1.5 rounded-full border border-white/70 bg-white/75 px-3 py-2 text-[9px] font-bold text-[#31445f] shadow-lg backdrop-blur-xl transition hover:bg-white sm:text-[10px]"
+                  >
+                    {hi ? "3D model dekhein" : "View 3D model"} <ArrowUpRight size={12} />
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="mx-auto mt-4 flex max-w-[560px] items-center justify-center gap-3 text-center text-[10px] font-semibold leading-5 text-[#8290a3] sm:text-[11px]">
+              <ArrowDown size={14} className="shrink-0" />
+              <span>{hi ? "Neeche dekhein — aapke phone ke liye teen simple raaste." : "Scroll down — three simple ways we can help with your phone."}</span>
+            </div>
           </div>
         </div>
 
-        <div data-hero-visual className="relative mx-auto mt-8 w-full max-w-[1050px] sm:mt-10">
-          <div className="customer-hero-visual relative overflow-hidden rounded-[22px] bg-[#e9edf3] sm:rounded-[30px]" style={{ transformStyle: "preserve-3d", willChange: "transform" }}>
-            <div className="relative aspect-[16/8.6] w-full sm:aspect-[16/7.4]">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                aria-label="MR MOBILE WALA REPAIRS"
-                poster="/mr-mobile-wala-logo.png"
-                className="absolute inset-0 h-full w-full object-cover"
-              >
-                <source src="/hero.mp4" type="video/mp4" />
-              </video>
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#071323]/65 via-transparent to-white/5" />
-              <div className="absolute inset-x-4 bottom-3 flex items-end justify-between gap-2 text-left text-white sm:inset-x-7 sm:bottom-6">
-                <div>
-                  <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-white/80">MR MOBILE WALA REPAIRS</p>
-                  <p className="mt-0.5 text-lg font-bold tracking-tight sm:text-2xl">{t("brandTagline")}</p>
-                </div>
-                <span className="rounded-full border border-white/35 bg-white/15 px-3 py-2 text-[9px] font-bold backdrop-blur-xl">REWA, MP</span>
+        <div className="mt-10 grid gap-2.5 border-t border-[#dce4f0]/80 pt-5 sm:mt-14 sm:grid-cols-3 sm:gap-4 sm:pt-7">
+          {(hi
+            ? [
+                { n: "01", title: "Pehle samajhte hain", copy: "Aapki zaroorat aur phone ki problem." },
+                { n: "02", title: "Phir sahi raasta", copy: "Repair, naya phone ya sell karne mein madad." },
+                { n: "03", title: "Aapke saath", copy: "Seedhi baat aur aasaan booking." },
+              ]
+            : [
+                { n: "01", title: "We listen first", copy: "Your needs and your phone’s problem." },
+                { n: "02", title: "Find the right way", copy: "Help with repair, buying or selling." },
+                { n: "03", title: "Here when you need us", copy: "Clear communication and easy booking." },
+              ]
+          ).map((step) => (
+            <div key={step.n} className="flex items-start gap-3 rounded-2xl border border-white/75 bg-white/45 px-4 py-3 backdrop-blur-xl sm:border-transparent sm:bg-transparent sm:px-2">
+              <span className="pt-0.5 text-[10px] font-extrabold tracking-[.14em] text-[#7a91b1]">{step.n}</span>
+              <div>
+                <p className="text-xs font-extrabold text-[#26364b] sm:text-sm">{step.title}</p>
+                <p className="mt-1 text-[10px] leading-4 text-[#7b8798] sm:text-xs">{step.copy}</p>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
