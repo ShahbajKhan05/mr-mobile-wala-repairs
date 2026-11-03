@@ -1,7 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
-import { Quote, MessageCircle } from "lucide-react";
+import { Quote, MessageCircle, ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import { useCustomerLanguage } from "@/components/CustomerLanguageProvider";
 
 const REVIEWS = [
@@ -17,73 +18,70 @@ const WHATSAPP_URL =
 
 export default function Testimonials() {
   const { t } = useCustomerLanguage();
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeReview = REVIEWS[activeIndex];
+  const move = (direction: number) =>
+    setActiveIndex((current) => (current + direction + REVIEWS.length) % REVIEWS.length);
+
   return (
-    <section
-      aria-labelledby="testimonials-heading"
-      className="glass-page px-3 py-7 sm:px-8 sm:py-10 lg:px-12"
-    >
-      <div className="mx-auto max-w-[1180px]">
-        <div className="mb-5 flex flex-col justify-between gap-2 sm:mb-6 sm:flex-row sm:items-end">
-          <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#1769c2] sm:text-xs">
-              {t("testimonialsEyebrow")}
-            </p>
-            <h2 id="testimonials-heading" className="mt-1 text-2xl font-bold tracking-tight text-[#1d1d1f] sm:text-3xl">
-              {t("testimonialsTitle")}
-            </h2>
-            <p className="mt-1 text-xs leading-5 text-[#666] sm:text-sm">
-              {t("testimonialsCopy")}
-            </p>
-          </div>
-          <span className="hidden items-center gap-2 text-[11px] font-semibold text-[#686b73] sm:inline-flex">
-            <MessageCircle size={15} className="text-[#1769c2]" /> {t("feedbackWelcome")}
-          </span>
-        </div>
-
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-2 sm:gap-3 lg:grid-cols-4">
-          {REVIEWS.map((review, index) => (
-            <article
-              key={review.name}
-              className={
-                "relative flex min-h-[150px] flex-col overflow-hidden rounded-2xl border p-3 transition duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(20,35,60,0.09)] sm:min-h-[178px] sm:rounded-3xl sm:p-4 " +
-                (index === 0
-                  ? "border-[#1d1d1f] bg-[#1d1d1f] text-white"
-                  : "border-[#e5e7eb] bg-white text-[#1d1d1f]")
-              }
-            >
-              <div className="flex items-center justify-between">
-                <span className={"flex size-8 items-center justify-center rounded-full text-xs font-extrabold sm:size-9 " + (index === 0 ? "bg-white/15 text-white" : "bg-[#edf3fc] text-[#1769c2]")}>
-                  {review.name.charAt(0).toUpperCase()}
-                </span>
-                <Quote size={19} className={index === 0 ? "text-white/40" : "text-[#1769c2]/35"} />
+    <section aria-labelledby="testimonials-heading" className="customer-testimonials px-3 py-8 sm:px-8 sm:py-12 lg:px-12">
+      <div className="mx-auto max-w-[1320px] rounded-[24px] bg-[#071722] p-2.5 shadow-[0_30px_90px_rgba(8,25,42,.18)] sm:rounded-[34px] sm:p-5">
+        <div className="grid min-h-[390px] overflow-hidden rounded-[18px] bg-[#f8f8f6] sm:min-h-[480px] sm:grid-cols-[.78fr_1.22fr] sm:rounded-[26px]">
+          <div className="relative flex min-h-[170px] flex-col justify-between overflow-hidden bg-[radial-gradient(ellipse_at_25%_20%,rgba(112,145,191,.36),transparent_48%),linear-gradient(145deg,#172d43,#091725)] p-5 text-white sm:min-h-[440px] sm:p-8 lg:p-10">
+            <div aria-hidden="true" className="pointer-events-none absolute -right-20 top-10 size-64 rounded-full border border-white/10" />
+            <div aria-hidden="true" className="pointer-events-none absolute -right-10 top-20 size-44 rounded-full border border-white/10" />
+            <div className="relative flex items-center justify-between">
+              <span className="text-[9px] font-bold uppercase tracking-[.24em] text-white/65 sm:text-[10px]">{t("testimonialsEyebrow")}</span>
+              <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-[9px] font-semibold text-white/80 backdrop-blur-xl">{String(activeIndex + 1).padStart(2, "0")} / 0{REVIEWS.length}</span>
+            </div>
+            <div className="relative mt-7 flex flex-1 items-center justify-center sm:mt-0">
+              <div className="flex size-28 items-center justify-center rounded-full border border-white/25 bg-white/[.08] shadow-[0_20px_70px_rgba(0,0,0,.2)] backdrop-blur-xl sm:size-44">
+                <div className="flex size-[78%] items-center justify-center rounded-full border border-white/20 bg-gradient-to-br from-white/20 to-white/[.03] text-5xl font-light tracking-[-.08em] text-white sm:text-7xl">
+                  {activeReview.name.charAt(0)}
+                </div>
               </div>
-              <p className={"mt-4 flex-1 text-sm font-semibold leading-6 sm:text-base " + (index === 0 ? "text-white" : "text-[#25262a]")}>
-                “{review.review}”
-              </p>
-              <div className={"mt-3 border-t pt-2.5 " + (index === 0 ? "border-white/15" : "border-[#eceef1]")}>
-                <p className="text-xs font-extrabold">{review.name}</p>
-                <p className={"mt-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] " + (index === 0 ? "text-white/55" : "text-[#858993]")}>{t("customerFeedback")}</p>
+            </div>
+            <div className="relative mt-6 flex items-end justify-between gap-3">
+              <div>
+                <p className="text-lg font-semibold tracking-tight sm:text-2xl">{activeReview.name}</p>
+                <p className="mt-1 text-[9px] font-semibold uppercase tracking-[.18em] text-white/55">{t("customerFeedback")}</p>
               </div>
-            </article>
-          ))}
-        </div>
-
-        <div className="mt-3 flex flex-col items-center justify-between gap-3 rounded-2xl border border-[#e5e7eb] bg-white px-3 py-3 sm:mt-4 sm:flex-row sm:px-5">
-          <div className="flex items-center gap-2.5">
-            <span className="flex size-9 items-center justify-center rounded-full bg-[#e8f6ef] text-[#218653]"><MessageCircle size={17} /></span>
-            <div>
-              <p className="text-xs font-bold text-[#222] sm:text-sm">{t("experience")}</p>
-              <p className="text-[10px] text-[#666] sm:text-xs">{t("tellFeedback")}</p>
+              <Quote size={34} strokeWidth={1} className="text-white/25 sm:size-11" />
             </div>
           </div>
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-xl bg-[#1769d2] px-5 text-xs font-bold text-white transition hover:bg-[#0d58b8] sm:w-auto"
-          >
-            <WhatsAppIcon size={16} />
-            {t("sendFeedback")}
+
+          <div className="flex flex-col justify-between p-5 sm:p-8 lg:p-12 xl:p-14">
+            <div>
+              <p className="text-[9px] font-bold uppercase tracking-[.22em] text-[#63748b] sm:text-[10px]">{t("testimonialsTitle")}</p>
+              <h2 id="testimonials-heading" aria-live="polite" className="mt-5 min-h-[130px] font-serif text-[clamp(2rem,4.4vw,4.25rem)] leading-[1.04] tracking-[-.045em] text-[#111827] sm:mt-7 sm:min-h-[220px]">
+                “{activeReview.review}”
+              </h2>
+              <p className="mt-4 max-w-md text-xs leading-6 text-[#77808b] sm:text-sm">{t("testimonialsCopy")}</p>
+            </div>
+
+            <div className="mt-8 flex items-center justify-between gap-3 rounded-2xl border border-white bg-white/70 p-3 shadow-[0_12px_35px_rgba(18,35,60,.06)] backdrop-blur-xl sm:mt-10 sm:p-4">
+              <div className="min-w-0">
+                <p className="truncate text-xs font-bold text-[#172033] sm:text-sm">{activeReview.name}</p>
+                <p className="mt-1 text-[9px] font-semibold uppercase tracking-[.13em] text-[#89919c]">{t("customerFeedback")}</p>
+              </div>
+              <div className="flex shrink-0 items-center gap-2">
+                <button type="button" onClick={() => move(-1)} aria-label="Previous customer review" className="flex size-10 items-center justify-center rounded-full border border-[#e8ebf0] bg-white text-[#46536a] transition duration-300 hover:-translate-y-0.5 hover:bg-[#edf3fb] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">
+                  <ChevronLeft size={18} />
+                </button>
+                <button type="button" onClick={() => move(1)} aria-label="Next customer review" className="flex size-10 items-center justify-center rounded-full border border-[#e8ebf0] bg-white text-[#46536a] transition duration-300 hover:-translate-y-0.5 hover:bg-[#edf3fb] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">
+                  <ChevronRight size={18} />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center justify-between gap-3 px-2 py-4 text-white sm:flex-row sm:px-3 sm:py-5">
+          <div className="flex items-center gap-2 text-[10px] font-semibold text-white/65 sm:text-xs">
+            <MessageCircle size={15} /> {t("feedbackWelcome")}
+          </div>
+          <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 text-xs font-bold text-white backdrop-blur-xl transition duration-500 hover:-translate-y-0.5 hover:bg-white/20 sm:w-auto">
+            <WhatsAppIcon size={16} /> {t("sendFeedback")} <ArrowUpRight size={14} />
           </a>
         </div>
       </div>
