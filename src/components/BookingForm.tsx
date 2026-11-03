@@ -49,6 +49,10 @@ const PRICES = [
   "Not Sure",
 ];
 
+const OPTION_LABELS_HI: Record<string, string> = {
+  "Under ₹5,000": "₹5,000 से कम", "₹5k – ₹10k": "₹5,000 – ₹10,000", "₹10k – ₹20k": "₹10,000 – ₹20,000", "₹20k – ₹35k": "₹20,000 – ₹35,000", "₹35k – ₹50k": "₹35,000 – ₹50,000", "Above ₹50k": "₹50,000 से ज़्यादा", "₹20k – ₹30k": "₹20,000 – ₹30,000", "Above ₹30k": "₹30,000 से ज़्यादा", "Like New": "बिल्कुल नया जैसा", Good: "अच्छी हालत", Average: "सामान्य हालत", Damaged: "टूटा / खराब", "Not Sure": "पता नहीं", Other: "अन्य", Display: "डिस्प्ले", Battery: "बैटरी", Charging: "चार्जिंग", Speaker: "स्पीकर", Microphone: "माइक", Camera: "कैमरा", Network: "नेटवर्क", Software: "सॉफ्टवेयर", "Water Damage": "पानी से खराब", "Power / Dead": "फोन चालू नहीं होता", Touch: "टच"
+};
+
 const inputClass =
   "glass-input h-[52px] w-full appearance-none rounded-xl px-4 pr-10 text-sm text-slate-800 outline-none transition focus:ring-4 focus:ring-indigo-500/10";
 
@@ -57,6 +61,7 @@ const labelClass =
 
 export default function BookingForm({ initialService = "Repair Mobile" }: BookingFormProps) {
   const { t, language } = useCustomerLanguage();
+  const optionLabel = (value: string) => language === "hi" ? OPTION_LABELS_HI[value] || value : value;
   const [bookingType, setBookingType] = useState<BookingType>(initialService);
 
   const [name, setName] = useState("");
@@ -257,7 +262,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
                 >
                   <option value="">{t("selectBrand")}</option>
                   {BRANDS.map((item) => (
-                    <option key={item} value={item}>{item}</option>
+                    <option key={item} value={item}>{optionLabel(item)}</option>
                   ))}
                 </select>
                 <ChevronDown className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#5E6668]" size={16} />
@@ -285,7 +290,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
                     className={inputClass}
                     required
                   >
-                    <option value="">Choose your {brand} model</option>
+                    <option value="">{t("chooseModel")}</option>
                     {modelOptions.map((item) => (
                       <option key={item} value={item}>{item}</option>
                     ))}
@@ -339,7 +344,7 @@ export default function BookingForm({ initialService = "Repair Mobile" }: Bookin
                             : "border-[#EAE8E2] bg-white text-[#59636A] hover:border-[#B69A69]"
                         }`}
                       >
-                        {item}
+                        {optionLabel(item)}
                       </button>
                     );
                   })}
