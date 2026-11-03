@@ -58,7 +58,7 @@ export default function Testimonials() {
                 <Quote size={19} className={index === 0 ? "text-white/40" : "text-[#1769c2]/35"} />
               </div>
               <p className={"mt-4 flex-1 text-sm font-semibold leading-6 sm:text-base " + (index === 0 ? "text-white" : "text-[#25262a]")}>
-                “{language === "hi" ? (review.name === "Sajid" ? "बढ़िया सर्विस है।" : review.name === "Arbaj" ? "बहुत अच्छी सेवा!" : review.name === "Arish" ? "नाम ही नहीं, काम भी शानदार है।" : "बहुत बढ़िया सेवा।") : review.review}”
+                “{review.review}”
               </p>
               <div className={"mt-3 border-t pt-2.5 " + (index === 0 ? "border-white/15" : "border-[#eceef1]")}>
                 <p className="text-xs font-extrabold">{review.name}</p>
