@@ -1,5 +1,5 @@
 import WhatsAppIcon from "@/components/WhatsAppIcon";
-import { Quote } from "lucide-react";
+import { Quote, MessageCircle } from "lucide-react";
 
 const REVIEWS = [
   { name: "Sajid", review: "Badhiya service hai." },
@@ -16,61 +16,70 @@ export default function Testimonials() {
   return (
     <section
       aria-labelledby="testimonials-heading"
-      className="glass-page px-4 py-10 sm:px-8 sm:py-20 lg:px-12 lg:py-24"
+      className="glass-page px-3 py-7 sm:px-8 sm:py-10 lg:px-12"
     >
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-6 text-center sm:mb-12">
-          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.3em] text-indigo-600">
-            Your Experience Matters
-          </p>
-          <h2
-            id="testimonials-heading"
-            className="text-3xl font-semibold tracking-[-0.05em] text-slate-900 sm:text-5xl"
-          >
-            What Customers <span className="font-serif font-normal italic text-[#765A2B]">Say</span>
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-slate-500">
-            हमारे ग्राहकों का भरोसा और प्यार ही हमारी पहचान है।
-          </p>
+      <div className="mx-auto max-w-[1180px]">
+        <div className="mb-5 flex flex-col justify-between gap-2 sm:mb-6 sm:flex-row sm:items-end">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#1769c2] sm:text-xs">
+              Asli log, unki apni baat
+            </p>
+            <h2 id="testimonials-heading" className="mt-1 text-2xl font-bold tracking-tight text-[#1d1d1f] sm:text-3xl">
+              Customers kya kehte hain?
+            </h2>
+            <p className="mt-1 text-xs leading-5 text-[#666] sm:text-sm">
+              Hamare customers ke chhote se feedback.
+            </p>
+          </div>
+          <span className="hidden items-center gap-2 text-[11px] font-semibold text-[#686b73] sm:inline-flex">
+            <MessageCircle size={15} className="text-[#1769c2]" /> Aapka feedback bhi welcome hai
+          </span>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-2 sm:gap-3 lg:grid-cols-4">
           {REVIEWS.map((review, index) => (
             <article
               key={review.name}
-              className="glass-card group relative flex min-h-[180px] flex-col rounded-[20px] border border-white/80 bg-white/55 p-6 shadow-[0_12px_40px_rgba(32,43,50,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(32,43,50,0.10)]"
+              className={
+                "relative flex min-h-[150px] flex-col overflow-hidden rounded-2xl border p-3 transition duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(20,35,60,0.09)] sm:min-h-[178px] sm:rounded-3xl sm:p-4 " +
+                (index === 0
+                  ? "border-[#1d1d1f] bg-[#1d1d1f] text-white"
+                  : "border-[#e5e7eb] bg-white text-[#1d1d1f]")
+              }
             >
               <div className="flex items-center justify-between">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[#E9E5DC] bg-white/80 font-serif text-lg font-semibold text-[#765A2B]">
+                <span className={"flex size-8 items-center justify-center rounded-full text-xs font-extrabold sm:size-9 " + (index === 0 ? "bg-white/15 text-white" : "bg-[#edf3fc] text-[#1769c2]")}>
                   {review.name.charAt(0).toUpperCase()}
-                </div>
-                <span className="text-[10px] font-semibold tracking-[0.18em] text-slate-400">
-                  REVIEW 0{index + 1}
                 </span>
+                <Quote size={19} className={index === 0 ? "text-white/40" : "text-[#1769c2]/35"} />
               </div>
-              <Quote size={20} className="mt-6 text-[#B69A69]" />
-              <p className="mt-2 flex-1 text-base font-medium leading-7 text-slate-800">
+              <p className={"mt-4 flex-1 text-sm font-semibold leading-6 sm:text-base " + (index === 0 ? "text-white" : "text-[#25262a]")}>
                 “{review.review}”
               </p>
-              <div className="mt-5 border-t border-slate-200/70 pt-4">
-                <p className="text-sm font-bold text-slate-900">{review.name}</p>
-                <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-indigo-600">
-                  Customer Feedback
-                </p>
+              <div className={"mt-3 border-t pt-2.5 " + (index === 0 ? "border-white/15" : "border-[#eceef1]")}>
+                <p className="text-xs font-extrabold">{review.name}</p>
+                <p className={"mt-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] " + (index === 0 ? "text-white/55" : "text-[#858993]")}>Customer feedback</p>
               </div>
             </article>
           ))}
         </div>
 
-        <div className="mt-6 text-center">
+        <div className="mt-3 flex flex-col items-center justify-between gap-3 rounded-2xl border border-[#e5e7eb] bg-white px-3 py-3 sm:mt-4 sm:flex-row sm:px-5">
+          <div className="flex items-center gap-2.5">
+            <span className="flex size-9 items-center justify-center rounded-full bg-[#e8f6ef] text-[#218653]"><MessageCircle size={17} /></span>
+            <div>
+              <p className="text-xs font-bold text-[#222] sm:text-sm">Aapka experience kaisa raha?</p>
+              <p className="text-[10px] text-[#666] sm:text-xs">Apni rai humein WhatsApp par batayein.</p>
+            </div>
+          </div>
           <a
             href={WHATSAPP_URL}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-xs font-bold uppercase tracking-[0.14em] text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-indigo-600 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
+            className="inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-xl bg-[#1769d2] px-5 text-xs font-bold text-white transition hover:bg-[#0d58b8] sm:w-auto"
           >
             <WhatsAppIcon size={16} />
-            Share Your Feedback
+            Feedback bhejein
           </a>
         </div>
       </div>
