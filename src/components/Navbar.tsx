@@ -91,7 +91,7 @@ export default function Navbar() {
                   <button
                     type="button"
                     disabled
-                    title={`${item.label} - {language === "hi" ? "जल्द आ रहा है" : "Coming Soon"}`}
+                    title={`${navLabel(item.label)} - ${language === "hi" ? "जल्द आ रहा है" : "Coming Soon"}`}
                     className="flex cursor-not-allowed items-center gap-1.5 rounded-full px-3 py-3 text-[12px] font-semibold text-[#92928b]"
                   >
                     {item.label}
@@ -227,7 +227,7 @@ export default function Navbar() {
                 <div key={item.label}>
                   {item.comingSoon ? (
                     <div className="flex min-h-[49px] items-center justify-between rounded-xl px-3 text-sm font-semibold text-[#92928b]">
-                      {item.label}
+                      {navLabel(item.label)}
                       <span className="rounded-full bg-[#f3f2ee] px-2 py-1 text-[9px] font-bold uppercase tracking-wide text-[#85857e]">
                         Coming Soon
                       </span>
