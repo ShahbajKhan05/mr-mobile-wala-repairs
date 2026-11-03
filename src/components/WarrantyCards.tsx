@@ -91,7 +91,7 @@ export default function WarrantyCards() {
             <div className="divide-y divide-slate-100">
               {paidJobs.map((job) => {
                 const warranty = getWarrantyDetails(job.paymentStatus, job.paidAt);
-                const active = isWarrantyActive(warranty.endDate);
+                const active = isWarrantyActive(warranty.endDate, new Date(), warranty.expiresAt);
                 return <article key={job.id} className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
                   <div className="flex min-w-0 items-start gap-3">
                     <span className="rounded-xl bg-indigo-50 p-3 text-indigo-700"><Smartphone size={20} /></span>

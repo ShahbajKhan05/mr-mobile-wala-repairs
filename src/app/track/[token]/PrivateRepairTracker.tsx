@@ -14,7 +14,6 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { formatWarrantyDate } from "@/lib/warranty";
-import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 type TrackingJob = {
   jobNumber: string;
