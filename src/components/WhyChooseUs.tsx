@@ -1,3 +1,4 @@
+import { useCustomerLanguage } from "@/components/CustomerLanguageProvider";
 import {
   ShieldCheck,
   Wrench,
@@ -10,42 +11,43 @@ import {
 const FEATURES = [
   {
     icon: ShieldCheck,
-    title: "Bharose ke saath",
+    title: "{t("trust")}",
     english: "Service you can trust",
-    description: "Aapke phone ko dhyan se handle karte hain.",
+    description: "{t("trustDesc")}",
     tone: "bg-[#eaf2ff] text-[#1769c2]",
   },
   {
     icon: Wrench,
-    title: "Phone ki sahi repair",
+    title: "{t("rightRepair")}",
     english: "Repair made simple",
-    description: "Problem samjhein, phir repair ka raasta chunein.",
+    description: "{t("rightRepairDesc")}",
     tone: "bg-[#f0edff] text-[#7253c6]",
   },
   {
     icon: Wallet,
-    title: "Saaf aur sahi daam",
+    title: "{t("fairPrice")}",
     english: "Clear pricing",
-    description: "Kaam shuru karne se pehle estimate samjhein.",
+    description: "{t("fairPriceDesc")}",
     tone: "bg-[#e8f6ef] text-[#27845b]",
   },
   {
     icon: BadgeCheck,
-    title: "Achhe phone ke options",
+    title: "{t("phoneOptions")}",
     english: "Buy with confidence",
-    description: "Phone kharidne ya bechne mein madad paayein.",
+    description: "{t("phoneOptionsDesc")}",
     tone: "bg-[#fff3e5] text-[#b56b1c]",
   },
   {
     icon: Headset,
-    title: "Madad paas hi hai",
+    title: "{t("nearbyHelp")}",
     english: "We're easy to reach",
-    description: "Sawaal ho to seedha WhatsApp par baat karein.",
+    description: "{t("nearbyHelpDesc")}",
     tone: "bg-[#e9f5f8] text-[#26778a]",
   },
 ];
 
 export default function WhyChooseUs() {
+  const { t } = useCustomerLanguage();
   return (
     <section
       id="why"
@@ -56,13 +58,13 @@ export default function WhyChooseUs() {
         <div className="mb-5 grid gap-2 sm:mb-6 sm:grid-cols-[1fr_auto] sm:items-end">
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#1769c2] sm:text-xs">
-              Aapka phone, hamari zimmedari
+              {t("whyEyebrow")}
             </p>
             <h2 id="why-choose-heading" className="mt-1 text-2xl font-bold tracking-tight text-[#1d1d1f] sm:text-3xl">
-              Humein kyun chunein?
+              {t("whyTitle")}
             </h2>
             <p className="mt-1 max-w-xl text-xs leading-5 text-[#666] sm:text-sm">
-              Seedhi baat, saaf jaankari aur zaroorat par madad.
+              {t("whyCopy")}
             </p>
           </div>
           <span className="hidden rounded-full border border-[#e5e7eb] bg-white px-3 py-2 text-[11px] font-semibold text-[#555] sm:inline-flex">
@@ -97,8 +99,8 @@ export default function WhyChooseUs() {
           className="mt-3 flex min-h-12 items-center justify-between gap-3 rounded-2xl bg-[#1d1d1f] px-4 py-3 text-white transition hover:bg-[#303036] sm:mt-4 sm:px-5"
         >
           <span className="min-w-0">
-            <span className="block text-xs font-bold sm:text-sm">Koi sawaal hai? Humse baat karein.</span>
-            <span className="mt-0.5 block text-[10px] text-white/65 sm:text-xs">WhatsApp par seedha message bhejein</span>
+            <span className="block text-xs font-bold sm:text-sm">{t("question")}</span>
+            <span className="mt-0.5 block text-[10px] text-white/65 sm:text-xs">{t("directWhatsapp")}</span>
           </span>
           <span className="shrink-0 rounded-full bg-white px-3 py-2 text-[10px] font-bold text-[#1d1d1f]">WhatsApp ↗</span>
         </a>
