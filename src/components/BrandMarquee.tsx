@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { useCustomerLanguage } from "@/components/CustomerLanguageProvider";
 
 const BRANDS = [
   { name: "Apple", src: "/brands/apple.svg", width: 48, height: 48 },
@@ -38,6 +39,7 @@ function BrandSequence({ duplicate = false }: { duplicate?: boolean }) {
 }
 
 export default function BrandMarquee() {
+  const { t } = useCustomerLanguage();
   const viewportRef = useRef<HTMLDivElement>(null);
   const [isInView, setIsInView] = useState(false);
 
@@ -65,18 +67,18 @@ export default function BrandMarquee() {
       <div className="mx-auto mb-6 flex max-w-7xl flex-col items-center justify-center gap-3 px-5 text-center sm:mb-7 sm:px-8 lg:px-12">
         <div className="flex flex-col items-center text-center">
           <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-indigo-600 sm:text-[11px]">
-            Trusted technology brands
+            {t("brandEyebrow")}
           </p>
 
           <h2
             id="brands-title"
             className="text-xl font-semibold tracking-[-0.04em] text-slate-900 sm:text-2xl"
           >
-            Find your next favourite.
+            {t("brandTitle")}
           </h2>
 
           <p className="mt-1 text-xs leading-5 text-slate-500 sm:text-sm">
-            Explore brands for every style and budget.
+            {t("brandCopy")}
           </p>
         </div>
 
@@ -109,7 +111,7 @@ export default function BrandMarquee() {
         />
 
         <p className="text-[11px] text-[#6e6e73] sm:text-xs">
-          Multiple brands. More ways to find your fit.
+          {t("brandFooter")}
         </p>
       </div>
 
