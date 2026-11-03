@@ -57,16 +57,16 @@ export default function VideoHero() {
             data-hero-title
             className="text-[clamp(2.5rem,8vw,6.5rem)] font-black leading-[0.94] tracking-[-0.075em] text-slate-950"
           >
-            Your phone.
+            MR MOBILE WALA
             <br />
             <span className="bg-gradient-to-r from-indigo-700 via-violet-600 to-fuchsia-600 bg-clip-text text-transparent">
-              Our passion.
+              REPAIRS.
             </span>
           </h1>
 
           <p data-hero-copy className="mx-auto mt-5 max-w-xl text-sm leading-7 text-slate-600 sm:mt-7 sm:text-base sm:leading-8 lg:mx-0">
-            Buy, sell or repair — give your phone the attention it deserves.
-            Honest guidance, careful service and personal support, all in one place.
+            Your phone, our passion. Buy, sell or repair with honest guidance,
+            careful service and personal support — all in one place.
           </p>
 
           <div data-hero-actions className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start">
