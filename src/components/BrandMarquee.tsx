@@ -158,8 +158,9 @@ export default function BrandMarquee() {
         /* Preserve original SVG colours */
         .brand-showcase__logo {
           display: block;
-          width: 88px;
+          width: auto;
           height: 30px;
+          max-width: 88px;
           object-fit: contain;
           opacity: 1;
           filter: none;
@@ -209,8 +210,9 @@ export default function BrandMarquee() {
           }
 
           .brand-showcase__logo {
-            width: 112px;
+            width: auto;
             height: 36px;
+            max-width: 112px;
           }
         }
 
@@ -226,8 +228,9 @@ export default function BrandMarquee() {
           }
 
           .brand-showcase__logo {
-            width: 120px;
+            width: auto;
             height: 40px;
+            max-width: 120px;
           }
         }
 
