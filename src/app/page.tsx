@@ -34,8 +34,28 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         ? "Sell Mobile"
         : "Repair Mobile";
 
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "MR MOBILE WALA REPAIRS",
+    url: "https://mr-mobile-wala-repairs.vercel.app",
+    telephone: "+919131383323",
+    description:
+      "Mobile phone repair, buying and selling enquiries in Rewa, Madhya Pradesh.",
+    areaServed: {
+      "@type": "City",
+      name: "Rewa",
+      containedInPlace: {
+        "@type": "State",
+        name: "Madhya Pradesh",
+      },
+    },
+    sameAs: ["https://instagram.com/mrmobilewala.2.0"],
+  };
+
   return (
     <div className="customer-site min-h-screen overflow-x-clip bg-white pb-20 text-[#1d1d1f] sm:pb-0">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
       <Navbar />
       <CustomerMotion>
         <main>
