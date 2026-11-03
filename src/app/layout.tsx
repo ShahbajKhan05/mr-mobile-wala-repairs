@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import IntroLoader from "@/components/IntroLoader";
+import { CustomerLanguageProvider } from "@/components/CustomerLanguageProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -43,12 +44,7 @@ export const metadata: Metadata = {
     description:
       "Mobile phone repair, buying and selling enquiries in Rewa, Madhya Pradesh.",
     locale: "en_IN",
-    images: [
-      {
-        url: logoUrl,
-        alt: "MR MOBILE WALA REPAIRS logo",
-      },
-    ],
+    images: [{ url: logoUrl, alt: "MR MOBILE WALA REPAIRS logo" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -82,11 +78,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth">
+    <html lang="hi" data-scroll-behavior="smooth">
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-[#f6f8ff] font-sans text-slate-800 antialiased`}
       >
-        {children}
+        <CustomerLanguageProvider>{children}</CustomerLanguageProvider>
         <IntroLoader />
       </body>
     </html>
