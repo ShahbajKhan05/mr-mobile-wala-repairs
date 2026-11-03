@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowUpRight, MessageCircle } from "lucide-react";
+import { useCustomerLanguage } from "@/components/CustomerLanguageProvider";
 
-export default function MobileQuickActions() {
+export default function MobileQuickActions() {\n  const { t } = useCustomerLanguage();
   const [isBookingVisible, setIsBookingVisible] = useState(false);
 
   useEffect(() => {
