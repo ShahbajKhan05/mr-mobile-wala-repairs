@@ -34,7 +34,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         : "Repair Mobile";
 
   return (
-    <div className="min-h-screen overflow-x-clip pb-20 glass-page text-slate-800 sm:pb-0">
+    <div className="customer-site min-h-screen overflow-x-clip bg-white pb-20 text-[#1d1d1f] sm:pb-0">
       <Navbar />
       <CustomerMotion>
         <main>
