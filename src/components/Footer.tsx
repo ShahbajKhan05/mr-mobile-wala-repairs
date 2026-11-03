@@ -1,5 +1,8 @@
+"use client";
+
 
 import WhatsAppIcon from "@/components/WhatsAppIcon";
+import { useCustomerLanguage } from "@/components/CustomerLanguageProvider";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -37,6 +40,7 @@ const FOOTER_GROUPS = [
 ];
 
 export default function Footer() {
+  const { t, language } = useCustomerLanguage();
   return (
     <footer className="glass-panel relative overflow-hidden border-t border-white/70 bg-white/45 text-slate-800">
       {/* Decorative background */}
@@ -47,7 +51,7 @@ export default function Footer() {
         {/* Brand statement */}
         <div className="border-b border-white/70 py-8 text-center sm:py-20">
           <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.4em] text-indigo-600 sm:mb-5 sm:text-xs">
-            The Mobile Experience
+            {language === "hi" ? "मोबाइल की पूरी सुविधा" : "The Mobile Experience"}
           </p>
 
           <h2 className="text-4xl font-black uppercase leading-[0.95] tracking-[-0.07em] sm:text-6xl md:text-7xl">
@@ -57,8 +61,7 @@ export default function Footer() {
           </h2>
 
           <p className="mx-auto mt-4 max-w-xl text-xs leading-6 text-slate-500 sm:mt-7 sm:text-base sm:leading-7">
-            At MR MOBILE WALA REPAIRS, anything phone related. Walk in with a
-            question, walk out with confidence.
+            {language === "hi" ? "MR MOBILE WALA REPAIRS पर मोबाइल से जुड़ी हर मदद पाएँ। सवाल लेकर आएँ और भरोसे के साथ जाएँ।" : "At MR MOBILE WALA REPAIRS, anything phone related. Walk in with a question, walk out with confidence."}
           </p>
         </div>
 
@@ -82,8 +85,7 @@ export default function Footer() {
             </Link>
 
             <p className="mt-3 max-w-xs text-xs leading-6 text-[#626B70] sm:mt-5 sm:text-sm sm:leading-7">
-              Your trusted destination for mobile buying, selling and
-              professional repair services.
+              {t("footerDescription")}
             </p>
 
             <div className="mt-4 flex items-center gap-3 sm:mt-7">
@@ -119,7 +121,7 @@ export default function Footer() {
 
           {/* Navigation groups */}
           {FOOTER_GROUPS.map((group) => (
-            <div key={group.title} className="min-w-0">
+            <div key={language === "hi" ? (group.title === "Explore" ? t("footerExplore") : group.title === "Visit & Connect" ? t("footerVisit") : t("footerInfo")) : group.title} className="min-w-0">
               <h3 className="mb-3 text-[10px] font-bold uppercase tracking-[0.13em] text-[#765A2B] sm:mb-6 sm:text-xs sm:tracking-[0.2em]">
                 {group.title}
               </h3>
@@ -131,7 +133,7 @@ export default function Footer() {
                       href={link.href}
                       className="group inline-flex items-center gap-1 text-[11px] font-medium leading-5 text-slate-500 transition-colors duration-200 hover:text-[#765A2B] sm:text-sm"
                     >
-                      {link.label}
+                      {language === "hi" ? (link.label === "Home" ? t("home") : link.label === "Repair Services" ? t("services") : link.label === "Track Repair" ? t("track") : link.label === "Book a Service" ? t("book") : link.label === "WhatsApp Support" ? "WhatsApp सहायता" : link.label === "Admin Login" ? "एडमिन लॉगिन" : link.label === "Privacy Policy" ? "गोपनीयता नीति" : "नियम और शर्तें") : link.label}
                       <ArrowUpRight
                         size={13}
                         className="hidden opacity-0 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100 sm:block"
@@ -149,12 +151,12 @@ export default function Footer() {
           <div className="flex flex-col items-center gap-2.5 text-[10px] text-slate-500 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-6 sm:gap-y-3 sm:text-xs">
             <span className="inline-flex items-center gap-2">
               <ShieldCheck size={15} className="shrink-0 text-[#765A2B]" />
-              Customer focused service
+              {t("footerTrust")}
             </span>
 
             <span className="inline-flex items-center gap-2">
               <FileText size={15} className="shrink-0 text-[#765A2B]" />
-              Transparent service details
+              {t("footerDetails")}
             </span>
           </div>
 
@@ -165,7 +167,7 @@ export default function Footer() {
             className="inline-flex items-center gap-2 text-xs font-semibold text-[#202B32] transition-colors hover:text-[#765A2B]"
           >
             <WhatsAppIcon size={16} />
-            Get in touch
+            {t("getInTouch")}
             <ArrowUpRight size={13} />
           </a>
         </div>
