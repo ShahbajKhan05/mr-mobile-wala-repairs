@@ -94,7 +94,7 @@ export default function Navbar() {
                     title={`${navLabel(item.label)} - ${language === "hi" ? "जल्द आ रहा है" : "Coming Soon"}`}
                     className="flex cursor-not-allowed items-center gap-1.5 rounded-full px-3 py-3 text-[12px] font-semibold text-[#92928b]"
                   >
-                    {item.label}
+                    {navLabel(item.label)}
                     <span className="rounded-full bg-[#f1f0ec] px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wide text-[#85857e]">
                       Soon
                     </span>
@@ -108,7 +108,7 @@ export default function Navbar() {
                         : "text-slate-600 hover:bg-white/80 hover:text-indigo-700"
                     }`}
                   >
-                    {item.label}
+                    {navLabel(item.label)}
                   </Link>
                 )}
               </div>
@@ -224,7 +224,7 @@ export default function Navbar() {
 
             <div className="space-y-1">
               {NAV_LINKS.map((item) => (
-                <div key={item.label}>
+                <div key={navLabel(item.label)}>
                   {item.comingSoon ? (
                     <div className="flex min-h-[49px] items-center justify-between rounded-xl px-3 text-sm font-semibold text-[#92928b]">
                       {navLabel(item.label)}
@@ -238,7 +238,7 @@ export default function Navbar() {
                       onClick={() => setIsOpen(false)}
                       className="flex min-h-[49px] items-center justify-between rounded-xl px-3 text-sm font-semibold text-[#33332e] hover:bg-[#f7f7f4]"
                     >
-                      {item.label}
+                      {navLabel(item.label)}
                       <ArrowUpRight size={15} />
                     </Link>
                   )}
