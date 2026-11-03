@@ -29,7 +29,6 @@ function BrandSequence({ duplicate = false }: { duplicate?: boolean }) {
             height={brand.height}
             sizes="(max-width: 639px) 88px, (max-width: 1023px) 112px, 120px"
             className="brand-showcase__logo"
-            style={{ width: "auto", height: "auto" }}
             draggable={false}
           />
         </li>
@@ -157,10 +156,8 @@ export default function BrandMarquee() {
         /* Preserve original SVG colours */
         .brand-showcase__logo {
           display: block;
-          width: auto;
-          max-width: 88px;
-          height: auto;
-          max-height: 30px;
+          width: 88px;
+          height: 30px;
           object-fit: contain;
           opacity: 1;
           filter: none;
@@ -210,8 +207,8 @@ export default function BrandMarquee() {
           }
 
           .brand-showcase__logo {
-            max-width: 112px;
-            max-height: 36px;
+            width: 112px;
+            height: 36px;
           }
         }
 
@@ -227,8 +224,8 @@ export default function BrandMarquee() {
           }
 
           .brand-showcase__logo {
-            max-width: 120px;
-            max-height: 40px;
+            width: 120px;
+            height: 40px;
           }
         }
 
