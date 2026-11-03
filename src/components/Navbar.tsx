@@ -4,7 +4,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
-import WhatsAppIcon from "@/components/WhatsAppIcon";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -12,8 +11,6 @@ import {
   Menu,
   Store,
   X,
-  Instagram,
-  Mail,
 } from "lucide-react";
 
 const NAV_LINKS = [
@@ -44,8 +41,27 @@ const SOCIAL_LINKS = [
 
 function SocialIcon({ icon, size = 22 }: { icon: string; size?: number }) {
   if (icon === "whatsapp") return <WhatsAppIcon size={size} />;
-  if (icon === "instagram") return <Instagram size={size} strokeWidth={1.8} aria-hidden="true" />;
-  return <Mail size={size} strokeWidth={1.8} aria-hidden="true" />;
+
+  if (icon === "instagram") {
+    return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"
+        strokeLinejoin="round" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="5" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"
+      strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m3 7 9 6 9-6" />
+    </svg>
+  );
 }
 
 export default function Navbar() {
