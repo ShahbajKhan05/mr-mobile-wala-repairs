@@ -46,6 +46,15 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSocialOpen, setIsSocialOpen] = useState(false);
 
+  const navLabel = (label: string) => {
+    if (label === "Home") return t("home");
+    if (label === "Services") return t("services");
+    if (label === "Track Repair") return t("track");
+    if (label === "Warranty Card") return t("warranty");
+    if (label === "Contact") return t("contact");
+    return label;
+  };
+
   if (pathname?.startsWith("/admin") && pathname !== "/admin-login") {
     return null;
   }
@@ -77,12 +86,12 @@ export default function Navbar() {
             const active = pathname === item.href;
 
             return (
-              <div key={item.label} className="group relative">
+              <div key={navLabel(item.label)} className="group relative">
                 {item.comingSoon ? (
                   <button
                     type="button"
                     disabled
-                    title={`${item.label} - Coming Soon`}
+                    title={`${item.label} - {language === "hi" ? "जल्द आ रहा है" : "Coming Soon"}`}
                     className="flex cursor-not-allowed items-center gap-1.5 rounded-full px-3 py-3 text-[12px] font-semibold text-[#92928b]"
                   >
                     {item.label}
@@ -132,7 +141,7 @@ export default function Navbar() {
             {isSocialOpen && (
               <div className="absolute right-0 top-[calc(100%+14px)] w-56 overflow-hidden rounded-2xl border border-white/80 bg-white/85 p-2 shadow-[0_20px_60px_rgba(39,55,95,0.16)] backdrop-blur-2xl">
                 <p className="px-3 pb-2 pt-2 text-[10px] font-bold uppercase tracking-[0.14em] text-[#999990]">
-                  Get in touch
+                  {t("getInTouch")}
                 </p>
 
                 {SOCIAL_LINKS.map(({ label, href, icon }) => (
@@ -188,7 +197,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setIsOpen((prev) => !prev)}
-            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-label={isOpen ? t("closeMenu") : t("openMenu")}
             aria-expanded={isOpen}
             className={`flex h-10 w-10 items-center justify-center rounded-full transition-all active:scale-95 ${
               isOpen
