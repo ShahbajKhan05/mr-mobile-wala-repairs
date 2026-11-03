@@ -16,7 +16,7 @@ const WHATSAPP_URL =
   encodeURIComponent("Hello MR MOBILE WALA REPAIRS, I would like to share my feedback.");
 
 export default function Testimonials() {
-  const { t, language } = useCustomerLanguage();
+  const { t } = useCustomerLanguage();
   return (
     <section
       aria-labelledby="testimonials-heading"
