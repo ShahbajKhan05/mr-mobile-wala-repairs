@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import { useCustomerLanguage } from "@/components/CustomerLanguageProvider";
 import {
   ArrowDown,
   ArrowUpRight,
@@ -61,6 +62,7 @@ const FAQS = [
 ];
 
 export default function FAQ() {
+  const { t, language } = useCustomerLanguage();
   const [fullView, setFullView] = useState(false);
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
@@ -80,11 +82,11 @@ export default function FAQ() {
 
             <div>
               <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.35em] text-indigo-600">
-                Got Questions?
+                {t("faqEyebrow")}
               </p>
 
               <h2 className="text-3xl font-semibold tracking-[-0.045em] text-slate-900 sm:text-4xl">
-                Frequently Asked Questions
+                {t("faqTitle")}
               </h2>
 
               <p className="mt-3 text-sm font-medium text-indigo-600">
@@ -92,7 +94,7 @@ export default function FAQ() {
               </p>
 
               <p className="mt-4 max-w-md text-sm leading-7 text-slate-500">
-                Everything you need to know about our mobile services.
+                {t("faqCopy")}
                 <br />
                 हमारी मोबाइल सर्विस से जुड़ी जरूरी जानकारी यहाँ पाएँ।
               </p>
@@ -112,11 +114,11 @@ export default function FAQ() {
             >
               <span className="text-left">
                 <span className="block text-[9px] font-bold uppercase tracking-[0.2em] text-indigo-600">
-                  {fullView ? "Close FAQs" : "Explore Answers"}
+                  {fullView ? t("closeFaq") : t("exploreAnswers")}
                 </span>
 
                 <span className="mt-1 block text-xs font-semibold text-slate-900">
-                  {fullView ? "BACK TO OVERVIEW" : "CLICK TO FULL VIEW"}
+                  {fullView ? t("closeFullView") : t("fullView")}
                 </span>
               </span>
 
@@ -159,7 +161,7 @@ export default function FAQ() {
                 const isOpen = openIndex === index;
 
                 return (
-                  <div key={faq.question}>
+                  <div key={language === "hi" ? faq.hindi : faq.question}>
                     <button
                       type="button"
                       aria-expanded={isOpen}
@@ -178,7 +180,7 @@ export default function FAQ() {
                         </span>
 
                         <span className="mt-1 block text-xs leading-6 text-slate-500 sm:text-sm">
-                          {faq.hindi}
+                          {language === "en" ? "" : faq.hindi}
                         </span>
                       </span>
 
@@ -203,11 +205,11 @@ export default function FAQ() {
                       <div className="overflow-hidden">
                         <div className="max-w-3xl pb-4 pr-3 sm:pb-7 sm:pr-8">
                           <p className="text-sm leading-7 text-slate-500">
-                            {faq.answer}
+                            {language === "hi" ? faq.answerHindi : faq.answer}
                           </p>
 
                           <p className="mt-2 text-sm leading-7 text-slate-500">
-                            {faq.answerHindi}
+                            {language === "en" ? "" : faq.answerHindi}
                           </p>
                         </div>
                       </div>
@@ -218,9 +220,9 @@ export default function FAQ() {
             </div>
 
             <p className="mt-7 text-center text-xs leading-6 text-slate-500">
-              Still have questions? Contact us on WhatsApp.
+              {t("stillQuestions")}
               <br />
-              अभी भी कोई सवाल है? WhatsApp पर हमसे संपर्क करें।
+              
             </p>
 
             <div className="mt-5 flex justify-center">
@@ -230,7 +232,7 @@ export default function FAQ() {
                 className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-indigo-600 transition-colors hover:bg-[#A58A5B]/10"
               >
                 <ArrowDown size={14} className="rotate-180" />
-                Close Full View
+                {t("closeFullView")}
               </button>
             </div>
           </div>
